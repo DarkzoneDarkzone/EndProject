@@ -3,14 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { KitchenComponent } from './components/kitchen/kitchen.component';
+import { CashierComponent } from './components/cashier/cashier.component';
+import { ManageComponent } from './components/manage/manage.component';
+import { DrinkComponent } from './components/drink/drink.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerComponent,
+    KitchenComponent,
+    CashierComponent,
+    ManageComponent,
+    DrinkComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
