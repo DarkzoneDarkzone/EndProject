@@ -3,24 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomerComponent } from './components/customer/customer.component';
-import { KitchenComponent } from './components/kitchen/kitchen.component';
-import { CashierComponent } from './components/cashier/cashier.component';
-import { ManageComponent } from './components/manage/manage.component';
-import { DrinkComponent } from './components/drink/drink.component';
+
+import { QRCodeModule } from 'angularx-qrcode';
+
+import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { ManageFoodComponent } from './components/manage-food/manage-food.component';
+import { ManageEmployeeComponent } from './components/manage-employee/manage-employee.component';
+import { ManageTableComponent } from './components/manage-table/manage-table.component';
+import { IncomeComponent } from './components/income/income.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerComponent,
-    KitchenComponent,
-    CashierComponent,
-    ManageComponent,
-    DrinkComponent
+    MainEmployeeComponent,
+    OrderComponent,
+    OrderHistoryComponent,
+    ManageFoodComponent,
+    ManageEmployeeComponent,
+    ManageTableComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

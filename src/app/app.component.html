@@ -3,22 +3,29 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="manage">Manage</a>
+                    <a class="nav-link" routerLink="mainEmployee">หน้าหลักพนักงาน</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="kitchen">Kitchen</a>
+                    <a class="nav-link" routerLink="order">คำสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="drink">Drink</a>
+                    <a class="nav-link" routerLink="orderHistory">ประวัติคำสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="customer">Customer</a>
+                    <a class="nav-link" routerLink="manageFood">รายการอาหาร</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="cashier">Cashier</a>
+                    <a class="nav-link" routerLink="manageEmployee">พนักงาน</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="manageTable">โต๊ะ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="income">รายได้</a>
                 </li>
             </ul>
         </div>
     </nav>
+    <!-- <qrcode [qrdata]="'http://www.google.com/'+5" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
     <router-outlet></router-outlet>
 </div>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrinkComponent } from './drink.component';
+import { ManageTableComponent } from './manage-table.component';
 
-describe('DrinkComponent', () => {
-  let component: DrinkComponent;
-  let fixture: ComponentFixture<DrinkComponent>;
+describe('ManageTableComponent', () => {
+  let component: ManageTableComponent;
+  let fixture: ComponentFixture<ManageTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DrinkComponent ]
+      declarations: [ ManageTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DrinkComponent);
+    fixture = TestBed.createComponent(ManageTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
