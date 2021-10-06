@@ -1,0 +1,20 @@
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #313131;
+}
+
+.navbar-collapse {
+    text-align: center;
+}
+
+.nav-link {
+    color: #00b800;
+}
+
+.wrapper {
+    height: 100vh;
+}

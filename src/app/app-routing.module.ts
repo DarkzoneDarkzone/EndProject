@@ -7,6 +7,7 @@ import { ManageComponent } from './components/manage/manage.component';
 import { DrinkComponent } from './components/drink/drink.component';
 
 const routes: Routes = [
+  // {path: '', redirectTo: 'manage', pathMatch:'full'},
   {path: 'customer', component: CustomerComponent},
   {path: 'kitchen', component: KitchenComponent},
   {path: 'cashier', component: CashierComponent},
