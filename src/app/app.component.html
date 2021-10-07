@@ -1,13 +1,13 @@
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="mainEmployee">หน้าหลักพนักงาน</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" routerLink="order">คำสั่งซื้อ</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" routerLink="orderHistory">ประวัติคำสั่งซื้อ</a>
                 </li>
@@ -27,5 +27,7 @@
         </div>
     </nav>
     <!-- <qrcode [qrdata]="'http://www.google.com/'+5" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
-    <router-outlet></router-outlet>
+    <div class="container mt-4">
+        <router-outlet></router-outlet>
+    </div>
 </div>

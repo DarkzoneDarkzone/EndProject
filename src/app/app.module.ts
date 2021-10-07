@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { QRCodeModule } from 'angularx-qrcode';
+import {MatIconModule} from '@angular/material/icon';
 
 import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
 import { OrderComponent } from './components/order/order.component';
@@ -13,6 +14,7 @@ import { ManageFoodComponent } from './components/manage-food/manage-food.compon
 import { ManageEmployeeComponent } from './components/manage-employee/manage-employee.component';
 import { ManageTableComponent } from './components/manage-table/manage-table.component';
 import { IncomeComponent } from './components/income/income.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { IncomeComponent } from './components/income/income.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QRCodeModule
+    QRCodeModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

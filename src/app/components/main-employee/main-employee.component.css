@@ -1,0 +1,30 @@
+.card {
+    height: 10rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px black inset;
+}
+
+.card-order:hover {
+    background-color: rgb(255, 238, 0);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card-ordered:hover {
+    background-color: rgb(91, 248, 99);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card-order {
+    background-color: rgb(241, 247, 210);
+}
+
+.card-ordered {
+    background-color: rgb(206, 245, 208);
+}
+
+.material-icons {
+    cursor: pointer;
+}
