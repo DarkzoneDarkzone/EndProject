@@ -1,14 +1,14 @@
 <div class="row mb-5">
     <div class="col">
-        <div class="card card-order" data-toggle="modal" data-target="#orderFood">
-            <div class="card-body mt-4">
+        <div class="card cardButton card-order" data-toggle="modal" data-target="#orderFood">
+            <div class="card-body card-body-style">
                 <h1 class="card-title">สั่งอาหาร</h1>
             </div>
         </div>
     </div>
     <div class="col">
-        <div class="card card-ordered">
-            <div class="card-body mt-4">
+        <div class="card cardButton card-ordered" data-toggle="modal" data-target="#editOrder">
+            <div class="card-body card-body-style">
                 <h1 class="card-title">จัดการคำสั่งซื้อ</h1>
             </div>
         </div>
@@ -230,14 +230,15 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable" style="height: 100%;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">เลือกเมนูอาหาร</h2>
+                <h2 class="modal-title mt-2">เลือกเมนูอาหาร</h2>
+                <button type="button" #closebuttonOrder class="close" hidden="true" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" style="padding: 0; margin-top: 0;">
-                <div class="row row-cols-1 row-cols-md-3">
-                    <div class="col mb-4">
+            <div class="modal-body">
+                <div class="row row-cols-1 row-cols-md-4">
+                    <div class="col col-image mb-4">
                         <div class="card h-50">
                             <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h2 class="card-title">สลัดผัก</h2>
                                 <p class="card-text">ราคา: 120$</p>
                                 <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
@@ -245,10 +246,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-4">
+                    <div class="col col-image mb-4">
                         <div class="card h-50">
                             <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h2 class="card-title">สลัดผัก</h2>
                                 <p class="card-text">ราคา: 120$</p>
                                 <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
@@ -256,10 +257,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-4">
+                    <div class="col col-image mb-4">
                         <div class="card h-50">
                             <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h2 class="card-title">สลัดผัก</h2>
                                 <p class="card-text">ราคา: 120$</p>
                                 <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
@@ -267,10 +268,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-4">
+                    <div class="col col-image mb-4">
                         <div class="card h-50">
                             <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h2 class="card-title">สลัดผัก</h2>
                                 <p class="card-text">ราคา: 120$</p>
                                 <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
@@ -278,10 +279,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-4">
+                    <div class="col col-image mb-4">
                         <div class="card h-50">
                             <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
+                                <h2 class="card-title">สลัดผัก</h2>
+                                <p class="card-text">ราคา: 120$</p>
+                                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
+                                <button type="button" class="btn btn-secondary">เพิ่มใส่ตระกร้า</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-image mb-4">
+                        <div class="card h-50">
+                            <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
+                            <div class="card-body text-center">
                                 <h2 class="card-title">สลัดผัก</h2>
                                 <p class="card-text">ราคา: 120$</p>
                                 <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
@@ -293,7 +305,88 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-success">ยืนยัน</button>
+                <button type="button" class="btn btn-success" (click)="closeModalOrder()" data-toggle="modal" data-target="#orderFoodDetail">ถัดไป</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- รายละเอียดการสั่งอาหาร -->
+<div class="modal fade" id="orderFoodDetail" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" #closebuttonBackOrder class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formCreateOrder">
+                    <div class="form-group">
+                        <label>ชื่อลูกค้า</label>
+                        <input type="text" class="form-control" formControlName="cus_Name" placeholder="(ถ้ามี)">
+                    </div>
+                    <div class="form-group">
+                        <label>โต๊ะที่</label>
+                        <input type="text" class="form-control" formControlName="table_NO" placeholder="หมายเลขโต๊ะ">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" (click)="closeModalBackOrder()" data-toggle="modal" data-target="#orderFood">กลับ</button>
+                <button type="submit" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- จัดการคำสั่งซื้อ -->
+<div class="modal fade" id="editOrder" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">จัดการคำสั่งซื้อ</h2>
+                <button type="button" #closebuttonOrder class="close" hidden="true" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Table</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>1</td>
+                            <td style="color: orange;">รอการยืนยัน</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-success mt-0">ยืนยันคำสั่งซื้อ</button>
+                            </td>
+                            <td>
+                                <div class=" material-icons">description</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>1</td>
+                            <td style="color: red">รอการชำระ</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-success md-2">ชำระเงิน</button>
+                            </td>
+                            <td>
+                                <div class=" material-icons">description</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

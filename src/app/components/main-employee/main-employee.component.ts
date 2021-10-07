@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-main-employee',
@@ -6,10 +7,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-employee.component.css']
 })
 export class MainEmployeeComponent implements OnInit {
+  @ViewChild('closebuttonOrder') closebuttonOrder: any;
+  @ViewChild('closebuttonBackOrder') closebuttonBackOrder: any;
 
-  constructor() { }
+  formCreateOrder: any;
+
+  constructor(public fb: FormBuilder) {
+    this.formCreateOrder = this.fb.group({
+      order_id: null,
+      table_NO: null,
+      cus_Name: null,
+      foodList: [{
+        food_id: null,
+        name: null,
+        type: null,
+        price: null
+      }],
+      status: null,
+      creationDatetime: null
+    })
+   }
 
   ngOnInit(): void {
+  }
+
+
+  closeModalOrder(){
+    this.closebuttonOrder.nativeElement.click();
+  }
+  closeModalBackOrder(){
+    this.closebuttonBackOrder.nativeElement.click();
   }
 
 }
