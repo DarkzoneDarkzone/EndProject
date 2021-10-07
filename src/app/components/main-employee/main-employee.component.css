@@ -1,8 +1,12 @@
-.card {
+.cardButton {
     height: 10rem;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0px 0px 3px black inset;
+}
+
+.card-body-style {
+    margin-top: 2.5rem;
 }
 
 .card-order:hover {
@@ -27,4 +31,18 @@
 
 .material-icons {
     cursor: pointer;
+}
+
+.card-img-top {
+    height: 100%;
+}
+
+.col-image {
+    margin: 0%;
+    padding: 1rem;
+}
+
+.modal-body {
+    margin: top 0;
+    padding-top: 0;
 }
