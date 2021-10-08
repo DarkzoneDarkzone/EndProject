@@ -1,1 +1,63 @@
-<p>manage-employee works!</p>
+<div class="row mt-4 mb-4">
+    <div class="col">
+        <div class="input-group w-300px">
+            <input class="form-control w-200px" type="text" placeholder="ค้นหา">
+            <button class="btn btn-outline-secondary">ตำแหน่ง</button>
+        </div>
+    </div>
+    <div class="col float-right">
+        <button type="button" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#createEmployee">เพิ่มพนักงาน</button>
+    </div>
+</div>
+
+<table class="table table-dark text-center">
+    <thead>
+        <tr>
+            <th scope="col">รหัสประจำตัว</th>
+            <th scope="col">ชื่อ-นามสกุล</th>
+            <th scope="col">เบอร์โทร</th>
+            <th scope="col">ตำแหน่ง</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of employeeFromApi">
+            <th scope="row">{{data.emp_Id}}</th>
+            <td>{{data.emp_Name}}</td>
+            <td>{{data.emp_Tel}}</td>
+            <td>{{data.position}}</td>
+            <td>
+                <div class=" material-icons">edit</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- เพิ่มพนักงาน -->
+<div class="modal fade" id="createEmployee" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <!-- <form [formGroup]="formCreateEmployee">
+                    <div class="form-group">
+                        <label>ชื่อลูกค้า</label>
+                        <input type="text" class="form-control" formControlName="cus_Name" placeholder="(ถ้ามี)">
+                    </div>
+                    <div class="form-group">
+                        <label>โต๊ะที่</label>
+                        <input type="text" class="form-control" formControlName="table_NO" placeholder="หมายเลขโต๊ะ">
+                    </div>
+                </form> -->
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="submit" class="btn btn-primary" (click)="closeModalBackOrder()" data-toggle="modal" data-target="#orderFood">กลับ</button> -->
+                <button type="submit" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>

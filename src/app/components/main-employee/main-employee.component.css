@@ -9,6 +9,10 @@
     margin-top: 2.5rem;
 }
 
+.card-img-top {
+    height: 10rem;
+}
+
 .card-order:hover {
     background-color: rgb(255, 238, 0);
     text-decoration: underline;
