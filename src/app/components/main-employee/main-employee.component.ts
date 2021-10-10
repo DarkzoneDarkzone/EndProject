@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-main-employee',
@@ -12,7 +13,7 @@ export class MainEmployeeComponent implements OnInit {
 
   formCreateOrder: any;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public callapi: OrderService) {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: null,

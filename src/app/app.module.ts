@@ -8,6 +8,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
 import { OrderComponent } from './components/order/order.component';
@@ -37,7 +38,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,4 +17,16 @@ export class EmployeeService {
   public CreateEmployee(employee : employee){
     return this.http.post<employee>(`${environment.apiUrl}Employee/CreateEmployee`, employee);
   }
+
+  public EditEmployee(id: string, employee: employee){
+    return this.http.put<employee>(`${environment.apiUrl}Employee/EditEmployee/${id}`, employee);
+  }
+
+  public GetEmployeeById(id: string){
+    return this.http.get<employee>(`${environment.apiUrl}Employee/GetEmpById/${id}`);
+  }
+
+  public DeleteEmployee(id: string){
+    return this.http.get<employee>(`${environment.apiUrl}Employee/DeleteEmployee/${id}`);
+  }
 }
