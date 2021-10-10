@@ -4,4 +4,5 @@ export interface employee {
     emp_Tel: string
     position: string
     password: string
+    status: string
 }
