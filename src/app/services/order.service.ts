@@ -13,6 +13,11 @@ export class OrderService {
   public GetOrder(){
     return this.http.get<order>(`${environment.apiUrl}Order/GetOrder`);
   }
+
+  public GetOrderById(id: string){
+    return this.http.get<order>(`${environment.apiUrl}Order/GetOrderById/${id}`);
+  }
+
   public CreateOrder(order : order){
     return this.http.post<order>(`${environment.apiUrl}Order/CreateOrder`, order);
   }

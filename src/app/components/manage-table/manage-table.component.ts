@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-manage-table',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-table.component.css']
 })
 export class ManageTableComponent implements OnInit {
-
-  constructor() { }
-
+  
+  constructor(private http: HttpClient) { }
+  
   ngOnInit(): void {
   }
-
 }

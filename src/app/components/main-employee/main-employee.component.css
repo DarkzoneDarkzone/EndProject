@@ -11,6 +11,7 @@
 
 .card-img-top {
     height: 10rem;
+    /* width: 10rem; */
 }
 
 .card-order:hover {
@@ -35,15 +36,6 @@
 
 .material-icons {
     cursor: pointer;
-}
-
-.card-img-top {
-    height: 100%;
-}
-
-.col-image {
-    margin: 0%;
-    padding: 1rem;
 }
 
 .modal-body {
