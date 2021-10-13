@@ -3,4 +3,5 @@ export interface food {
     name: string
     type: string
     price: number
+    imgPath: string
 }

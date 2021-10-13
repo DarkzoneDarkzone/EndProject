@@ -6,74 +6,60 @@
         </div>
     </div>
     <div class="col float-right">
-        <button class="btn btn-outline-success float-right">เพิ่มรายการอาหาร</button>
+        <button class="btn btn-outline-success float-right" data-toggle="modal" (click)="resetForm()" data-target="#createFood">เพิ่มรายการอาหาร</button>
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-4">
-    <div class="col col-image mb-4">
+<div class="row row-cols-1 row-cols-md-4" *ngIf="showFood != null || undefined">
+    <div class="col col-image mb-4" *ngFor="let data of showFood">
         <div class="card h-60">
-            <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
+            <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
             <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
+                <h3 class="card-title">{{data.name}}</h3>
+                <p class="card-text">ราคา: {{data.price}} บาท</p>
+                <p class="card-text">ประเภท: {{data.type}}</p>
                 <button type="button" class="btn btn-secondary">แก้ไข</button>
             </div>
         </div>
     </div>
-    <div class="col col-image mb-4">
-        <div class="card h-60">
-            <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
+</div>
+
+<!-- เพิ่มรายการอาหาร -->
+<div class="modal fade" id="createFood" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
             </div>
-        </div>
-    </div>
-    <div class="col col-image mb-4">
-        <div class="card h-60">
-            <img src="../../../assets/image/yum.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formCreateFood">
+                    <div class="form-group">
+                        <label>ชื่อรายการอาหาร</label>
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                    <div class="form-group">
+                        <label>ประเภท</label>
+                        <input type="text" class="form-control" formControlName="type">
+                    </div>
+                    <div class="form-group">
+                        <label>ราคา</label>
+                        <input type="number" class="form-control" formControlName="price">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
+                                <button type="button" class="btn btn-secondary" (click)="file.click()">เลือกรูปภาพ</button>
+                                <span class="upload ml-4" style="color: green;" *ngIf="message">{{message}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
-    <div class="col col-image mb-4">
-        <div class="card h-60">
-            <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
-            </div>
-        </div>
-    </div>
-    <div class="col col-image mb-4">
-        <div class="card h-60">
-            <img src="../../../assets/image/salad.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
-            </div>
-        </div>
-    </div>
-    <div class="col col-image mb-4">
-        <div class="card h-60">
-            <img src="../../../assets/image/download.jpeg" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h2 class="card-title">สลัดผัก</h2>
-                <p class="card-text">ราคา: 120$</p>
-                <p class="card-text">ประเภท: อาหารเพื่อสุขภาพ</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="createFood()" class="btn btn-success">ยืนยัน</button>
             </div>
         </div>
     </div>
