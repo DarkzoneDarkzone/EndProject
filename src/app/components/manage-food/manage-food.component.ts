@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class ManageFoodComponent implements OnInit {
   formCreateFood: any;
+  formEditFood: any;
   submitCreate: boolean = false;
   showFood: any;
 
@@ -21,16 +22,18 @@ export class ManageFoodComponent implements OnInit {
       type: null,
       price: null,
       imgPath: null
+    }),
+    this.formEditFood = this.fb.group({
+      food_id: null,
+      name: null,
+      type: null,
+      price: null,
+      imgPath: null
     })
   }
 
   ngOnInit(): void {
     this.getFood();
-  }
-
-  resetForm(){
-    console.log(this.formCreateFood.value);
-    this.message = null;
   }
 
   // for images 
@@ -80,6 +83,10 @@ export class ManageFoodComponent implements OnInit {
     this.callapi.GetFood().subscribe(food => {
       this.showFood = food;
     })
+  }
+
+  getFoodById(id: string){
+    this.callapi.GetFoodById(id)
   }
 
   public uploadFinished = (event: any) => {

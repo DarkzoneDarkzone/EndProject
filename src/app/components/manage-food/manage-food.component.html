@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="col float-right">
-        <button class="btn btn-outline-success float-right" data-toggle="modal" (click)="resetForm()" data-target="#createFood">เพิ่มรายการอาหาร</button>
+        <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#createFood">เพิ่มรายการอาหาร</button>
     </div>
 </div>
 
@@ -34,6 +34,48 @@
             </div>
             <div class="modal-body mt-2">
                 <form [formGroup]="formCreateFood">
+                    <div class="form-group">
+                        <label>ชื่อรายการอาหาร</label>
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                    <div class="form-group">
+                        <label>ประเภท</label>
+                        <input type="text" class="form-control" formControlName="type">
+                    </div>
+                    <div class="form-group">
+                        <label>ราคา</label>
+                        <input type="number" class="form-control" formControlName="price">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
+                                <button type="button" class="btn btn-secondary" (click)="file.click()">เลือกรูปภาพ</button>
+                                <span class="upload ml-4" style="color: green;" *ngIf="message">{{message}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="createFood()" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- แก้ไขอาหาร -->
+<div class="modal fade" id="editFood" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">แก้ไขรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formEditFood">
                     <div class="form-group">
                         <label>ชื่อรายการอาหาร</label>
                         <input type="text" class="form-control" formControlName="name">
