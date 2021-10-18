@@ -7,9 +7,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./manage-table.component.css']
 })
 export class ManageTableComponent implements OnInit {
-  
+  imgPath= "Resources/Images/ยำแซลม่อน.jpeg"
   constructor(private http: HttpClient) { }
   
   ngOnInit(): void {
+  }
+
+  public showImages = (serverPath: string) => {
+    return `https://localhost:5001/${serverPath}`;
   }
 }

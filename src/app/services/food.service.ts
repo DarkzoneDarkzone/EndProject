@@ -21,4 +21,8 @@ export class FoodService {
   public CreateFood(food: food){
     return this.http.post<food>(`${environment.apiUrl}Food/CreateFood`, food);
   }
+
+  public EditFood(id: string, food: food){
+    return this.http.put<food>(`${environment.apiUrl}Food/EditFood/${id}`, food);
+  }
 }

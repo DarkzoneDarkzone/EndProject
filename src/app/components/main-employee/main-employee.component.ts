@@ -27,7 +27,8 @@ export class MainEmployeeComponent implements OnInit {
         food_id: null,
         name: null,
         type: null,
-        price: null
+        price: null,
+        imgPath: null
       }],
       status: null,
       creationDatetime: null
@@ -40,7 +41,8 @@ export class MainEmployeeComponent implements OnInit {
         food_id: null,
         name: null,
         type: null,
-        price: null
+        price: null,
+        imgPath: null
       }],
       status: null,
       creationDatetime: null
@@ -85,6 +87,8 @@ export class MainEmployeeComponent implements OnInit {
   getFood(){
     this.callapiFood.GetFood().subscribe(food => {
       this.showFood = food;
+      console.log(this.showFood);
+      
     })
   }
 
