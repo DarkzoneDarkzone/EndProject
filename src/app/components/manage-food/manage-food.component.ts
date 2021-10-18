@@ -1,7 +1,9 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { food } from 'src/app/models/food';
 import { FoodService } from 'src/app/services/food.service';
+import { TypeFoodService } from 'src/app/services/type-food.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,30 +12,48 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage-food.component.css']
 })
 export class ManageFoodComponent implements OnInit {
+  @ViewChild('closebuttonCreateFood') closebuttonCreateFood: any;
+  @ViewChild('closebuttonEditFood') closebuttonEditFood: any;
+
   formCreateFood: any;
   formEditFood: any;
+  formForReset: any;
   submitCreate: boolean = false;
   showFood: any;
+  searchText: any;
+  typeData: any;
+  statusType: boolean = false;
 
-  constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService) { 
+  constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService, public callapitype: TypeFoodService) { 
     this.formCreateFood = this.fb.group({
       food_id: null,
       name: null,
       type: null,
       price: null,
-      imgPath: null
+      imgPath: null,
+      status: null
     }),
     this.formEditFood = this.fb.group({
       food_id: null,
       name: null,
       type: null,
       price: null,
-      imgPath: null
+      imgPath: null,
+      status: null
+    }),
+    this.formForReset = this.fb.group({
+      food_id: null,
+      name: null,
+      type: null,
+      price: null,
+      imgPath: null,
+      status: null
     })
   }
 
   ngOnInit(): void {
     this.getFood();
+    this.getTypeData();
   }
 
   // for images 
@@ -56,14 +76,14 @@ export class ManageFoodComponent implements OnInit {
         this.message = 'อัปโหลดรูปภาพสำเร็จ';
         this.onUploadFinished.emit(event.body);
         this.pathImg = event.body;
+        this.formCreateFood.value.imgPath = this.pathImg.dbPath;
+        this.formEditFood.value.imgPath = this.pathImg.dbPath;
       }
     })
   }
 
   createFood(){
     this.submitCreate = true;
-    console.log(this.formCreateFood.value);
-    this.formCreateFood.value.imgPath = this.pathImg.dbPath;
     if (this.formCreateFood.valid) {
       this.callapi.CreateFood(this.formCreateFood.value).subscribe(food => {
         Swal.fire({
@@ -73,10 +93,74 @@ export class ManageFoodComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
+        this.setFormCreate(this.formForReset.value);
+        this.formCreateFood.value.imgPath = null;
+        this.formEditFood.value.imgPath = null;
+        this.message = null;
         this.getFood();
       })
-      // this.closeModalCreateEmployee();
+      this.closeModalCreateFood();
     }
+  }
+
+  closeModalCreateFood(){
+    this.closebuttonCreateFood.nativeElement.click();
+  }
+
+  closeModalEditFood(){
+    this.closebuttonEditFood.nativeElement.click();
+  }
+
+  GetBeforeEdit(id: string){
+    this.callapi.GetFoodById(id).subscribe( food =>{
+      this.setFormEdit(food);
+    })
+  }
+
+  editFood(){
+    if (this.formEditFood.value.status == true)
+    {
+      this.formEditFood.value.status = "open";
+    } else {
+      this.formEditFood.value.status = "close";
+    }
+    // this.formEditFood.value.imgPath = this.pathImg.dbPath;
+    this.callapi.EditFood(this.formEditFood.value.food_id, this.formEditFood.value).subscribe(food => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'แก้ไขอาหารสำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.formCreateFood.value.imgPath = null;
+      this.formEditFood.value.imgPath = null;
+      this.message = null;
+      this.getFood();
+    })
+    this.closeModalEditFood();
+  }
+
+  setFormEdit(data: food){
+    this.formEditFood.patchValue({
+      food_id: data.food_id,
+      name: data.name,
+      type: data.type,
+      price: data.price,
+      imgPath: data.imgPath,
+      status: data.status
+    })
+  }
+
+  setFormCreate(data: any){
+    this.formCreateFood.patchValue({
+      food_id: data.food_id,
+      name: data.name,
+      type: data.type,
+      price: data.price,
+      imgPath: data.imgPath,
+      status: data.status
+    })
   }
 
   getFood(){
@@ -97,6 +181,13 @@ export class ManageFoodComponent implements OnInit {
     return `https://localhost:5001/${serverPath}`;
   }
 
+  getTypeData(){
+    this.callapitype.GetType().subscribe( tf => {
+      this.typeData = tf;
+    })
+  }
 
-
+  changeStatusType(){
+    this.statusType = true;
+  }
 }

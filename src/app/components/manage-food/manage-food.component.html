@@ -1,7 +1,7 @@
 <div class="row mt-4 mb-4">
     <div class="col">
         <div class="input-group w-300px">
-            <input class="form-control w-200px" type="text" placeholder="ค้นหา">
+            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา">
             <button class="btn btn-outline-secondary">ประเภท</button>
         </div>
     </div>
@@ -11,14 +11,16 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-4" *ngIf="showFood != null || undefined">
-    <div class="col col-image mb-4" *ngFor="let data of showFood">
+    <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText">
         <div class="card h-60">
             <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
             <div class="card-body text-center">
                 <h3 class="card-title">{{data.name}}</h3>
                 <p class="card-text">ราคา: {{data.price}} บาท</p>
                 <p class="card-text">ประเภท: {{data.type}}</p>
-                <button type="button" class="btn btn-secondary">แก้ไข</button>
+                <p class="card-text" *ngIf="data.status == 'open'">สถานะ: เปิดขาย</p>
+                <p class="card-text" *ngIf="data.status == 'close'">สถานะ: หมด</p>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="GetBeforeEdit(data.food_id)" data-target="#editFood">แก้ไข</button>
             </div>
         </div>
     </div>
@@ -29,8 +31,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <button type="button" #closebuttonCreateFood class="close" hidden="true" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
+
             </div>
             <div class="modal-body mt-2">
                 <form [formGroup]="formCreateFood">
@@ -40,7 +43,14 @@
                     </div>
                     <div class="form-group">
                         <label>ประเภท</label>
-                        <input type="text" class="form-control" formControlName="type">
+                        <input type="text" class="form-control" formControlName="type" *ngIf="statusType == true">
+                        <!-- <select class="form-control" formControlName="type" *ngIf="statusType == false">
+                            <option [disabled]="true" selected>เลือกประเภท</option>
+                            <option *ngFor="let data of typeData">
+                                <div value="data.name">{{data.name}}</div>
+                            </option>
+                            <div (click)="changeStatusType()">เพิ่มประเภทอาหาร</div>
+                        </select> -->
                     </div>
                     <div class="form-group">
                         <label>ราคา</label>
@@ -50,8 +60,12 @@
                         <div class="row">
                             <div class="col">
                                 <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
-                                <button type="button" class="btn btn-secondary" (click)="file.click()">เลือกรูปภาพ</button>
-                                <span class="upload ml-4" style="color: green;" *ngIf="message">{{message}}</span>
+                                <button type="button" class="btn btn-secondary mb-2" (click)="file.click()">เลือกรูปภาพ</button>
+                                <br>
+                                <span class="upload" style="color: green;" *ngIf="message">{{message}}</span>
+                            </div>
+                            <div class="col-8" *ngIf="formEditFood.value.imgPath != null || formEditFood.value.imgPath != undefined">
+                                <img [src]="showImages(formEditFood.value.imgPath)" class="card-img-top pr-5" alt="...">
                             </div>
                         </div>
                     </div>
@@ -71,7 +85,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <button type="button" #closebuttonEditFood class="close" hidden="true" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title mt-2">แก้ไขรายละเอียด</h2>
             </div>
             <div class="modal-body mt-2">
@@ -88,12 +102,25 @@
                         <label>ราคา</label>
                         <input type="number" class="form-control" formControlName="price">
                     </div>
+                    <div class="form-group">
+                        <label>สถานะ</label>
+                        <label class="switch">
+                            <input type="checkbox" class="form-control" formControlName="status">
+                            <span class="slider round"></span>
+                        </label>
+                        <div *ngIf="formEditFood.value.status == true">เปิดขาย</div>
+                        <div *ngIf="formEditFood.value.status == false">หมดชั่วคราว</div>
+                    </div>
                     <div class="form-group" style="margin-bottom: 15px;">
                         <div class="row">
-                            <div class="col">
-                                <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
-                                <button type="button" class="btn btn-secondary" (click)="file.click()">เลือกรูปภาพ</button>
-                                <span class="upload ml-4" style="color: green;" *ngIf="message">{{message}}</span>
+                            <div class="col-4">
+                                <input type="file" #file placeholder="เปลี่ยนรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
+                                <button type="button" class="btn btn-secondary mb-2" (click)="file.click()">เปลี่ยนรูปภาพ</button>
+                                <br>
+                                <span class="upload" style="color: green;" *ngIf="message">{{message}}</span>
+                            </div>
+                            <div class="col-8" *ngIf="formEditFood.value.imgPath != null || formEditFood.value.imgPath != undefined">
+                                <img [src]="showImages(formEditFood.value.imgPath)" class="card-img-top pr-5" alt="...">
                             </div>
                         </div>
                     </div>
@@ -101,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
-                <button type="button" (click)="createFood()" class="btn btn-success">ยืนยัน</button>
+                <button type="button" (click)="editFood()" class="btn btn-success">ยืนยัน</button>
             </div>
         </div>
     </div>
