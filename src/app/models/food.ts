@@ -4,5 +4,5 @@ export interface food {
     type: string
     price: number
     imgPath: string
-    status: string
+    status: boolean
 }

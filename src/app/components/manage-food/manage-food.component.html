@@ -1,8 +1,14 @@
 <div class="row mt-4 mb-4">
     <div class="col">
         <div class="input-group w-300px">
-            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา">
-            <button class="btn btn-outline-secondary">ประเภท</button>
+            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา"> {{searchText}}
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                ประเภท
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-item" *ngFor="let data of typeData" (click)="filterType(data.name)">{{data.name}}</div>
+                <div class="dropdown-item" (click)="filterType('')">ดูทั้งหมด</div>
+            </div>
         </div>
     </div>
     <div class="col float-right">
@@ -11,15 +17,15 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-4" *ngIf="showFood != null || undefined">
-    <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText">
+    <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText || filterFood">
         <div class="card h-60">
             <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
             <div class="card-body text-center">
                 <h3 class="card-title">{{data.name}}</h3>
                 <p class="card-text">ราคา: {{data.price}} บาท</p>
                 <p class="card-text">ประเภท: {{data.type}}</p>
-                <p class="card-text" *ngIf="data.status == 'open'">สถานะ: เปิดขาย</p>
-                <p class="card-text" *ngIf="data.status == 'close'">สถานะ: หมด</p>
+                <p class="card-text" *ngIf="data.status == true">สถานะ: เปิดขาย</p>
+                <p class="card-text" *ngIf="data.status == false">สถานะ: หมด</p>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="GetBeforeEdit(data.food_id)" data-target="#editFood">แก้ไข</button>
             </div>
         </div>
@@ -39,22 +45,29 @@
                 <form [formGroup]="formCreateFood">
                     <div class="form-group">
                         <label>ชื่อรายการอาหาร</label>
-                        <input type="text" class="form-control" formControlName="name">
-                    </div>
-                    <div class="form-group">
-                        <label>ประเภท</label>
-                        <input type="text" class="form-control" formControlName="type" *ngIf="statusType == true">
-                        <!-- <select class="form-control" formControlName="type" *ngIf="statusType == false">
-                            <option [disabled]="true" selected>เลือกประเภท</option>
-                            <option *ngFor="let data of typeData">
-                                <div value="data.name">{{data.name}}</div>
-                            </option>
-                            <div (click)="changeStatusType()">เพิ่มประเภทอาหาร</div>
-                        </select> -->
+                        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitCreate && formValidCreate.name.errors}">
+                        <div class="invalid-feedback" *ngIf="submitCreate && formValidCreate.name.errors">
+                            <div *ngIf="formValidCreate.name.errors.required">กรุณากรอกชื่อรายการอาหาร</div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>ราคา</label>
-                        <input type="number" class="form-control" formControlName="price">
+                        <input type="number" class="form-control" formControlName="price" [ngClass]="{'is-invalid': submitCreate && formValidCreate.price.errors}">
+                        <div class="invalid-feedback" *ngIf="submitCreate && formValidCreate.price.errors">
+                            <div *ngIf="formValidCreate.price.errors.required">กรุณาระบุราคา</div>
+                            <div *ngIf="formValidCreate.price.errors.pattern">กรุณากรอกตัวเลข</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">ประเภท</label>
+                        <select class="form-control" formControlName="type" [ngClass]="{'is-invalid': submitCreate && formValidCreate.type.errors}">
+                            <option selected [disabled]="true">เลือกประเภท</option>
+                            <option *ngFor="let data of typeData; let i = index" value="{{data.name}}">{{data.name}}</option>
+                            <option >เพิ่มประเภทใหม่</option>
+                            <div class="invalid-feedback" *ngIf="submitCreate && formValidCreate.type.errors">
+                                <div *ngIf="formValidCreate.type.errors.required">กรุณาระบุประเภท</div>
+                            </div>
+                        </select>
                     </div>
                     <div class="form-group" style="margin-bottom: 15px;">
                         <div class="row">
@@ -64,15 +77,15 @@
                                 <br>
                                 <span class="upload" style="color: green;" *ngIf="message">{{message}}</span>
                             </div>
-                            <div class="col-8" *ngIf="formEditFood.value.imgPath != null || formEditFood.value.imgPath != undefined">
-                                <img [src]="showImages(formEditFood.value.imgPath)" class="card-img-top pr-5" alt="...">
+                            <div class="col-8" *ngIf="formCreateFood.value.imgPath != null || formCreateFood.value.imgPath != undefined">
+                                <img [src]="showImages(formCreateFood.value.imgPath)" class="card-img-top pr-5" alt="...">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="setFormNull()" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
                 <button type="button" (click)="createFood()" class="btn btn-success">ยืนยัน</button>
             </div>
         </div>
@@ -92,24 +105,36 @@
                 <form [formGroup]="formEditFood">
                     <div class="form-group">
                         <label>ชื่อรายการอาหาร</label>
-                        <input type="text" class="form-control" formControlName="name">
-                    </div>
-                    <div class="form-group">
-                        <label>ประเภท</label>
-                        <input type="text" class="form-control" formControlName="type">
+                        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitEdit && formValidEdit.name.errors}">
+                        <div class="invalid-feedback" *ngIf="submitEdit && formValidEdit.name.errors">
+                            <div *ngIf="formValidEdit.name.errors.required">กรุณากรอกชื่อรายการอาหาร</div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>ราคา</label>
-                        <input type="number" class="form-control" formControlName="price">
+                        <input type="number" class="form-control" formControlName="price" [ngClass]="{'is-invalid': submitEdit && formValidEdit.price.errors}">
+                        <div class="invalid-feedback" *ngIf="submitEdit && formValidEdit.price.errors">
+                            <div *ngIf="formValidEdit.price.errors.required">กรุณาระบุราคา</div>
+                            <div *ngIf="formValidEdit.price.errors.pattern">กรุณากรอกตัวเลข</div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>สถานะ</label>
+                        <label>ประเภท</label>
+                        <select class="form-control" formControlName="type">
+                            <option selected [disabled]="true">เลือกประเภท</option>
+                            <option *ngFor="let data of typeData; let i = index" value="{{data.name}}">{{data.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="switch">
                             <input type="checkbox" class="form-control" formControlName="status">
                             <span class="slider round"></span>
                         </label>
-                        <div *ngIf="formEditFood.value.status == true">เปิดขาย</div>
-                        <div *ngIf="formEditFood.value.status == false">หมดชั่วคราว</div>
+                        <br>
+                        <div>สถานะ :
+                            <label *ngIf="formEditFood.value.status == true">เปิดขาย</label>
+                            <label *ngIf="formEditFood.value.status == false">หมดชั่วคราว</label>
+                        </div>
                     </div>
                     <div class="form-group" style="margin-bottom: 15px;">
                         <div class="row">
@@ -127,7 +152,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="setFormNull()" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
                 <button type="button" (click)="editFood()" class="btn btn-success">ยืนยัน</button>
             </div>
         </div>

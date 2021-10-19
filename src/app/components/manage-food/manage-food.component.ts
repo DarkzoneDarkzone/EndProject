@@ -19,33 +19,35 @@ export class ManageFoodComponent implements OnInit {
   formEditFood: any;
   formForReset: any;
   submitCreate: boolean = false;
+  submitEdit: boolean = false;
   showFood: any;
   searchText: any;
   typeData: any;
   statusType: boolean = false;
+  filterFood: any;
 
   constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService, public callapitype: TypeFoodService) { 
     this.formCreateFood = this.fb.group({
-      food_id: null,
-      name: null,
-      type: null,
-      price: null,
+      food_id: [null],
+      name: [null,[Validators.required]],
+      type: [null,[Validators.required]],
+      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
       status: null
     }),
     this.formEditFood = this.fb.group({
       food_id: null,
-      name: null,
-      type: null,
-      price: null,
+      name: [null,[Validators.required]],
+      type: [null,[Validators.required]],
+      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
       status: null
     }),
     this.formForReset = this.fb.group({
       food_id: null,
-      name: null,
-      type: null,
-      price: null,
+      name: [null,[Validators.required]],
+      type: [null,[Validators.required]],
+      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
       status: null
     })
@@ -76,8 +78,8 @@ export class ManageFoodComponent implements OnInit {
         this.message = 'อัปโหลดรูปภาพสำเร็จ';
         this.onUploadFinished.emit(event.body);
         this.pathImg = event.body;
-        this.formCreateFood.value.imgPath = this.pathImg.dbPath;
         this.formEditFood.value.imgPath = this.pathImg.dbPath;
+        this.formCreateFood.value.imgPath = this.pathImg.dbPath;
       }
     })
   }
@@ -118,13 +120,8 @@ export class ManageFoodComponent implements OnInit {
   }
 
   editFood(){
-    if (this.formEditFood.value.status == true)
-    {
-      this.formEditFood.value.status = "open";
-    } else {
-      this.formEditFood.value.status = "close";
-    }
     // this.formEditFood.value.imgPath = this.pathImg.dbPath;
+    this.submitEdit = true;
     this.callapi.EditFood(this.formEditFood.value.food_id, this.formEditFood.value).subscribe(food => {
       Swal.fire({
         position: 'top',
@@ -187,7 +184,20 @@ export class ManageFoodComponent implements OnInit {
     })
   }
 
-  changeStatusType(){
-    this.statusType = true;
+  filterType(type: string){
+    this.filterFood = type;
+  }
+
+  setFormNull()
+  {
+  this.formEditFood.value.imgPath = null;
+  this.formCreateFood.value.imgPath = null;
+  }
+
+  get formValidCreate() {
+    return this.formCreateFood.controls;
+  }
+  get formValidEdit() {
+    return this.formEditFood.controls;
   }
 }
