@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { order } from 'src/app/models/order';
 import { FoodService } from 'src/app/services/food.service';
 import { OrderService } from 'src/app/services/order.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-employee',
@@ -93,7 +94,7 @@ export class MainEmployeeComponent implements OnInit {
   }
 
   public showImages = (serverPath: string) => {
-    return `https://localhost:5001/${serverPath}`;
+    return `${environment.apiUrlForImg}/${serverPath}`;
   }
   
 }

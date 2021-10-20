@@ -2,8 +2,10 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { food } from 'src/app/models/food';
+import { typeFood } from 'src/app/models/typefood';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,6 +20,7 @@ export class ManageFoodComponent implements OnInit {
   formCreateFood: any;
   formEditFood: any;
   formForReset: any;
+  formType: any;
   submitCreate: boolean = false;
   submitEdit: boolean = false;
   showFood: any;
@@ -25,6 +28,7 @@ export class ManageFoodComponent implements OnInit {
   typeData: any;
   statusType: boolean = false;
   filterFood: any;
+  formTypeStatus: boolean = false;
 
   constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService, public callapitype: TypeFoodService) { 
     this.formCreateFood = this.fb.group({
@@ -50,6 +54,10 @@ export class ManageFoodComponent implements OnInit {
       price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
       status: null
+    }),
+    this.formType = this.fb.group({
+      id: null,
+      name: null
     })
   }
 
@@ -72,7 +80,7 @@ export class ManageFoodComponent implements OnInit {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post('https://localhost:5001/api/Food/Upload', formData, {reportProgress: true, observe: 'events'})
+    this.http.post(`${environment.apiUrl}Food/Upload`, formData, {reportProgress: true, observe: 'events'})
     .subscribe(event => {
       if(event.type === HttpEventType.Response){
         this.message = 'อัปโหลดรูปภาพสำเร็จ';
@@ -86,6 +94,8 @@ export class ManageFoodComponent implements OnInit {
 
   createFood(){
     this.submitCreate = true;
+    this.checkTypeInDb(this.formCreateFood.value.type); 
+    this.formCreateFood.value.status = true;
     if (this.formCreateFood.valid) {
       this.callapi.CreateFood(this.formCreateFood.value).subscribe(food => {
         Swal.fire({
@@ -99,7 +109,9 @@ export class ManageFoodComponent implements OnInit {
         this.formCreateFood.value.imgPath = null;
         this.formEditFood.value.imgPath = null;
         this.message = null;
+        this.formTypeStatus = false;
         this.getFood();
+        this.getTypeData();
       })
       this.closeModalCreateFood();
     }
@@ -120,7 +132,6 @@ export class ManageFoodComponent implements OnInit {
   }
 
   editFood(){
-    // this.formEditFood.value.imgPath = this.pathImg.dbPath;
     this.submitEdit = true;
     this.callapi.EditFood(this.formEditFood.value.food_id, this.formEditFood.value).subscribe(food => {
       Swal.fire({
@@ -134,6 +145,7 @@ export class ManageFoodComponent implements OnInit {
       this.formEditFood.value.imgPath = null;
       this.message = null;
       this.getFood();
+      this.getTypeData();
     })
     this.closeModalEditFood();
   }
@@ -175,7 +187,7 @@ export class ManageFoodComponent implements OnInit {
   }
 
   public showImages = (serverPath: string) => {
-    return `https://localhost:5001/${serverPath}`;
+    return `${environment.apiUrlForImg}/${serverPath}`;
   }
 
   getTypeData(){
@@ -199,5 +211,16 @@ export class ManageFoodComponent implements OnInit {
   }
   get formValidEdit() {
     return this.formEditFood.controls;
+  }
+  chageFormType(status: boolean){
+    this.formTypeStatus = status;    
+  }
+  checkTypeInDb(type: string){
+    for(let i = 0; i < this.typeData.length ; i++){
+      if(this.typeData[i].name != type){
+        this.formType.value.name = type;
+      }
+    }
+    this.callapitype.CreateType(this.formType.value).subscribe(tf => {})
   }
 }
