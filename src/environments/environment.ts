@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl : "https://192.168.1.69:5001/api/",
-  apiUrlForImg : "https://192.168.1.69:5001",
-  // apiUrl : "https://localhost:5001/api/"
+  // apiUrl : "https://192.168.1.69:5001/api/",
+  apiUrl : "https://localhost:5001/api/",
+  // apiUrlForImg : "https://192.168.1.69:5001",
+  apiUrlForImg : "https://localhost:5001"
 };
 
 /*
