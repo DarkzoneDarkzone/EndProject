@@ -5,12 +5,12 @@
     box-shadow: 0px 0px 3px black inset;
 }
 
-.modal-body {
+.Bg-Modal {
     background-color: rgb(231, 231, 231);
 }
 
-.modal-header {
-    background-color: rgb(231, 231, 231);
+.w-130px {
+    width: 130px;
 }
 
 .card-body-style {
@@ -20,6 +20,11 @@
 .card-img-top {
     height: 10rem;
     /* width: 10rem; */
+}
+
+.card-img-topp {
+    height: 7rem;
+    width: 7rem;
 }
 
 .card-order:hover {
@@ -49,4 +54,8 @@
 .modal-body {
     margin: top 0;
     padding-top: 0;
+}
+
+select {
+    cursor: pointer;
 }

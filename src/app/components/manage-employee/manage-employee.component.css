@@ -5,3 +5,11 @@
 .w-200px {
     width: 200px;
 }
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+select {
+    cursor: pointer;
+}

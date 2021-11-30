@@ -21,4 +21,12 @@ export class OrderService {
   public CreateOrder(order : order){
     return this.http.post<order>(`${environment.apiUrl}Order/CreateOrder`, order);
   }
+
+  public ChangeStatusOrder(id: string, status: string){
+    return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusOrder/${id}/${status}`);
+  }
+
+  public EditOrder(id: string, order: order){
+    return this.http.put<order>(`${environment.apiUrl}Order/EditOrder/${id}`, order);
+  }
 }

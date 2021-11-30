@@ -76,3 +76,7 @@ input:checked+.slider:before {
 .dropdown-item {
     cursor: pointer;
 }
+
+select {
+    cursor: pointer;
+}
