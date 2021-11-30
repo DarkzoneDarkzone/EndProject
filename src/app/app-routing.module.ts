@@ -10,6 +10,7 @@ import { ManageTableComponent } from './components/manage-table/manage-table.com
 import { IncomeComponent } from './components/income/income.component';
 
 const routes: Routes = [
+  {path: '', component: MainEmployeeComponent},
   {path: 'mainEmployee', component: MainEmployeeComponent},
   {path: 'order', component: OrderComponent},
   {path: 'orderHistory', component: OrderHistoryComponent},

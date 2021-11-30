@@ -37,7 +37,8 @@ export class ManageFoodComponent implements OnInit {
       type: [null,[Validators.required]],
       price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
-      status: null
+      status: null,
+      amount: 0
     }),
     this.formEditFood = this.fb.group({
       food_id: null,
@@ -45,7 +46,8 @@ export class ManageFoodComponent implements OnInit {
       type: [null,[Validators.required]],
       price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
-      status: null
+      status: null,
+      amount: 0
     }),
     this.formForReset = this.fb.group({
       food_id: null,
@@ -53,7 +55,8 @@ export class ManageFoodComponent implements OnInit {
       type: [null,[Validators.required]],
       price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
       imgPath: null,
-      status: null
+      status: null,
+      amount: 0
     }),
     this.formType = this.fb.group({
       id: null,
