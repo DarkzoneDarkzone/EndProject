@@ -1,98 +1,71 @@
-<div class="row mt-4 mb-5">
-    <div class="col">
-        <div class="card cardButton card-order" data-toggle="modal" data-target="#orderFood">
-            <div class="card-body card-body-style">
-                <h1 class="card-title">สั่งอาหาร</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card cardButton card-ordered" data-toggle="modal" data-target="#orderHistory">
-            <div class="card-body card-body-style">
-                <h1 class="card-title">รายได้วันนี้</h1>
-                <h3 class="card-title">{{900000}} บาท</h3>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row text-center">
-    <div class="col text-center">
-        <h3>รายการคำสั่งซื้อ</h3>
-    </div>
-    <table class="table table-light">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">TypeOrder</th>
-                <th scope="col">Number</th>
-                <th scope="col">Table</th>
-                <th scope="col">PriceTotal</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of formOrderShow | filter: 'waiting'">
-                <td>{{data.order_id}}</td>
-                <td *ngIf="data.typeOrder == 'home'">สั่งกลับบ้าน</td>
-                <td *ngIf="data.typeOrder == 'onsite'">ทานที่ร้าน</td>
-                <td *ngIf="data.typeOrder == 'delivery'">เดลิเวอรี่</td>
-                <td *ngIf="data.typeOrder == 'onsite'">{{data.number}}</td>
-                <td *ngIf="data.typeOrder != 'onsite'"></td>
-                <td *ngIf="data.typeOrder == 'onsite'">{{data.table_NO}}</td>
-                <td *ngIf="data.typeOrder != 'onsite'"></td>
-                <td>{{data.priceTotal}}</td>
-                <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
-                <td *ngIf="data.status == 'waitingFood'">รออาหาร</td>
-                <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
-                <td class="pt-1">
-                    <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'approve')">ยืนยัน</button>
-                    <button class="btn btn-danger" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'disapprove')">ยกเลิก</button>
-                    <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button>
-                    <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
-                </td>
-                <td>
-                    <div class="material-icons" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowOrderDetail">description</div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
 <!-- สั่งอาหาร -->
-<div class="modal fade" id="orderFood" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable" style="height: 100%;">
-        <div class="modal-content">
-            <div class="modal-header Bg-Modal">
-                <h2 class="modal-title mt-2">เลือกเมนูอาหาร</h2>
-                <button type="button" #closebuttonOrder class="close" hidden="true" data-dismiss="modal">&times;</button>
-                <button class="btn btn-outline-success float-right" data-toggle="modal" (click)="closeModalOrder()" data-target="#orderFoodDetail">
-                    <span class="material-icons mt-1">shopping_cart</span>
-                    {{arrayFood.length}} 
-                </button>
+
+<div class="row">
+    <div class="col-9">
+        <div class="row mt-3 mb-3 ml-0 mr-0">
+            <div class="form-inline ">
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
             </div>
-            <div class="modal-body Bg-Modal">
-                <div class="row row-cols-1 row-cols-md-4" *ngIf="showFood != null || undefined">
-                    <div class="col col-image mb-4" *ngFor="let data of showFood">
-                        <div class="card h-60">
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class=" row row-cols-1 row-cols-md-5">
+                    <div class="col" *ngFor="let data of showFood">
+                        <div class="card h-30">
                             <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
                             <div class="card-body text-center">
                                 <h3 class="card-title">{{data.name}}</h3>
-                                <p class="card-text">ราคา: {{data.price}} บาท</p>
-                                <p class="card-text">ประเภท: {{data.type}}</p>
-                                <br>
-                                <button *ngIf="checkArrayFood(data.food_id) == false" type="button" class="btn btn-secondary" (click)="addFoodToArray(data.food_id)">เพิ่มใส่ตระกร้า</button>
-                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn btn-success" [disabled]="true">เพิ่มสำเร็จ</button>
+                                <h3 class="card-title">ราคา: {{data.price}} บาท</h3>
+                                <button *ngIf="checkArrayFood(data.food_id) == false" type="button" class="btn btn-secondary" (click)="addFoodToArray(data.food_id)">เลือกเมนูอาหาร</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn btn-success mr-2 material-icons" [disabled]="true">เพิ่มสำเร็จ check</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn btn-secondary" (click)="addFoodAmount(data.food_id)">สั่งเพิ่ม</button>
                                 <!-- <button type="button" class="btn btn-danger" (click)="addFoodToArray(data.food_id)">เอาออกจากตะกร้า</button> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer Bg-Modal">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-success" (click)="closeModalOrder()" data-toggle="modal" data-target="#orderFoodDetail">ถัดไป</button>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card card-food">
+            <div class="row">
+                <div class="col">
+                    <span class="text-food cursor-pointer">A100</span>
+                </div>
+                <div class="col-6">
+                    <span class="text-food cursor-pointer">สั่งกลับบ้าน</span>
+                </div>
+                <div class="col float-right">
+                    <span class="text-food cursor-pointer">ลบบิล</span>
+                </div>
+            </div>
+        </div>
+        <div class="card card-food card-order-food mb-2">
+            <div class="text-food">รายการอาหาร</div>
+            <div *ngFor="let data of arrayFood ; let i = index">
+                <div class="row row-order">
+                    <div class="col">
+                        <span class="text-food">{{i+1}}. </span>
+                        <span class="text-food">{{data.name}} </span>
+                        <span class="text-food">x{{data.amount}}</span>
+                    </div>
+                    <div class="col">
+                        <span class="text-food float-right">{{data.price}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col pr-1">
+                <button type="button" class="btn btn-warning order pr-0">โปรโมชั่น</button>
+            </div>
+            <div class="col pl-1">
+                <button type="button" class="btn btn-success order pl-0">สั่งอาหาร</button>
             </div>
         </div>
     </div>
@@ -165,54 +138,6 @@
 </div>
 
 
-<!-- ประวัติคำสั่งซื้อ -->
-<div class="modal fade" id="orderHistory" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="height: 100%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title mt-2">ประวัติคำสั่งซื้อ</h2>
-                <button type="button" #closebuttonOrderHistory class="close" hidden="true" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-
-                <table class="table table-light">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">TypeOrder</th>
-                            <th scope="col">Number</th>
-                            <th scope="col">Table</th>
-                            <th scope="col">PriceTotal</th>
-                            <th scope="col">Status</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <tr *ngFor="let data of formOrderShow | filter: 'success'">
-                                <td>{{data.order_id}}</td>
-                                <td *ngIf="data.typeOrder == 'home'">สั่งกลับบ้าน</td>
-                                <td *ngIf="data.typeOrder == 'onsite'">ทานที่ร้าน</td>
-                                <td *ngIf="data.typeOrder == 'delivery'">เดลิเวอรี่</td>
-                                <td *ngIf="data.typeOrder == 'onsite'">{{data.number}}</td>
-                                <td *ngIf="data.typeOrder != 'onsite'"></td>
-                                <td *ngIf="data.typeOrder == 'onsite'">{{data.table_NO}}</td>
-                                <td *ngIf="data.typeOrder != 'onsite'"></td>
-                                <td>{{data.priceTotal}}</td>
-                                <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
-                                <td>
-                                    <div class=" material-icons" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" (click)="closeModalOrderHistory()">กลับ</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- โชว์ข้อมูลรายการ -->
 <div class="modal fade" id="modalShowDetail" aria-hidden="true">

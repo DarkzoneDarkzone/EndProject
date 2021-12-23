@@ -41,6 +41,7 @@ export class MainEmployeeComponent implements OnInit {
         type: null,
         price: null,
         imgPath: null,
+        status: null,
         amount: 0
       }],
       status: null,
@@ -58,6 +59,7 @@ export class MainEmployeeComponent implements OnInit {
         type: null,
         price: null,
         imgPath: null,
+        status: null,
         amount: 0
       }],
       status: null,
@@ -133,8 +135,32 @@ export class MainEmployeeComponent implements OnInit {
     this.callapiFood.GetFoodById(id).subscribe( food => {
       food.amount = 1;
       this.arrayFood.push(food);
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'เพิ่มรายการอาหารแล้ว',
+        showConfirmButton: false,
+        timer: 700
+      })
     })
-    console.log(this.arrayFood);
+  }
+
+  addFoodAmount(id: string){
+    for(let i = 0; i < this.arrayFood.length; i++){
+      if(this.arrayFood[i].food_id == id){
+        this.callapiFood.GetFoodById(id).subscribe( food => {
+          this.arrayFood[i].amount += 1;
+          this.arrayFood[i].price += food.price;
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สั่งรายการอาหารเพิ่มแล้ว',
+            showConfirmButton: false,
+            timer: 700
+          })
+        })
+      }
+    }
   }
 
   checkArrayFood(id: string) {

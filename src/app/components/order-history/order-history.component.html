@@ -1,1 +1,48 @@
-<p>order-history works!</p>
+<!-- ประวัติคำสั่งซื้อ
+<div class="modal fade" id="orderHistory" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">ประวัติคำสั่งซื้อ</h2>
+                <button type="button" #closebuttonOrderHistory class="close" hidden="true" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">TypeOrder</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Table</th>
+                            <th scope="col">PriceTotal</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <tr *ngFor="let data of formOrderShow | filter: 'success'">
+                                <td>{{data.order_id}}</td>
+                                <td *ngIf="data.typeOrder == 'home'">สั่งกลับบ้าน</td>
+                                <td *ngIf="data.typeOrder == 'onsite'">ทานที่ร้าน</td>
+                                <td *ngIf="data.typeOrder == 'delivery'">เดลิเวอรี่</td>
+                                <td *ngIf="data.typeOrder == 'onsite'">{{data.number}}</td>
+                                <td *ngIf="data.typeOrder != 'onsite'"></td>
+                                <td *ngIf="data.typeOrder == 'onsite'">{{data.table_NO}}</td>
+                                <td *ngIf="data.typeOrder != 'onsite'"></td>
+                                <td>{{data.priceTotal}}</td>
+                                <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
+                                <td>
+                                    <div class=" material-icons" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary" (click)="closeModalOrderHistory()">กลับ</button>
+            </div>
+        </div>
+    </div>
+</div> -->

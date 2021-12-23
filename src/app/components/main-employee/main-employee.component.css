@@ -18,7 +18,8 @@
 }
 
 .card-img-top {
-    height: 10rem;
+    height: 8rem;
+    padding: 0;
     /* width: 10rem; */
 }
 
@@ -56,6 +57,43 @@
     padding-top: 0;
 }
 
+.card-body {
+    padding: 1vh;
+}
+
 select {
     cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card-top-food {
+    color: red;
+    height: 8vh;
+}
+
+.card-food {
+    margin-top: 1vh;
+    padding: 1vh;
+    color: white;
+}
+
+.text-food {
+    color: black;
+}
+
+.order {
+    width: 100%;
+    height: 8vh;
+}
+
+.card-order-food {
+    height: 80vh;
+}
+
+.row-order {
+    padding: 1vh;
+    margin-top: 1vh;
 }

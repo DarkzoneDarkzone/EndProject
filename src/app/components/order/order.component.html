@@ -1,1 +1,45 @@
-<p>order works!</p>
+<!-- 
+<div class="table-responsive text-center">
+    <div class="col text-center">
+        <h3>คำสั่งซื้อที่ยังไม่ดำเนินการ</h3>
+    </div>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">TypeOrder</th>
+                <th scope="col">Number</th>
+                <th scope="col">Table</th>
+                <th scope="col">PriceTotal</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of formOrderShow | filter: 'waiting'">
+                <td>{{data.order_id}}</td>
+                <td *ngIf="data.typeOrder == 'home'">สั่งกลับบ้าน</td>
+                <td *ngIf="data.typeOrder == 'onsite'">ทานที่ร้าน</td>
+                <td *ngIf="data.typeOrder == 'delivery'">เดลิเวอรี่</td>
+                <td *ngIf="data.typeOrder == 'onsite'">{{data.number}}</td>
+                <td *ngIf="data.typeOrder != 'onsite'"></td>
+                <td *ngIf="data.typeOrder == 'onsite'">{{data.table_NO}}</td>
+                <td *ngIf="data.typeOrder != 'onsite'"></td>
+                <td>{{data.priceTotal}}</td>
+                <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
+                <td *ngIf="data.status == 'waitingFood'">รออาหาร</td>
+                <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
+                <td class="pt-1">
+                    <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'approve')">ยืนยัน</button>
+                    <button class="btn btn-danger" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'disapprove')">ยกเลิก</button>
+                    <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button>
+                    <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
+                </td>
+                <td>
+                    <div class="material-icons" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowOrderDetail">description</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

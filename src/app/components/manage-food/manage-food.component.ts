@@ -77,7 +77,7 @@ export class ManageFoodComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
   public uploadFile = (files: any) => {
-    if(files.length === 0){
+    if(files.length == 0){
       return;
     }
     let fileToUpload = <File>files[0];
@@ -97,8 +97,9 @@ export class ManageFoodComponent implements OnInit {
 
   createFood(){
     this.submitCreate = true;
-    this.checkTypeInDb(this.formCreateFood.value.type); 
+    console.log(this.formCreateFood.value);
     this.formCreateFood.value.status = true;
+    this.checkTypeInDb(this.formCreateFood.value.type);
     if (this.formCreateFood.valid) {
       this.callapi.CreateFood(this.formCreateFood.value).subscribe(food => {
         Swal.fire({
@@ -160,7 +161,8 @@ export class ManageFoodComponent implements OnInit {
       type: data.type,
       price: data.price,
       imgPath: data.imgPath,
-      status: data.status
+      status: data.status,
+      amount: data.amount
     })
   }
 
@@ -171,7 +173,8 @@ export class ManageFoodComponent implements OnInit {
       type: data.type,
       price: data.price,
       imgPath: data.imgPath,
-      status: data.status
+      status: data.status,
+      amount: data.amount
     })
   }
 
@@ -219,11 +222,13 @@ export class ManageFoodComponent implements OnInit {
     this.formTypeStatus = status;    
   }
   checkTypeInDb(type: string){
-    for(let i = 0; i < this.typeData.length ; i++){
-      if(this.typeData[i].name != type){
-        this.formType.value.name = type;
+      for(let i = 0; i < this.typeData.length ; i++){
+        if(this.typeData[i].name != type){
+          this.formType.value.name = type;
+        }
       }
-    }
-    this.callapitype.CreateType(this.formType.value).subscribe(tf => {})
+      if(type != this.formType.value.name){
+        this.callapitype.CreateType(this.formType.value).subscribe(tf => {})
+      }
   }
 }
