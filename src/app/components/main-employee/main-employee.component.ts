@@ -20,15 +20,15 @@ export class MainEmployeeComponent implements OnInit {
   @ViewChild('closebuttonShowOrderDetail') closebuttonShowOrderDetail: any;
 
   formCreateOrder: any;
-  formOrderShow: any;
-  formOrderShowById: any;
+
+
   showFood: any;
   arrayFood : food[] = [];
   submitCreate: boolean = false;
 
   amountt: number = 0;
 
-  constructor(public fb: FormBuilder, public callapi: OrderService, public callapiFood: FoodService) {
+  constructor(public fb: FormBuilder, public callapiFood: FoodService,  public callapi: OrderService) {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
@@ -46,56 +46,12 @@ export class MainEmployeeComponent implements OnInit {
       }],
       status: null,
       creationDatetime: null
-    }),
-    this.formOrderShowById = this.fb.group({
-      order_id: null,
-      table_NO: null,
-      typeOrder: null,
-      number: null,
-      priceTotal: null,
-      foodList: [{
-        food_id: null,
-        name: null,
-        type: null,
-        price: null,
-        imgPath: null,
-        status: null,
-        amount: 0
-      }],
-      status: null,
-      creationDatetime: null
     })
    }
 
   ngOnInit(): void {
-    this.getOrderAll();
+
     this.getFood();
-  }
-
-  patchValueFormShow(data: order){
-    this.formOrderShowById.patchValue({
-      order_id : data.order_id,
-      table_NO : data.table_NO,
-      typeOrder : data.typeOrder,
-      number: data.number,
-      priceTotal: data.priceTotal,
-      foodList : data.foodList,
-      status : data.status,
-      creationDateTime : data.creationDatetime
-    })
-  }
-
-  getOrderAll(){
-    this.callapi.GetOrder().subscribe(od => {
-      this.formOrderShow = od
-    })
-  }
-
-  getOrderById(id:string){
-    this.callapi.GetOrderById(id).subscribe(od => {
-      this.patchValueFormShow(od);      
-    })
-    this.closeModalOrderHistory();
   }
 
   closeModalOrderHistory(){
@@ -163,6 +119,10 @@ export class MainEmployeeComponent implements OnInit {
     }
   }
 
+  deleteArray(){
+    this.arrayFood = [];
+  }
+
   checkArrayFood(id: string) {
     for( let i = 0; i < this.arrayFood.length; i++ ){
       if ( this.arrayFood[i].food_id == id ){
@@ -191,7 +151,6 @@ export class MainEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
-        this.getOrderAll();
       });
       this.closeModalOrder();
       this.closeModalBackOrder();
@@ -203,16 +162,5 @@ export class MainEmployeeComponent implements OnInit {
     return this.formCreateOrder.controls;
   }
   
-  changeStatusOrder(id: string,status: string){
-    this.callapi.ChangeStatusOrder(id, status).subscribe(order => {
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'สำเร็จ',
-        showConfirmButton: false,
-        timer: 1000
-      })
-      this.getOrderAll();
-    });
-  }
+ 
 }
