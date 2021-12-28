@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
+  
   formOrderShow: any;
   formOrderShowById: any;
   constructor(public fb: FormBuilder, public callapi: OrderService) {
@@ -71,6 +73,11 @@ export class OrderComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
+      this.getOrderAll()
     });
+  }
+
+  closeModalShowDetail(){
+    this.closebuttonShowDetail.nativeElement.click();
   }
 }

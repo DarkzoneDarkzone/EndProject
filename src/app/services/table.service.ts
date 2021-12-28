@@ -13,6 +13,12 @@ export class TableService {
   public GetTable(){
     return this.http.get<table>(`${environment.apiUrl}Table/GetTable`);
   }
+  public GetTableById(id: string){
+    return this.http.get<table>(`${environment.apiUrl}Table/GetTableById/${id}`);
+  }
+  public DeleteTables(id: string){
+    return this.http.get<table>(`${environment.apiUrl}Table/DeleteTable/${id}`);
+  }
   public CreateTable(table : table){
     return this.http.post<table>(`${environment.apiUrl}Table/CreateTable`, table);
   }

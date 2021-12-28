@@ -40,6 +40,10 @@
     cursor: pointer;
 }
 
+.deleteBill:hover {
+    color: red;
+}
+
 .card-order {
     background-color: rgb(241, 247, 210);
 }
@@ -77,6 +81,7 @@ select {
 .card-food {
     margin-top: 1vh;
     padding: 1vh;
+    /* padding-right: 0%; */
     color: white;
 }
 

@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
 export class MainEmployeeComponent implements OnInit {
   @ViewChild('closebuttonOrder') closebuttonOrder: any;
   @ViewChild('closebuttonBackOrder') closebuttonBackOrder: any;
-  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
   @ViewChild('closebuttonOrderHistory') closebuttonOrderHistory: any;
   @ViewChild('closebuttonShowOrderDetail') closebuttonShowOrderDetail: any;
 
@@ -23,6 +22,7 @@ export class MainEmployeeComponent implements OnInit {
 
 
   showFood: any;
+  typeSearch: any;
   arrayFood : food[] = [];
   submitCreate: boolean = false;
 
@@ -32,7 +32,7 @@ export class MainEmployeeComponent implements OnInit {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
-      typeOrder: [null,[Validators.required]],
+      typeOrder: [null],
       number: [null],
       priceTotal: null,
       foodList: [{
@@ -72,9 +72,7 @@ export class MainEmployeeComponent implements OnInit {
     this.closebuttonBackOrder.nativeElement.click();
   }
 
-  closeModalShowDetail(){
-    this.closebuttonShowDetail.nativeElement.click();
-  }
+
 
   getFood(){
     this.callapiFood.GetFood().subscribe(food => {
@@ -98,6 +96,7 @@ export class MainEmployeeComponent implements OnInit {
         showConfirmButton: false,
         timer: 700
       })
+      this.formCreateOrder.value.typeOrder = "onsite";
     })
   }
 
@@ -136,6 +135,7 @@ export class MainEmployeeComponent implements OnInit {
     this.submitCreate = true;
     this.formCreateOrder.value.status = 'waitingFood';
     this.formCreateOrder.value.priceTotal = 0;
+    this.formCreateOrder.value.number = 0;
     if(this.formCreateOrder.value.number == null)
     {
       this.formCreateOrder.value.number = 0;
@@ -152,8 +152,6 @@ export class MainEmployeeComponent implements OnInit {
           timer: 1000
         })
       });
-      this.closeModalOrder();
-      this.closeModalBackOrder();
       this.arrayFood = [];
     }
   }

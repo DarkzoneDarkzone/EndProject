@@ -33,9 +33,48 @@
                     <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
                 </td>
                 <td>
-                    <div class="material-icons" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowOrderDetail">description</div>
+                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+
+
+<div class="modal fade " id="modalShowDetail" aria-hidden="true ">
+    <div class="modal-dialog modal-xl " style="height: 100%; ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h2 class="modal-title mt-2 ">รายการอาหารที่สั่ง</h2>
+                <button type="button " #closebuttonShowDetail class="close " hidden="true " data-dismiss="modal ">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <table class="table table-light ">
+                    <thead>
+                        <tr>
+                            <th scope="col ">ID</th>
+                            <th scope="col ">Name</th>
+                            <th scope="col ">Type</th>
+                            <th scope="col ">Price</th>
+                            <th scope="col ">Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="formOrderShowById.value.foodList.length> 0">
+                        <tr *ngFor="let data of formOrderShowById.value.foodList">
+                            <td>{{data.food_id}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.type}}</td>
+                            <td>{{data.price}}</td>
+                            <td>{{data.amount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary" (click)="closeModalShowDetail()">กลับ</button>
+            </div>
+        </div>
+    </div>
 </div>
