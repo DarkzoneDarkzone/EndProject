@@ -10,16 +10,16 @@ export class TableService {
 
   constructor( public http : HttpClient ) { }
 
-  public GetTable(){
+  public getTable(){
     return this.http.get<table>(`${environment.apiUrl}Table/GetTable`);
   }
-  public GetTableById(id: string){
+  public getTableById(id: string){
     return this.http.get<table>(`${environment.apiUrl}Table/GetTableById/${id}`);
   }
-  public DeleteTables(id: string){
+  public deleteTables(id: string){
     return this.http.get<table>(`${environment.apiUrl}Table/DeleteTable/${id}`);
   }
-  public CreateTable(table : table){
+  public createTable(table : table){
     return this.http.post<table>(`${environment.apiUrl}Table/CreateTable`, table);
   }
 }

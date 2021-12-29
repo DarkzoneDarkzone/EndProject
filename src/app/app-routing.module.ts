@@ -8,6 +8,7 @@ import { ManageFoodComponent } from './components/manage-food/manage-food.compon
 import { ManageEmployeeComponent } from './components/manage-employee/manage-employee.component';
 import { ManageTableComponent } from './components/manage-table/manage-table.component';
 import { IncomeComponent } from './components/income/income.component';
+import { PromotionComponent } from './components/promotion/promotion.component';
 
 const routes: Routes = [
   {path: '', component: MainEmployeeComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'manageEmployee', component: ManageEmployeeComponent},
   {path: 'manageTable', component: ManageTableComponent},
   {path: 'income', component: IncomeComponent},
+  {path: 'promotion', component: PromotionComponent},
 ];
 
 @NgModule({

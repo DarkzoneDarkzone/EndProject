@@ -36,7 +36,7 @@ export class ManageTableComponent implements OnInit {
   }
 
   getAllTable(){
-    this.callapi.GetTable().subscribe(tb => {
+    this.callapi.getTable().subscribe(tb => {
       this.formShowTable = tb;
     })
   }
@@ -60,7 +60,7 @@ export class ManageTableComponent implements OnInit {
     this.formCreateTable.value.status = 'empty';
     this.formCreateTable.value.qrcode = null;
     console.log(this.formCreateTable.value);
-    this.callapi.CreateTable(this.formCreateTable.value).subscribe(tb => {
+    this.callapi.createTable(this.formCreateTable.value).subscribe(tb => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -84,16 +84,16 @@ export class ManageTableComponent implements OnInit {
         confirmButtonText: 'ใช่, ฉันต้องการลบข้อมูล'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.callapi.DeleteTables(id).subscribe(tb => {
-            Swal.fire({
-              position: 'top',
-              icon: 'success',
-              title: 'ลบสำเร็จ',
-              showConfirmButton: false,
-              timer: 1000
+            this.callapi.deleteTables(id).subscribe(tb => {
+              Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'ลบสำเร็จ',
+                showConfirmButton: false,
+                timer: 1000
+              })
+              this.getAllTable();
             })
-            this.getAllTable();
-          })
         }
       })
   }

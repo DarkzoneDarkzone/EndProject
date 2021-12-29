@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label for="position">ตำแหน่ง</label>
                         <select class="form-control" formControlName="position" [ngClass]="{'is-invalid': submitCreate && formValidCreate.position.errors}">
-                            <option [disabled]="true" selected>เลือกตำแหน่ง</option>
+                            <option [ngValue]="null" [disabled]="true" selected>เลือกตำแหน่ง</option>
                             <option value="chef">พ่อครัว</option>
                             <option value="cashier">แคชเชียร์</option>
                             <option value="manager">ผู้จัดการ</option>
@@ -142,7 +142,7 @@
                     <div class="form-group">
                         <label for="position">ตำแหน่ง</label>
                         <select class="form-control" formControlName="position" [ngClass]="{'is-invalid': submitEdit && formValidEdit.position.errors}">
-                            <option [disabled]="true" selected>เลือกตำแหน่ง</option>
+                            <option [ngValue]="null" [disabled]="true" selected>เลือกตำแหน่ง</option>
                             <option value="chef">พ่อครัว</option>
                             <option value="cashier">แคชเชียร์</option>
                             <option value="manager">ผู้จัดการ</option>

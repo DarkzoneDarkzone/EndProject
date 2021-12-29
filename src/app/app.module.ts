@@ -18,6 +18,7 @@ import { ManageEmployeeComponent } from './components/manage-employee/manage-emp
 import { ManageTableComponent } from './components/manage-table/manage-table.component';
 import { IncomeComponent } from './components/income/income.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PromotionComponent } from './components/promotion/promotion.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ManageFoodComponent,
     ManageEmployeeComponent,
     ManageTableComponent,
-    IncomeComponent
+    IncomeComponent,
+    PromotionComponent
   ],
   imports: [
     BrowserModule,

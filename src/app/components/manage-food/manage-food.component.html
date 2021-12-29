@@ -62,7 +62,7 @@
                         <label for="type">ประเภท</label>
                         <div class="input-group">
                             <select *ngIf="formTypeStatus == false" class="form-control" formControlName="type">
-                                <option selected [disabled]="true">เลือกประเภท</option>
+                                <option [ngValue]="null" selected [disabled]="true">เลือกประเภท</option>
                                 <option *ngFor="let data of typeData; let i = index" value="{{data.name}}">{{data.name}}</option>
                             </select>
                             <input *ngIf="formTypeStatus == true" type="text" class="form-control" formControlName="type">
