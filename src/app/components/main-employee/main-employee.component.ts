@@ -4,6 +4,7 @@ import { food } from 'src/app/models/food';
 import { order } from 'src/app/models/order';
 import { FoodService } from 'src/app/services/food.service';
 import { OrderService } from 'src/app/services/order.service';
+import { PromotionService } from 'src/app/services/promotion.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,7 @@ export class MainEmployeeComponent implements OnInit {
   @ViewChild('closebuttonBackOrder') closebuttonBackOrder: any;
   @ViewChild('closebuttonOrderHistory') closebuttonOrderHistory: any;
   @ViewChild('closebuttonShowOrderDetail') closebuttonShowOrderDetail: any;
+  @ViewChild('closebuttonShowPromotion') closebuttonShowPromotion: any;
 
   formCreateOrder: any;
 
@@ -25,10 +27,16 @@ export class MainEmployeeComponent implements OnInit {
   typeSearch: any;
   arrayFood : food[] = [];
   submitCreate: boolean = false;
+  idShow: any;
+  totalPrice: any;
+  valuePromotion: any = 0;
+  netPrice: any;
+  formShowPromotion: any;
 
   amountt: number = 0;
+  formPromotion: any;
 
-  constructor(public fb: FormBuilder, public callapiFood: FoodService,  public callapi: OrderService) {
+  constructor(public fb: FormBuilder, public callapiFood: FoodService,  public callapi: OrderService, public callapipro: PromotionService) {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
@@ -45,17 +53,36 @@ export class MainEmployeeComponent implements OnInit {
         amount: 0
       }],
       status: null,
-      creationDatetime: null
+      creationDatetime: null,
+      emp_Name: null,
+      paytime: null,
+      bestTypes: [],
+      bestFoods: [],
+      netPrice: 0,
+      valuePromotion: 0
     })
    }
 
   ngOnInit(): void {
-
+    this.getOrderAll();
     this.getFood();
+    this.getPromotionAll();
+  }
+
+  getOrderAll(): void {
+    this.callapi.GetOrder().subscribe(data => {
+      var dataReceive = data;
+      this.idShow = dataReceive;
+      this.idShow = "Order0"+this.idShow.length;
+      // console.log(this.idShow);
+    })
   }
 
   closeModalOrderHistory(){
     this.closebuttonOrderHistory.nativeElement.click();
+  }
+  closeModalPromotion(){
+    this.closebuttonShowPromotion.nativeElement.click();
   }
 
   closeModalShowOrderDetail(){
@@ -72,12 +99,10 @@ export class MainEmployeeComponent implements OnInit {
     this.closebuttonBackOrder.nativeElement.click();
   }
 
-
-
   getFood(){
     this.callapiFood.GetFood().subscribe(food => {
       this.showFood = food;
-      console.log(this.showFood);
+      // console.log(this.showFood);
     })
   }
 
@@ -96,7 +121,7 @@ export class MainEmployeeComponent implements OnInit {
         showConfirmButton: false,
         timer: 700
       })
-      this.formCreateOrder.value.typeOrder = "onsite";
+      this.calculatePrice();
     })
   }
 
@@ -113,13 +138,47 @@ export class MainEmployeeComponent implements OnInit {
             showConfirmButton: false,
             timer: 700
           })
+          this.calculatePrice();
         })
       }
     }
   }
 
+  calculatePrice() {
+    this.totalPrice = 0;
+    for(let i = 0; i < this.arrayFood.length; i++){
+      this.totalPrice += this.arrayFood[i].price;
+    }
+    if(this.formPromotion == null || this.formPromotion == undefined) {
+      this.valuePromotion = 0;
+    } else if(this.formPromotion.type == 'bath'){
+      this.valuePromotion = this.formPromotion.value;
+    } else if(this.formPromotion.type == 'percent'){
+      this.valuePromotion = (this.formPromotion.value*this.totalPrice)/100;
+    }
+    this.netPrice = this.totalPrice - this.valuePromotion;
+  }
+
+  getPromotionById(id: string){
+    this.callapipro.GetPromotionById(id).subscribe(data => {
+      this.formPromotion = data;
+      this.calculatePrice();
+      this.closeModalPromotion();
+    })
+  }
+
+  getPromotionAll(){
+    this.callapipro.GetPromotionShow().subscribe(data => {
+      this.formShowPromotion = data;
+    })
+  }
+
   deleteArray(){
     this.arrayFood = [];
+    this.totalPrice = 0;
+    this.valuePromotion = 0;
+    this.netPrice = 0;
+    this.formPromotion = null;
   }
 
   checkArrayFood(id: string) {
@@ -134,31 +193,36 @@ export class MainEmployeeComponent implements OnInit {
   createOrder() {
     this.submitCreate = true;
     this.formCreateOrder.value.status = 'waitingFood';
-    this.formCreateOrder.value.priceTotal = 0;
-    this.formCreateOrder.value.number = 0;
+    this.formCreateOrder.value.priceTotal = this.totalPrice;
+    // this.formCreateOrder.value.number = 0;
+    if(this.formPromotion?.promotion_id == undefined){
+      this.formCreateOrder.value.promotion = null;
+    } else {
+      this.formCreateOrder.value.promotion = this.formPromotion.promotion_id;
+    }
     if(this.formCreateOrder.value.number == null)
     {
       this.formCreateOrder.value.number = 0;
     }
     if (this.formCreateOrder.valid) {
-      this.formCreateOrder.value.creationDateTime = new Date();
+      this.formCreateOrder.value.creationDatetime = new Date();
       this.formCreateOrder.value.foodList = this.arrayFood;
-      this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'สั่งอาหารสำเร็จ',
-          showConfirmButton: false,
-          timer: 1000
-        })
-      });
-      this.arrayFood = [];
+      console.log(this.formCreateOrder.value);
+      
+      // this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
+      //   Swal.fire({
+      //     position: 'top',
+      //     icon: 'success',
+      //     title: 'สั่งอาหารสำเร็จ',
+      //     showConfirmButton: false,
+      //     timer: 1000
+      //   })
+      // });
+      // this.arrayFood = [];
     }
   }
 
   get formValidCreateOrder() {
     return this.formCreateOrder.controls;
   }
-  
- 
 }

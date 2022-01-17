@@ -1,3 +1,11 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.modal-header {
+    text-align: center;
+}
+
+.modal-title {
+    margin: auto;
+}

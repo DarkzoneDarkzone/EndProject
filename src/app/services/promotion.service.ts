@@ -16,7 +16,7 @@ export class PromotionService {
   public GetPromotionShow(){
     return this.http.get<promotion>(`${environment.apiUrl}Promotion/GetPromotionForShow`);
   }
-  public GetPromotiosById(id: string){
+  public GetPromotionById(id: string){
     return this.http.get<promotion>(`${environment.apiUrl}Promotion/GetPromotionById/${id}`);
   }
   public ChangePromotios(id: string){

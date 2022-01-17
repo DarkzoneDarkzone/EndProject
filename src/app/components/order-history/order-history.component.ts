@@ -56,6 +56,7 @@ export class OrderHistoryComponent implements OnInit {
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      this.formOrderShow.reverse();
     })
   }
 

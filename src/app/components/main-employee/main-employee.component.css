@@ -13,6 +13,37 @@
     width: 130px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.order h1 {
+    margin: auto;
+}
+
+.w-200px {
+    width: 10vw;
+}
+
+.row .text-food h1 {
+    font-weight: bold;
+}
+
+.idShow {
+    color: black;
+    cursor: default;
+    margin: 0 auto;
+    padding: auto;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+#idShow {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .card-body-style {
     margin-top: 2.5rem;
 }
@@ -94,11 +125,56 @@ select {
     height: 8vh;
 }
 
+.styleDelete {
+    margin: auto;
+}
+
+.collapse .card-body {
+    background-color: white;
+    border: none;
+}
+
 .card-order-food {
     height: 80vh;
 }
 
 .row-order {
     padding: 1vh;
-    margin-top: 1vh;
+    /* margin-top: 1vh; */
+}
+
+.modal-header {
+    text-align: center;
+    /* margin: auto; */
+}
+
+.card-food select {
+    margin: auto;
+}
+
+.modal-body {
+    padding: 1vw;
+}
+
+.modal-body .card {
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.modal-title {
+    margin: auto;
+}
+
+.orderFoodStyle {
+    font-size: 1vw;
+}
+
+.card-footer {
+    border: none;
+    background-color: white;
+}
+
+.card-footer h3 {
+    color: black;
+    font-size: 1vw;
 }

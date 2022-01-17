@@ -7,7 +7,7 @@
                 <th scope="col">ประเภทการสั่ง</th>
                 <th scope="col">จำนวนคน</th>
                 <th scope="col">โต๊ะ</th>
-                <th scope="col">ราคารวม</th>
+                <th scope="col">ราคารวม (บาท)</th>
                 <th scope="col">สถานะ</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
@@ -44,15 +44,15 @@
                 <h2 class="modal-title mt-2 ">รายการอาหารที่สั่ง</h2>
                 <button type="button " #closebuttonShowDetail class="close " hidden="true " data-dismiss="modal ">&times;</button>
             </div>
-            <div class="modal-body ">
+            <div class="modal-body  text-center">
                 <table class="table table-light ">
                     <thead>
                         <tr>
-                            <th scope="col ">ID</th>
-                            <th scope="col ">Name</th>
-                            <th scope="col ">Type</th>
-                            <th scope="col ">Price</th>
-                            <th scope="col ">Amount</th>
+                            <th scope="col ">รหัสอาหาร</th>
+                            <th scope="col ">ชื่ออาหาร</th>
+                            <th scope="col ">ประเภทอาหาร</th>
+                            <th scope="col ">ราคา</th>
+                            <th scope="col ">จำนวน</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -68,7 +68,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" (click)="closeModalShowDetail()">กลับ</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">ปิด</button>
             </div>
         </div>
     </div>

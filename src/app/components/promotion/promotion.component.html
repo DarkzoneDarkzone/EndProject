@@ -20,7 +20,7 @@
 
 <div class="row row-cols-1 row-cols-md-4" *ngIf="formShowPromotion != null || undefined">
     <div class="col col-image mb-4" *ngFor="let data of formShowPromotion">
-        <div class="card h-60">
+        <div class="card shadow-sm h-60">
             <div class="card-body text-center">
                 <h3 class="card-title">รหัสโปรโมชั่น: {{data.promotion_id}}</h3>
                 <p class="card-text">ชื่อโปรโมชั่น: {{data.promotion_name}}</p>

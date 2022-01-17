@@ -57,7 +57,7 @@ export class PromotionComponent implements OnInit {
   }
 
   getPromotionById(id: string){
-    this.callapiPro.GetPromotiosById(id).subscribe(pro => {
+    this.callapiPro.GetPromotionById(id).subscribe(pro => {
       this.patchValueFormEdit(pro);
     })
   }

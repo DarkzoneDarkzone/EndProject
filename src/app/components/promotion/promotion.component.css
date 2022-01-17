@@ -13,6 +13,18 @@
     color: red;
 }
 
+.modal-header {
+    text-align: center;
+}
+
+.modal-title {
+    margin: auto;
+}
+
+.card {
+    border-radius: 20px;
+}
+
 .switch {
     position: relative;
     display: inline-block;

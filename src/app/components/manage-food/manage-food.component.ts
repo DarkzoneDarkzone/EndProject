@@ -35,7 +35,7 @@ export class ManageFoodComponent implements OnInit {
       food_id: [null],
       name: [null,[Validators.required]],
       type: [null,[Validators.required]],
-      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
+      price: [0],
       imgPath: null,
       status: null,
       amount: 0
@@ -44,7 +44,7 @@ export class ManageFoodComponent implements OnInit {
       food_id: null,
       name: [null,[Validators.required]],
       type: [null,[Validators.required]],
-      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
+      price: [null],
       imgPath: null,
       status: null,
       amount: 0
@@ -77,9 +77,11 @@ export class ManageFoodComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
   public uploadFile = (files: any) => {
+    console.log('in');
     if(files.length == 0){
       return;
     }
+    
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
@@ -132,6 +134,7 @@ export class ManageFoodComponent implements OnInit {
   GetBeforeEdit(id: string){
     this.callapi.GetFoodById(id).subscribe( food =>{
       this.setFormEdit(food);
+      this.formEditFood.value.imgPath = food.imgPath;
     })
   }
 
@@ -160,7 +163,6 @@ export class ManageFoodComponent implements OnInit {
       name: data.name,
       type: data.type,
       price: data.price,
-      imgPath: data.imgPath,
       status: data.status,
       amount: data.amount
     })
@@ -206,21 +208,25 @@ export class ManageFoodComponent implements OnInit {
     this.filterFood = type;
   }
 
-  setFormNull()
-  {
+  setFormNull(){
   this.formEditFood.value.imgPath = null;
   this.formCreateFood.value.imgPath = null;
+  this.message = null;
+  this.submitCreate = false;
   }
 
   get formValidCreate() {
     return this.formCreateFood.controls;
   }
+
   get formValidEdit() {
     return this.formEditFood.controls;
   }
-  chageFormType(status: boolean){
+
+  changeFormType(status: boolean){
     this.formTypeStatus = status;    
   }
+  
   checkTypeInDb(type: string){
       for(let i = 0; i < this.typeData.length ; i++){
         if(this.typeData[i].name != type){

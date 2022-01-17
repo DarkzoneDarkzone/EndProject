@@ -58,6 +58,7 @@ export class ManageEmployeeComponent implements OnInit {
   getEmployee() {
     this.callapi.GetEmployee().subscribe(emp => {
       this.employeeFromApi = emp;
+      this.employeeFromApi.reverse();
     })
   }
 

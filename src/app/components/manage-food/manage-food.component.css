@@ -18,6 +18,14 @@
     height: 34px;
 }
 
+.modal-header {
+    text-align: center;
+}
+
+.modal-title {
+    margin: auto;
+}
+
 .switch input {
     opacity: 0;
     width: 0;
