@@ -1,0 +1,67 @@
+<div class="mt-4 mb-2">
+    <div class="row">
+        <div class="col">
+            <span class="head">จัดการโต๊ะอาหาร</span>
+        </div>
+        <div class="col mr-0">
+            <button type="button" data-target="#createTable" data-toggle="modal" class="btn btn-outline-success mt-0 mb-2 float-right">
+                    <div class="form-inline">
+                    <div class="material-icons">
+                        add
+                    </div>
+                    <div class="">
+                        เพิ่มโต๊ะอาหาร
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">โต๊ะที่</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col">จัดการ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of formShowTable">
+                    <td>{{data.table_NO}}</td>
+                    <td>{{data.status}}</td>
+                    <td class="edit" (click)="deleteTable(data.table_id)">ลบ</td>
+                    <td>พิมพ์คิวอาร์โคด</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- เพิ่มโต๊ะ -->
+<div class="modal fade" id="createTable" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" #closebuttonCreateTable class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formCreateTable">
+                    <div class="form-group">
+                        <label>หมายเลขโต๊ะ</label>
+                        <input type="text" class="form-control" formControlName="table_NO">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="createTable()" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>

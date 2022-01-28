@@ -1,24 +1,73 @@
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="manage">Manage</a>
+                    <a class="nav-link" routerLink="mainEmployee">หน้าหลักพนักงาน</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="kitchen">Kitchen</a>
+                    <a class="nav-link" routerLink="manageFood">รายการอาหาร</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="drink">Drink</a>
+                    <a class="nav-link" routerLink="manageEmployee">พนักงาน</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="customer">Customer</a>
+                    <a class="nav-link" routerLink="manageTable">โต๊ะ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="cashier">Cashier</a>
+                    <a class="nav-link" routerLink="income">รายได้</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <router-outlet></router-outlet>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div> -->
+<!-- <qrcode [qrdata]="'http://www.google.com/'+5" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-dark" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <img src="../assets/image/20cafe.png" class="photo" alt="">
+        </div>
+        <div class="text-center">
+            ---การขาย---
+        </div>
+        <div class="list-group list-group-flush mb-3">
+            <a routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">
+                <div class="form-inline">
+                    <div class="">สั่งอาหาร</div>
+                </div>
+            </a>
+            <a routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
+            <a routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
+        </div>
+        <div class="text-center">
+            ---การจัดการ---
+        </div>
+        <div class="list-group list-group-flush mb-3">
+            <a routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+            <a routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
+            <a routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน</a>
+            <a routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น</a>
+        </div>
+        <div class="text-center">
+            ---รายงาน---
+        </div>
+        <div class="list-group list-group-flush mb-3">
+            <a routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 </div>
+<!-- /#wrapper -->

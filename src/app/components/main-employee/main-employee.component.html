@@ -1,0 +1,168 @@
+<!-- สั่งอาหาร -->
+
+<div class="row">
+    <div class="col-9">
+        <div class="row mt-3 mb-3 ml-0 mr-0">
+            <div class="form-inline ">
+                <input class="form-control mr-sm-2" type="search" placeholder="ค้นหา" [(ngModel)]="typeSearch" aria-label="Search">
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+                <button type="button" class="btn btn-outline-secondary mr-2">เพิ่มสำเร็จ</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-md-5">
+                    <div class="col mb-2" *ngFor="let data of showFood | filter: typeSearch">
+                        <div class="card h-30">
+                            <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">{{data.name}}</h3>
+                                <h3 class="card-title">ราคา: {{data.price}} บาท</h3>
+                                <button *ngIf="checkArrayFood(data.food_id) == false" type="button" class="btn btn-secondary" (click)="addFoodToArray(data.food_id)">เลือกเมนูอาหาร</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn btn-success mr-2 material-icons" [disabled]="true"> check</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn btn-secondary" (click)="addFoodAmount(data.food_id)">สั่งเพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col pl-0 fix-height">
+        <div class="card card-food">
+            <div class="row">
+                <div class="col text-center pr-0" id="idShow" *ngIf="idShow != null || idShow != undefined">
+                    <div class="idShow">ออเดอร์: {{idShow}}</div>
+                </div>
+                <div class="col-7 pl-0 pr-0">
+                    <form [formGroup]="formCreateOrder">
+                        <select class="form-control w-200px" formControlName="typeOrder" [ngClass]="{'is-invalid': submitCreate && formValidCreateOrder.typeOrder.errors}">
+                            <option [ngValue]="null" [disabled]="true" selected>ประเภทการสั่ง</option>
+                            <option value="onsite" >ทานที่ร้าน</option>
+                            <option value="home">สั่งกลับบ้าน</option>
+                            <option value="delivery">เดลิเวอรี่</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card card-food card-order-food mb-2">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col w-130px pr-0">
+                        <input type="number" class="form-control text-center" [(ngModel)]="formCreateOrder.value.number" placeholder="จำนวนคน" *ngIf="formCreateOrder.value.typeOrder == 'onsite'">
+                    </div>
+                    <div class="col w-130px pr-0">
+                        <input type="text" class="form-control text-center" [(ngModel)]="formCreateOrder.value.table_NO" placeholder="โต๊ะ" *ngIf="formCreateOrder.value.typeOrder == 'onsite'">
+                    </div>
+                    <div class="col pl-0" style="margin: auto;">
+                        <span class="text-food deleteBill cursor-pointer" (click)="deleteArray()">
+                            <div class="form-inline float-right styleDelete">
+                                <div class="material-icons">
+                                    delete
+                                </div>        
+                                <div class="ml-1">
+                                    ลบบิล
+                                </div>        
+                            </div> 
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center text-food">
+                        <h1>
+                            รายการอาหาร
+                        </h1>
+                    </div>
+                </div>
+                <div *ngFor="let data of arrayFood ; let i = index">
+                    <div class="row row-order orderFoodStyle">
+                        <div class="col">
+                            <span class="text-food">{{i+1}}. </span>
+                            <span class="text-food">{{data.name}} </span>
+                            <span class="text-food">x{{data.amount}}</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="text-food float-right">{{data.price | currency:'THB':'symbol-narrow'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        <h3>
+                            ราคารวม :
+                        </h3>
+                    </div>
+                    <div class="col" *ngIf="totalPrice > 0">
+                        <h3 class="float-right">{{totalPrice | currency:'':''}} บาท</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>
+                            ส่วนลด :
+                        </h3>
+                    </div>
+                    <div class="col" *ngIf="totalPrice > 0">
+                        <h3 บาท class="float-right">{{valuePromotion | currency:'':''}} บาท</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>
+                            ราคารวมสุทธิ :
+                        </h3>
+                    </div>
+                    <div class="col" *ngIf="totalPrice > 0">
+                        <h3 class="float-right">{{netPrice | currency:'':''}} บาท</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col pr-1">
+                <button type="button" class="btn btn-warning order pr-0" data-toggle="modal" data-target="#promotionModal"><h1>โปรโมชั่น</h1></button>
+            </div>
+            <div class="col pl-1">
+                <button type="button" class="btn btn-success order pl-0" (click)="createOrder()"><h1>สั่งอาหาร</h1></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modalPromotion -->
+<div class="modal fade" id="promotionModal" aria-hidden="true" *ngIf="formShowPromotion != null || formShowPromotion != undefined">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">โปรโมชั่น</h1>
+                <button type="button" #closebuttonShowPromotion class="close" hidden="true" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-1 row-cols-md-4">
+                    <div class="col col-image mb-4" *ngFor="let data of formShowPromotion">
+                        <div class="card shadow h-60" (click)="getPromotionById(data.promotion_id)">
+                            <div class="card-body text-center">
+                                <h3 class="card-title">รหัสโปรโมชั่น: {{data.promotion_id}}</h3>
+                                <p class="card-text" *ngIf="data.type == 'bath'">ส่วนลด: {{data.value}} บาท</p>
+                                <p class="card-text" *ngIf="data.type == 'percent'">ส่วนลด: {{data.value}} %</p>
+                                <p class="card-text">รายละเอียด: {{data.detail}}</p>
+                                <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="getPromotionById(data.promotion_id)" data-target="#editPromotion">แก้ไข</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modalCancel" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>

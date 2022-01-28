@@ -1,0 +1,22 @@
+.head {
+    font-size: 30px;
+    font-weight: bold;
+    color: gray;
+}
+
+.edit {
+    cursor: pointer;
+}
+
+.edit:hover {
+    text-decoration: underline;
+    color: red;
+}
+
+.modal-header {
+    text-align: center;
+}
+
+.modal-title {
+    margin: auto;
+}
