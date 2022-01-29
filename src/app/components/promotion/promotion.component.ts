@@ -65,7 +65,6 @@ export class PromotionComponent implements OnInit {
   createPromotion(){
     this.formCreatePromotion.value.status = false;
     this.formCreatePromotion.value.value = parseInt(this.formCreatePromotion.value.value);
-    console.log(this.formCreatePromotion.value);
     this.callapiPro.CreatePromotion(this.formCreatePromotion.value).subscribe(pro => {
       Swal.fire({
         position: 'top',

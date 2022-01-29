@@ -13,21 +13,6 @@ export interface order {
 
     emp_Name: string
     paytime: Date
-    bestTypes: bestType[]
-    bestFoods: bestFood[]
     netPrice: number
     valuePromotion: number
-}
-
-export interface bestType {
-    name: string
-    number: number
-    price: number
-    rate: number
-}
-export interface bestFood {
-    type_name: string
-    number: number
-    price: number
-    rate: number
 }

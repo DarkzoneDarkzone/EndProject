@@ -19,6 +19,7 @@ import { ManageTableComponent } from './components/manage-table/manage-table.com
 import { IncomeComponent } from './components/income/income.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PromotionComponent } from './components/promotion/promotion.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PromotionComponent } from './components/promotion/promotion.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]

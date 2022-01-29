@@ -40,7 +40,7 @@ export class MainEmployeeComponent implements OnInit {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
-      typeOrder: [null],
+      typeOrder: [null, [Validators.required]],
       number: [null],
       priceTotal: null,
       foodList: [{
@@ -56,8 +56,6 @@ export class MainEmployeeComponent implements OnInit {
       creationDatetime: null,
       emp_Name: null,
       paytime: null,
-      bestTypes: [],
-      bestFoods: [],
       netPrice: 0,
       valuePromotion: 0
     })
@@ -74,7 +72,6 @@ export class MainEmployeeComponent implements OnInit {
       var dataReceive = data;
       this.idShow = dataReceive;
       this.idShow = "Order0"+this.idShow.length;
-      // console.log(this.idShow);
     })
   }
 
@@ -102,7 +99,6 @@ export class MainEmployeeComponent implements OnInit {
   getFood(){
     this.callapiFood.GetFood().subscribe(food => {
       this.showFood = food;
-      // console.log(this.showFood);
     })
   }
 
@@ -194,7 +190,6 @@ export class MainEmployeeComponent implements OnInit {
     this.submitCreate = true;
     this.formCreateOrder.value.status = 'waitingFood';
     this.formCreateOrder.value.priceTotal = this.totalPrice;
-    // this.formCreateOrder.value.number = 0;
     if(this.formPromotion?.promotion_id == undefined){
       this.formCreateOrder.value.promotion = null;
     } else {

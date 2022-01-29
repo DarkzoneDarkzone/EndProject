@@ -178,3 +178,12 @@ select {
     color: black;
     font-size: 1vw;
 }
+
+.col-side {
+    width: 30%;
+    max-height: 100vh;
+}
+
+.card.h-30 {
+    box-shadow: 0 0 2px 0 darkgrey;
+}
