@@ -34,7 +34,7 @@ body {
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+    min-width: 100vh;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -45,7 +45,7 @@ body {
     color: white;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
     #sidebar-wrapper {
         margin-left: 0;
     }

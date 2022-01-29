@@ -59,7 +59,6 @@ export class ManageTableComponent implements OnInit {
   createTable(){
     this.formCreateTable.value.status = 'empty';
     this.formCreateTable.value.qrcode = null;
-    console.log(this.formCreateTable.value);
     this.callapi.createTable(this.formCreateTable.value).subscribe(tb => {
       Swal.fire({
         position: 'top',

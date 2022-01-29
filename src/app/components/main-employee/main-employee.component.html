@@ -12,11 +12,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                <div class="row row-cols-1 row-cols-md-5">
+            <div class="col col-show">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
                     <div class="col mb-2" *ngFor="let data of showFood | filter: typeSearch">
                         <div class="card h-30">
-                            <img [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
+                            <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
+                            <img *ngIf="data.imgPath == null || data.imgPath == undefined" [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top" alt="...">
                             <div class="card-body text-center">
                                 <h3 class="card-title">{{data.name}}</h3>
                                 <h3 class="card-title">ราคา: {{data.price}} บาท</h3>
@@ -31,7 +32,7 @@
         </div>
     </div>
 
-    <div class="col pl-0 fix-height">
+    <div class="col-side col pl-0">
         <div class="card card-food">
             <div class="row">
                 <div class="col text-center pr-0" id="idShow" *ngIf="idShow != null || idShow != undefined">

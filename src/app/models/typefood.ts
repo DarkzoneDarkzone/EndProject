@@ -1,4 +1,5 @@
 export interface typeFood {
-    id: string
+    id: string;
     name: string;
+    status: string;
 }
