@@ -69,8 +69,8 @@ export class MainEmployeeComponent implements OnInit {
 
   getOrderAll(): void {
     this.callapi.GetOrder().subscribe(data => {
-      var dataReceive = data;
-      this.idShow = dataReceive;
+      // var dataReceive = data;
+      this.idShow = data;
       this.idShow = "Order0"+this.idShow.length;
     })
   }
@@ -202,18 +202,20 @@ export class MainEmployeeComponent implements OnInit {
     if (this.formCreateOrder.valid) {
       this.formCreateOrder.value.creationDatetime = new Date();
       this.formCreateOrder.value.foodList = this.arrayFood;
-      console.log(this.formCreateOrder.value);
+      this.formCreateOrder.value.netPrice = this.netPrice;
+      // console.log(this.formCreateOrder.value);
       
-      // this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
-      //   Swal.fire({
-      //     position: 'top',
-      //     icon: 'success',
-      //     title: 'สั่งอาหารสำเร็จ',
-      //     showConfirmButton: false,
-      //     timer: 1000
-      //   })
-      // });
-      // this.arrayFood = [];
+      this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'สั่งอาหารสำเร็จ',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.arrayFood = [];
+        this.getOrderAll();
+      });
     }
   }
 
