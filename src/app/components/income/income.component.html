@@ -1,1 +1,56 @@
-<p>income works!</p>
+<div class="row row-dashboard row-cols-4">
+    <div class="col mb-2">
+        <div class="card card-dashboard bg-first">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col"><i class="pi pi-credit-card" style="font-size: 4rem; color: white"></i></div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-2">
+        <div class="card card-dashboard bg-second">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-4"><i class="pi pi-shopping-cart" style="font-size: 4rem; color: white"></i></div>
+                    <div class="col-8">
+                        <h2 style="color: white">คำสั่งซื้อทั้งหมด</h2>
+                        <div class="" style="color: white">250 รายการ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-2">
+        <div class="card card-dashboard bg-third">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col"><i class="pi pi-dollar" style="font-size: 4rem; color: white"></i></div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-2">
+        <div class="card card-dashboard bg-fourth">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col"><i class="pi pi-comment" style="font-size: 4rem; color: white"></i></div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5>Multi Axis</h5>
+            <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
+        </div>
+
+    </div>
+    <div class="col"></div>
+</div>

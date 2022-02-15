@@ -1,0 +1,25 @@
+.card-dashboard {
+    height: 14vh;
+    padding: 0;
+}
+
+.row-dashboard {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.bg-first {
+    background-color: #f8cd4a;
+}
+
+.bg-second {
+    background-color: #17a2b8;
+}
+
+.bg-third {
+    background-color: #20c997;
+}
+
+.bg-fourth {
+    background-color: rgb(238, 110, 110);
+}
