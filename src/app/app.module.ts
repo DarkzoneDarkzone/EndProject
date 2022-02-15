@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
@@ -19,7 +19,9 @@ import { ManageTableComponent } from './components/manage-table/manage-table.com
 import { IncomeComponent } from './components/income/income.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PromotionComponent } from './components/promotion/promotion.component';
-import { NgxLoadingModule } from 'ngx-loading';
+import { AccordionModule } from 'primeng/accordion'; //accordion and accordion tab
+import { MenuItem } from 'primeng/api'; //api
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     ManageEmployeeComponent,
     ManageTableComponent,
     IncomeComponent,
-    PromotionComponent
+    PromotionComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +45,10 @@ import { NgxLoadingModule } from 'ngx-loading';
     ReactiveFormsModule,
     HttpClientModule,
     Ng2SearchPipeModule,
-    NgxLoadingModule.forRoot({})
+    AccordionModule,
+    ChartModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
