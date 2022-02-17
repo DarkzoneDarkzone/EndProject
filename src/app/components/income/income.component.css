@@ -23,3 +23,48 @@
 .bg-fourth {
     background-color: rgb(238, 110, 110);
 }
+
+.all-bill {
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+}
+
+.text-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: none;
+    justify-content: space-between;
+}
+
+.card-header .text-title {
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.card .detail-bill {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 6rem;
+    padding-right: 3rem;
+}
+
+.card-bar {
+    padding: 1rem;
+    height: 38vh;
+}
+
+.card-doughnut {
+    height: 38vh;
+}
+
+.card-doughnut .row {
+    margin-top: 1rem;
+}

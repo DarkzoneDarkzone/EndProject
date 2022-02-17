@@ -45,12 +45,107 @@
 </div>
 
 <div class="row">
-    <div class="col">
-        <div class="card">
-            <h5>Multi Axis</h5>
+    <div class="col-6">
+        <div class="card card-bar">
             <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
         </div>
-
     </div>
-    <div class="col"></div>
+    <div class="col-6">
+        <div class="card card-doughnut">
+            <div class="card-header">
+                <div class="text-title">บิล</div>
+                <button class="btn btn-success">ดูเพิ่มเติม</button>
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">200 บิล</div>
+                    <p-chart type="doughnut" [data]="data" [options]="chartOptions"></p-chart>
+                </div>
+                <div class="col detail-bill">
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ทานที่ร้าน</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ซื้อกลับบ้าน</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> เดลิเวอรี่</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-6">
+        <div class="card card-pie">
+            <div class="card-header">
+                <div class="text-title">ประเภทขายดี</div>
+                <button class="btn btn-success">ดูเพิ่มเติม</button>
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">200 รายการ</div>
+                    <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+                </div>
+                <div class="col">
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
+                        <div class="text-title">จำนวน 90 รายการ</div>
+                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
+                        <div class="text-title">จำนวน 90 รายการ</div>
+                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
+                        <div class="text-title">จำนวน 90 รายการ</div>
+                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card card-pie">
+            <div class="card-header">
+                <div class="text-title">เมนูอาหารขายดี</div>
+                <button class="btn btn-success">ดูเพิ่มเติม</button>
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">200 รายการ</div>
+                    <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+                </div>
+                <div class="col detail-bill">
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ทานที่ร้าน</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ซื้อกลับบ้าน</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> เดลิเวอรี่</div>
+                        <div class="text-title">90 บิล</div>
+                        <div class="text-title">72,000 บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
