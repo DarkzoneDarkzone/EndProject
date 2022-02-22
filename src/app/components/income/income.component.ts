@@ -9,17 +9,25 @@ export class IncomeComponent implements OnInit {
   multiAxisData: any;
   multiAxisOptions: any;
 
-  data: any;
-  chartOptions: any;
+  datapie: any;
+  chartOptionspie: any;
+
+  datadoughtnut1: any;
+  chartOptionsdoughtnut1: any;
+
+  datadoughtnut2: any;
+  chartOptionsdoughtnut2: any;
   constructor() {}
 
   ngOnInit(): void {
     this.barChart();
     this.pieChart();
+    this.doughtnutChart1();
+    this.doughtnutChart2();
   }
 
   pieChart() {
-    this.data = {
+    this.datapie = {
       datasets: [
         {
           data: [300, 50, 100],
@@ -28,7 +36,47 @@ export class IncomeComponent implements OnInit {
         },
       ],
     };
-    this.chartOptions = {
+    this.chartOptionspie = {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#495057',
+          },
+        },
+      },
+    };
+  }
+  doughtnutChart1() {
+    this.datadoughtnut1 = {
+      datasets: [
+        {
+          data: [300, 50, 100, 120, 40],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+        },
+      ],
+    };
+    this.chartOptionsdoughtnut1 = {
+      plugins: {
+        legend: {
+          labels: {
+            color: '#495057',
+          },
+        },
+      },
+    };
+  }
+  doughtnutChart2() {
+    this.datadoughtnut2 = {
+      datasets: [
+        {
+          data: [120, 70, 150, 20, 40],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+        },
+      ],
+    };
+    this.chartOptionsdoughtnut2 = {
       plugins: {
         legend: {
           labels: {

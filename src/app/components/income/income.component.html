@@ -1,50 +1,88 @@
-<div class="row row-dashboard row-cols-4">
-    <div class="col mb-2">
-        <div class="card card-dashboard bg-first">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col"><i class="pi pi-credit-card" style="font-size: 4rem; color: white"></i></div>
-                    <div class="col"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-2">
-        <div class="card card-dashboard bg-second">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col-4"><i class="pi pi-shopping-cart" style="font-size: 4rem; color: white"></i></div>
-                    <div class="col-8">
-                        <h2 style="color: white">คำสั่งซื้อทั้งหมด</h2>
-                        <div class="" style="color: white">250 รายการ</div>
+<div class="row mt-3">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Earnings (Monthly)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-calendar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col mb-2">
-        <div class="card card-dashboard bg-third">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col"><i class="pi pi-dollar" style="font-size: 4rem; color: white"></i></div>
-                    <div class="col"></div>
+
+    <!-- Earnings (Annual) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Earnings (Annual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-dollar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col mb-2">
-        <div class="card card-dashboard bg-fourth">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col"><i class="pi pi-comment" style="font-size: 4rem; color: white"></i></div>
-                    <div class="col"></div>
+
+    <!-- Tasks Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Pending Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-comments" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
+
+<div class="row row-bar-doughnut">
     <div class="col-6">
         <div class="card card-bar">
             <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
@@ -60,7 +98,7 @@
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
                     <div class="text-title">200 บิล</div>
-                    <p-chart type="doughnut" [data]="data" [options]="chartOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="datapie" [options]="chartOptionspie"></p-chart>
                 </div>
                 <div class="col detail-bill">
                     <div class="text-center">
@@ -94,23 +132,23 @@
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
                     <div class="text-title">200 รายการ</div>
-                    <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+                    <p-chart type="pie" [data]="datadoughtnut1" [options]="chartOptionsdoughtnut1"></p-chart>
                 </div>
-                <div class="col">
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
-                        <div class="text-title">จำนวน 90 รายการ</div>
-                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                <div class="col mt-auto mb-auto">
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FF6384"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
-                        <div class="text-title">จำนวน 90 รายการ</div>
-                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i>อาหารจานเดียว</div>
-                        <div class="text-title">จำนวน 90 รายการ</div>
-                        <div class="text-title">ราคารวม 72,000 บาท</div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #AB47BC"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #66BB6A"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
                     </div>
                 </div>
             </div>
@@ -126,23 +164,23 @@
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
                     <div class="text-title">200 รายการ</div>
-                    <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+                    <p-chart type="pie" [data]="datadoughtnut2" [options]="chartOptionsdoughtnut2"></p-chart>
                 </div>
-                <div class="col detail-bill">
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ทานที่ร้าน</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
+                <div class="col mt-auto mb-auto">
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ข้าวผัด คิดเป็น 45% มูลค่า 4,000 บาท</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ซื้อกลับบ้าน</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ยำมาม่า คิดเป็น 25% มูลค่า 4,000 บาท</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> เดลิเวอรี่</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #AB47BC"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #66BB6A"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
                     </div>
                 </div>
             </div>
