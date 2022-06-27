@@ -29,4 +29,8 @@ export class EmployeeService {
   public DeleteEmployee(id: string){
     return this.http.get<employee>(`${environment.apiUrl}Employee/DeleteEmployee/${id}`);
   }
+
+  public CheckLogin(username: string, password: string){
+    return this.http.get(`${environment.apiUrl}Employee/CheckLogin/${username}/${password}`);
+  }
 }

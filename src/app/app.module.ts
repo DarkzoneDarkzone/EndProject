@@ -22,6 +22,7 @@ import { PromotionComponent } from './components/promotion/promotion.component';
 import { AccordionModule } from 'primeng/accordion'; //accordion and accordion tab
 import { MenuItem } from 'primeng/api'; //api
 import { ChartModule } from 'primeng/chart';
+import { OrderChefComponent } from './components/order-chef/order-chef.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ChartModule } from 'primeng/chart';
     ManageTableComponent,
     IncomeComponent,
     PromotionComponent,
+    OrderChefComponent,
   ],
   imports: [
     BrowserModule,

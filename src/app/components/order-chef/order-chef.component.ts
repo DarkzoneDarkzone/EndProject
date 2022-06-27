@@ -1,21 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  selector: 'app-order-chef',
+  templateUrl: './order-chef.component.html',
+  styleUrls: ['./order-chef.component.css']
 })
-export class OrderComponent implements OnInit {
+export class OrderChefComponent implements OnInit {
   @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
-  
   formOrderShow: any;
   formOrderShowById: any;
-  constructor(public fb: FormBuilder, public callapi: OrderService) {
-  }
+  constructor(public callapi: OrderService) { }
 
   ngOnInit(): void {
     this.getOrderAll();

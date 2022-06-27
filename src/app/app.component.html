@@ -1,73 +1,119 @@
-<!-- <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="mainEmployee">หน้าหลักพนักงาน</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="manageFood">รายการอาหาร</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="manageEmployee">พนักงาน</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="manageTable">โต๊ะ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="income">รายได้</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <router-outlet></router-outlet>
-    </div>
-</div> -->
 <!-- <qrcode [qrdata]="'http://www.google.com/'+5" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
-
-<div class="d-flex" id="wrapper">
-    <!-- Sidebar -->
-    <div class="bg-dark border-dark" id="sidebar-wrapper">
-        <div class="sidebar-heading">
-            <img src="../assets/image/20cafe.png" class="photo" alt="">
-        </div>
-        <div class="text-center">
-            ---การขาย---
-        </div>
-        <div class="list-group list-group-flush mb-3">
-            <a routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">
-                <div class="form-inline">
-                    <div class="">สั่งอาหาร</div>
-                </div>
-            </a>
-            <a routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
-            <a routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
-        </div>
-        <div class="text-center">
-            ---การจัดการ---
-        </div>
-        <div class="list-group list-group-flush mb-3">
-            <a routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
-            <a routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
-            <a routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน</a>
-            <a routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น</a>
-        </div>
-        <div class="text-center">
-            ---รายงาน---
-        </div>
-        <div class="list-group list-group-flush mb-3">
-            <a routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน</a>
-        </div>
+<div *ngIf="status_login != null" class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-dark border-dark" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+      <img src="../assets/image/20cafe.png" class="photo" alt="">
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <router-outlet></router-outlet>
-        </div>
+    <div class="text-center">
+      ---การขาย---
     </div>
-    <!-- /#page-content-wrapper -->
+    <div class="list-group list-group-flush mb-3">
+      <a routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">
+        <div class="form-inline">
+          <div class="">สั่งอาหาร</div>
+        </div>
+      </a>
+      <a routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
+      <a routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ (for chef)</a>
+      <a routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
+    </div>
+    <div class="text-center">
+      ---การจัดการ---
+    </div>
+    <div class="list-group list-group-flush mb-3">
+      <a routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+      <a routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
+      <a routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for
+        manager)</a>
+      <a routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
+    </div>
+    <div class="text-center">
+      ---รายงาน---
+    </div>
+    <div class="list-group list-group-flush mb-3">
+      <a routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
 </div>
-<!-- /#wrapper -->
+
+<div *ngIf="status_login == null && formForLogin" class="container">
+  <div class="form-login">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center text-white">เข้าสู่ระบบ</h1>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formLogin">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text material-icons">person</span>
+              </div>
+              <input type="text" formControlName="username" class="form-control" placeholder="username">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text material-icons">key</span>
+              </div>
+              <input type="password" formControlName="password" class="form-control" placeholder="password">
+            </div>
+            <div class="form-group">
+              <input type="button" (click)="onSignin()" value="เข้าสู่ระบบ" class="btn float-right login_btn">
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <!-- <div class="d-flex justify-content-center links">
+            ยังไม่มีบัญชีผู้ใช้?<a style="cursor: pointer; text-decoration: underline;" (click)="changeForm()">ลงทะเบียน</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status_login == null && !formForLogin" class="container-fluid">
+  <div class="form-login">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center text-white">ลงทะเบียน</h1>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formRegister">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text material-icons">person</span>
+              </div>
+              <input type="text" formControlName="username" class="form-control" placeholder="username">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text material-icons">key</span>
+              </div>
+              <input type="password" formControlName="password" class="form-control" placeholder="password">
+            </div>
+            <div class="form-group">
+              <input type="button" (click)="onRegister()" value="ยืนยัน" class="btn float-right login_btn">
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-center links">
+            มีบัญชีผู้ใช้แล้ว?<a style="cursor: pointer; text-decoration: underline;" (click)="changeForm()">เข้าสู่ระบบ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

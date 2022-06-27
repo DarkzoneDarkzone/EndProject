@@ -38,28 +38,19 @@
                 <div class="col text-center pr-0" id="idShow" *ngIf="idShow != null || idShow != undefined">
                     <div class="idShow">ออเดอร์: {{idShow}}</div>
                 </div>
-                <div class="col-7 pl-0 pr-0">
-                    <form [formGroup]="formCreateOrder">
-                        <select class="form-control w-200px" formControlName="typeOrder" [ngClass]="{'is-invalid': submitCreate && formValidCreateOrder.typeOrder.errors}">
-                            <option [ngValue]="null" [disabled]="true" selected>ประเภทการสั่ง</option>
-                            <option value="onsite" >ทานที่ร้าน</option>
-                            <option value="home">สั่งกลับบ้าน</option>
-                            <option value="delivery">เดลิเวอรี่</option>
-                        </select>
-                    </form>
-                </div>
             </div>
-
-
         </div>
         <div class="card card-food card-order-food mb-2">
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col w-130px pr-0">
-                        <input type="number" class="form-control text-center" [(ngModel)]="formCreateOrder.value.number" placeholder="จำนวนคน" *ngIf="formCreateOrder.value.typeOrder == 'onsite'">
+                        <input type="number" class="form-control text-center" [(ngModel)]="formCreateOrder.value.number" placeholder="จำนวนคน">
                     </div>
                     <div class="col w-130px pr-0">
-                        <input type="text" class="form-control text-center" [(ngModel)]="formCreateOrder.value.table_NO" placeholder="โต๊ะ" *ngIf="formCreateOrder.value.typeOrder == 'onsite'">
+                        <select class="form-control" [(ngModel)]="formCreateOrder.value.table_NO">
+                            <option [ngValue]="null" [disabled]="true" selected>เลือกโต๊ะ</option>
+                            <option *ngFor="let table of tableAll" value="{{table.table_NO}}">{{table.table_NO}}</option>
+                        </select>
                     </div>
                     <div class="col pl-0" style="margin: auto;">
                         <span class="text-food deleteBill cursor-pointer" (click)="deleteArray()">

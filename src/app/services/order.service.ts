@@ -29,4 +29,16 @@ export class OrderService {
   public EditOrder(id: string, order: order){
     return this.http.put<order>(`${environment.apiUrl}Order/EditOrder/${id}`, order);
   }
+
+  public GetBestType(){
+    return this.http.get(`${environment.apiUrl}Order/GetBestType`);
+  }
+
+  public GetBestFood(){
+    return this.http.get(`${environment.apiUrl}Order/GetBestFood`);
+  }
+
+  public IncomeMonth(){
+    return this.http.get(`${environment.apiUrl}Order/IncomeMonth`);
+  }
 }

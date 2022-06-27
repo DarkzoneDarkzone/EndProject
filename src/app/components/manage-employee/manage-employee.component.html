@@ -8,6 +8,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <div class="dropdown-item" (click)="checkPositionFilter('chef')">พ่อครัว</div>
+                    <div class="dropdown-item" (click)="checkPositionFilter('serve')">พนักงานเสิร์ฟ</div>
                     <div class="dropdown-item" (click)="checkPositionFilter('cashier')">แคชเชียร์</div>
                     <div class="dropdown-item" (click)="checkPositionFilter('manager')">ผู้จัดการ</div>
                     <div class="dropdown-item" (click)="checkPositionFilter('')">ทั้งหมด</div>
@@ -38,6 +39,7 @@
             <td>{{data.password}}</td>
             <td>{{data.emp_Tel}}</td>
             <td *ngIf="data.position == 'chef'">พ่อครัว</td>
+            <td *ngIf="data.position == 'serve'">พนักงานเสิร์ฟ</td>
             <td *ngIf="data.position == 'cashier'">แคชเชียร์</td>
             <td *ngIf="data.position == 'manager'">ผู้จัดการ</td>
             <td>
@@ -87,6 +89,7 @@
                         <select class="form-control" formControlName="position" [ngClass]="{'is-invalid': submitCreate && formValidCreate.position.errors}">
                             <option [ngValue]="null" [disabled]="true" selected>เลือกตำแหน่ง</option>
                             <option value="chef">พ่อครัว</option>
+                            <option value="serve">พนักงานเสิร์ฟ</option>
                             <option value="cashier">แคชเชียร์</option>
                             <option value="manager">ผู้จัดการ</option>
                             <div class="invalid-feedback" *ngIf="submitCreate && formValidCreate.position.errors">

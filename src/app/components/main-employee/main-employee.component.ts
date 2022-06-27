@@ -5,6 +5,7 @@ import { order } from 'src/app/models/order';
 import { FoodService } from 'src/app/services/food.service';
 import { OrderService } from 'src/app/services/order.service';
 import { PromotionService } from 'src/app/services/promotion.service';
+import { TableService } from 'src/app/services/table.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -35,12 +36,13 @@ export class MainEmployeeComponent implements OnInit {
 
   amountt: number = 0;
   formPromotion: any;
+  tableAll: any;
 
-  constructor(public fb: FormBuilder, public callapiFood: FoodService,  public callapi: OrderService, public callapipro: PromotionService) {
+  constructor(public fb: FormBuilder, public callapiFood: FoodService, public callapiTable: TableService,  public callapi: OrderService, public callapipro: PromotionService) {
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
-      typeOrder: [null, [Validators.required]],
+      typeOrder: [null],
       number: [null],
       priceTotal: null,
       foodList: [{
@@ -65,6 +67,7 @@ export class MainEmployeeComponent implements OnInit {
     this.getOrderAll();
     this.getFood();
     this.getPromotionAll();
+    this.getTableAll()
   }
 
   getOrderAll(): void {
@@ -72,6 +75,12 @@ export class MainEmployeeComponent implements OnInit {
       // var dataReceive = data;
       this.idShow = data;
       this.idShow = "Order0"+this.idShow.length;
+    })
+  }
+
+  getTableAll(){
+    this.callapiTable.getTable().subscribe(data => {
+      this.tableAll = data
     })
   }
 
@@ -203,8 +212,6 @@ export class MainEmployeeComponent implements OnInit {
       this.formCreateOrder.value.creationDatetime = new Date();
       this.formCreateOrder.value.foodList = this.arrayFood;
       this.formCreateOrder.value.netPrice = this.netPrice;
-      // console.log(this.formCreateOrder.value);
-      
       this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
         Swal.fire({
           position: 'top',
