@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-income',
@@ -12,25 +13,51 @@ export class IncomeComponent implements OnInit {
   datapie: any;
   chartOptionspie: any;
 
-  datadoughtnut1: any;
-  chartOptionsdoughtnut1: any;
+  doughtnutType: any;
+  optionsdoughtnutType: any;
 
-  datadoughtnut2: any;
-  chartOptionsdoughtnut2: any;
-  constructor() {}
+  doughtnutFood: any;
+  optionsdoughtnutFood: any;
+
+  besttype: any
+  besttypeArr: string[] = []
+  bestfood: any
+  bestfoodArr: string[] = []
+  income: any
+  
+  constructor(private callOrderApi: OrderService) {}
 
   ngOnInit(): void {
-    this.barChart();
-    this.pieChart();
-    this.doughtnutChart1();
-    this.doughtnutChart2();
+    this.getDataDashboardAll()
+    this.barChart()
+    this.pieChart()
+    this.doughtnutChartType()
+    this.doughtnutChartFood()
+  }
+
+  public async getDataDashboardAll(){
+    await this.callOrderApi.IncomeMonth().toPromise().then(data => {
+      this.income = data;
+    })
+    await this.callOrderApi.GetBestFood().toPromise().then(data => {
+      this.bestfood = data
+      for(let i = 0; i < this.bestfood.length; i++){
+        this.bestfoodArr.push(this.bestfood[i].totalAmount)
+      }
+    })
+    await this.callOrderApi.GetBestType().toPromise().then(data => {
+      this.besttype = data
+      for(let i = 0; i < this.besttype.length; i++){
+        this.besttypeArr.push(this.besttype[i].totalAmount)
+      }
+    })
   }
 
   pieChart() {
     this.datapie = {
       datasets: [
         {
-          data: [300, 50, 100],
+          data: [90, 10],
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
           hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
         },
@@ -46,17 +73,17 @@ export class IncomeComponent implements OnInit {
       },
     };
   }
-  doughtnutChart1() {
-    this.datadoughtnut1 = {
+  doughtnutChartType() {
+    this.doughtnutType = {
       datasets: [
         {
-          data: [300, 50, 100, 120, 40],
+          data: this.besttypeArr,
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
           hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
         },
       ],
     };
-    this.chartOptionsdoughtnut1 = {
+    this.optionsdoughtnutType = {
       plugins: {
         legend: {
           labels: {
@@ -66,17 +93,17 @@ export class IncomeComponent implements OnInit {
       },
     };
   }
-  doughtnutChart2() {
-    this.datadoughtnut2 = {
+  doughtnutChartFood() {
+    this.doughtnutFood = {
       datasets: [
         {
-          data: [120, 70, 150, 20, 40],
+          data: this.bestfoodArr,
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
           hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
         },
       ],
     };
-    this.chartOptionsdoughtnut2 = {
+    this.optionsdoughtnutFood = {
       plugins: {
         legend: {
           labels: {
@@ -89,7 +116,7 @@ export class IncomeComponent implements OnInit {
 
   barChart() {
     this.multiAxisData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
         {
           label: 'Dataset 1',
@@ -103,7 +130,7 @@ export class IncomeComponent implements OnInit {
             '#26A69A',
           ],
           yAxisID: 'y',
-          data: [65, 59, 80, 81, 56, 55, 10],
+          data: [65, 59, 80, 81, 56, 55, 10, 80, 81, 56, 55, 10],
         },
       ],
     };

@@ -97,24 +97,19 @@
             <div class="row">
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
-                    <div class="text-title">200 บิล</div>
+                    <div class="text-title">100 บิล</div>
                     <p-chart type="doughnut" [data]="datapie" [options]="chartOptionspie"></p-chart>
                 </div>
                 <div class="col detail-bill">
                     <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ทานที่ร้าน</div>
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color:#36A2EB"></i> สำเร็จ</div>
                         <div class="text-title">90 บิล</div>
                         <div class="text-title">72,000 บาท</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ซื้อกลับบ้าน</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> เดลิเวอรี่</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ไม่สำเร็จ</div>
+                        <div class="text-title">10 บิล</div>
+                        <div class="text-title">2,000 บาท</div>
                     </div>
                 </div>
             </div>
@@ -131,24 +126,12 @@
             <div class="row">
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
-                    <div class="text-title">200 รายการ</div>
-                    <p-chart type="pie" [data]="datadoughtnut1" [options]="chartOptionsdoughtnut1"></p-chart>
+                    <div class="text-title">{{besttype.length}} รายการ</div>
+                    <p-chart type="pie" [data]="doughtnutType" [options]="optionsdoughtnutType"></p-chart>
                 </div>
                 <div class="col mt-auto mb-auto">
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FF6384"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #AB47BC"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #66BB6A"></i> อาหารจานเดียว คิดเป็น 45% มูลค่า 4,000 บาท</div>
+                    <div class="text-left" *ngFor="let item of besttype">
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice}} บาท</div>
                     </div>
                 </div>
             </div>
@@ -163,24 +146,12 @@
             <div class="row">
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
-                    <div class="text-title">200 รายการ</div>
-                    <p-chart type="pie" [data]="datadoughtnut2" [options]="chartOptionsdoughtnut2"></p-chart>
+                    <div class="text-title">{{bestfood.length}} รายการ</div>
+                    <p-chart type="pie" [data]="doughtnutFood" [options]="optionsdoughtnutFood"></p-chart>
                 </div>
                 <div class="col mt-auto mb-auto">
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ข้าวผัด คิดเป็น 45% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #36A2EB"></i> ยำมาม่า คิดเป็น 25% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #FFCE56"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #AB47BC"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-menu"><i class="pi pi-circle-fill" style="color: #66BB6A"></i> ต้มยำกุ้ง คิดเป็น 30% มูลค่า 4,000 บาท</div>
+                    <div class="text-left" *ngFor="let item of bestfood">
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice}} บาท</div>
                     </div>
                 </div>
             </div>
