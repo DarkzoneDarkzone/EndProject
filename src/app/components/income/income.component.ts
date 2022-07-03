@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
+import { UIChart } from 'primeng/chart';
+
 
 @Component({
   selector: 'app-income',
@@ -7,16 +9,16 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./income.component.css'],
 })
 export class IncomeComponent implements OnInit {
-  multiAxisData: any;
-  multiAxisOptions: any;
+  lineData: any = [];
+  lineOption: any;
 
-  datapie: any;
+  datapie: any = [];
   chartOptionspie: any;
 
-  doughtnutType: any;
+  doughtnutType: any = [];
   optionsdoughtnutType: any;
 
-  doughtnutFood: any;
+  doughtnutFood: any = [];
   optionsdoughtnutFood: any;
 
   besttype: any
@@ -24,30 +26,37 @@ export class IncomeComponent implements OnInit {
   bestfood: any
   bestfoodArr: string[] = []
   income: any
-  
-  constructor(private callOrderApi: OrderService) {}
+
+  income_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0]
+
+  constructor(private callOrderApi: OrderService) { }
 
   ngOnInit(): void {
     this.getDataDashboardAll()
-    this.barChart()
     this.pieChart()
     this.doughtnutChartType()
     this.doughtnutChartFood()
+    this.lineChart()
   }
 
-  public async getDataDashboardAll(){
+  public async getDataDashboardAll() {
     await this.callOrderApi.IncomeMonth().toPromise().then(data => {
       this.income = data;
+      for (let i = 0; i < this.income.length; i++) {
+        let month = new Date(this.income[i].creationDatetime).getMonth()
+        this.income_month[month] += this.income[i].priceTotal
+      }
+      this.lineData.refresh()
     })
     await this.callOrderApi.GetBestFood().toPromise().then(data => {
       this.bestfood = data
-      for(let i = 0; i < this.bestfood.length; i++){
+      for (let i = 0; i < this.bestfood.length; i++) {
         this.bestfoodArr.push(this.bestfood[i].totalAmount)
       }
     })
     await this.callOrderApi.GetBestType().toPromise().then(data => {
       this.besttype = data
-      for(let i = 0; i < this.besttype.length; i++){
+      for (let i = 0; i < this.besttype.length; i++) {
         this.besttypeArr.push(this.besttype[i].totalAmount)
       }
     })
@@ -114,62 +123,49 @@ export class IncomeComponent implements OnInit {
     };
   }
 
-  barChart() {
-    this.multiAxisData = {
+  lineChart() {
+    this.lineData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
         {
           label: 'Dataset 1',
-          backgroundColor: [
-            '#EC407A',
-            '#AB47BC',
-            '#42A5F5',
-            '#7E57C2',
-            '#66BB6A',
-            '#FFCA28',
-            '#26A69A',
-          ],
+          fill: false,
+          borderColor: '#42A5F5',
           yAxisID: 'y',
-          data: [65, 59, 80, 81, 56, 55, 10, 80, 81, 56, 55, 10],
+          tension: .4,
+          data: this.income_month
         },
       ],
     };
 
-    this.multiAxisOptions = {
+    this.lineOption = {
+      stacked: false,
       plugins: {
         legend: {
-          labels: {
-            color: '#495057',
-          },
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: true,
-        },
+          display: false
+        }
       },
       scales: {
         x: {
           ticks: {
-            color: '#495057',
+            color: '#495057'
           },
           grid: {
-            color: '#ebedef',
-          },
+            color: '#ebedef'
+          }
         },
         y: {
           type: 'linear',
           display: true,
           position: 'left',
           ticks: {
-            min: 0,
-            max: 100,
-            color: '#495057',
+            color: '#495057'
           },
           grid: {
-            color: '#ebedef',
-          },
+            color: '#ebedef'
+          }
         },
-      },
+      }
     };
   }
 }

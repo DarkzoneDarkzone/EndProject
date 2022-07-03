@@ -21,9 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { AccordionModule } from 'primeng/accordion'; //accordion and accordion tab
 import { MenuItem } from 'primeng/api'; //api
-import { ChartModule } from 'primeng/chart';
+import { ChartModule, UIChart } from 'primeng/chart';
 import { OrderChefComponent } from './components/order-chef/order-chef.component';
-
 @NgModule({
   declarations: [
     AppComponent,
