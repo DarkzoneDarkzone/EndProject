@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { AccordionModule } from 'primeng/accordion'; //accordion and accordion t
 import { MenuItem } from 'primeng/api'; //api
 import { ChartModule, UIChart } from 'primeng/chart';
 import { OrderChefComponent } from './components/order-chef/order-chef.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,9 @@ import { OrderChefComponent } from './components/order-chef/order-chef.component
     Ng2SearchPipeModule,
     AccordionModule,
     ChartModule,
+    NgxSpinnerModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
 })

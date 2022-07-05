@@ -25,4 +25,8 @@ export class FoodService {
   public EditFood(id: string, food: food){
     return this.http.put<food>(`${environment.apiUrl}Food/EditFood/${id}`, food);
   }
+
+  public TotalFood(){
+    return this.http.get(`${environment.apiUrl}Food/GetTotalFood`);
+  }
 }

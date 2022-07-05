@@ -1,38 +1,36 @@
 <!-- <qrcode [qrdata]="'http://www.google.com/'+5" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
 <div *ngIf="status_login != null" class="d-flex" id="wrapper">
   <!-- Sidebar -->
-  <div class="bg-dark border-dark" id="sidebar-wrapper">
+  <div class="bg-dark border-dark" id="sidebar-wrapper" style="position: relative;">
     <div class="sidebar-heading">
-      <img src="../assets/image/20cafe.png" class="photo" alt="">
+      <img src="../assets/image/pngtree-coffee.jpg" class="photo" alt="">
     </div>
     <div class="text-center">
       ---การขาย---
     </div>
     <div class="list-group list-group-flush mb-3">
-      <a routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">
-        <div class="form-inline">
-          <div class="">สั่งอาหาร</div>
-        </div>
-      </a>
-      <a routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
-      <a routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ (for chef)</a>
-      <a routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
+      <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
+      <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
+      <a *ngIf="position == 'manager' || position == 'chef'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ (for chef)</a>
+      <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
     </div>
     <div class="text-center">
       ---การจัดการ---
     </div>
     <div class="list-group list-group-flush mb-3">
-      <a routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
-      <a routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
-      <a routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for
-        manager)</a>
-      <a routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
+      <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+      <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
+      <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
+      <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
     </div>
     <div class="text-center">
       ---รายงาน---
     </div>
     <div class="list-group list-group-flush mb-3">
-      <a routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
+      <a *ngIf="position == 'manager'" routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
+    </div>
+    <div class="list-group list-group-flush mb-3" style="position: absolute; bottom: 0">
+      <button type="button" class="btn btn-outline-warning" style="margin-inline: 2rem;" (click)="onSignOut()">ออกจากระบบ</button>
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
@@ -110,7 +108,8 @@
         </div>
         <div class="card-footer">
           <div class="d-flex justify-content-center links">
-            มีบัญชีผู้ใช้แล้ว?<a style="cursor: pointer; text-decoration: underline;" (click)="changeForm()">เข้าสู่ระบบ</a>
+            มีบัญชีผู้ใช้แล้ว?<a style="cursor: pointer; text-decoration: underline;"
+              (click)="changeForm()">เข้าสู่ระบบ</a>
           </div>
         </div>
       </div>

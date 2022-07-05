@@ -61,9 +61,14 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   getOrderById(id:string){
-    this.callapi.GetOrderById(id).subscribe(od => {
-      this.patchValueFormShow(od);      
+    this.formOrderShow.find((e: any) => {
+      if(e.order_id == id){
+        this.formOrderShowById = e
+      }
     })
+    // this.callapi.GetOrderById(id).subscribe(od => {
+    //   this.patchValueFormShow(od);      
+    // })
   }
 
   changeStatusOrder(id: string,status: string){
