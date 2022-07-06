@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { promotion } from 'src/app/models/promotion';
 import { PromotionService } from 'src/app/services/promotion.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-promotion',
@@ -16,7 +17,11 @@ export class PromotionComponent implements OnInit {
   formShowPromotion: any;
   formEditPromotion: any;
 
-  constructor(public callapiPro: PromotionService, public fb: FormBuilder) {
+  constructor(
+    public callapiPro: PromotionService, 
+    public fb: UntypedFormBuilder,
+    private spinner: NgxSpinnerService
+  ){
       this.formCreatePromotion = this.fb.group({
         promotion_id: null,
         promotion_name: null,
@@ -36,7 +41,12 @@ export class PromotionComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    // this.spinner.show();
     this.getPromotionManage();
+    // setTimeout(() => {
+    //   /** spinner ends after 5 seconds */
+    //   this.spinner.hide();
+    // }, 1000);
   }
 
   getPromotionManage(){

@@ -12,16 +12,12 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class IncomeComponent implements OnInit {
   lineData: any = [];
   lineOption: any;
-
   datapie: any = [];
   chartOptionspie: any;
-
   doughtnutType: any = [];
   optionsdoughtnutType: any;
-
   doughtnutFood: any = [];
   optionsdoughtnutFood: any;
-
   besttype: any
   besttypeArr: any[] = []
   bestfood: any
@@ -30,23 +26,28 @@ export class IncomeComponent implements OnInit {
   totalIncome: any = 0
   totalEmp: any
   totalFood: any
-
   income_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   this_month: any = new Date().getMonth()
+  order_success: any = 0
+  order_unsuccess: any = 0
+  order_success_price: any = 0
+  order_unsuccess_price: any = 0
 
-  constructor(private callOrderApi: OrderService, private callEmpApi: EmployeeService, private callFoodApi: FoodService, private spinner: NgxSpinnerService) {
-   }
+  constructor(
+    private callOrderApi: OrderService, 
+    private callEmpApi: EmployeeService, 
+    private callFoodApi: FoodService, 
+    private spinner: NgxSpinnerService
+  ){}
 
   ngOnInit(): void {
     this.spinner.show();
     this.getDataDashboardAll()
-    this.pieChart()
     this.doughtnutChartType()
     this.doughtnutChartFood()
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
       this.spinner.hide();
-    }, 5000);
+    }, 2000);
   }
 
   public async getDataDashboardAll() {
@@ -58,6 +59,18 @@ export class IncomeComponent implements OnInit {
         this.totalIncome += this.income[i].priceTotal
       }
       this.lineChart()
+    })
+    await this.callOrderApi.GetOrder().toPromise().then((data: any) => {
+      for (let i = 0; i < data.length; i++) {
+        if(data[i].status == "success"){
+          this.order_success += 1
+          this.order_success_price += data[i].priceTotal
+        } else {
+          this.order_unsuccess += 1
+          this.order_unsuccess_price += data[i].priceTotal
+        }
+      }
+      this.pieChart()
     })
     await this.callOrderApi.GetBestFood().toPromise().then(data => {
       this.bestfood = data
@@ -83,9 +96,9 @@ export class IncomeComponent implements OnInit {
     this.datapie = {
       datasets: [
         {
-          data: [90, 10],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          data: [this.order_success, this.order_unsuccess],
+          backgroundColor: ['#36A2EB', '#FF6384'],
+          hoverBackgroundColor: ['#36A2EB', '#FF6384'],
         },
       ],
     };

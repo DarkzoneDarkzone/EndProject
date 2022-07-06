@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-order-chef',
@@ -11,10 +12,15 @@ export class OrderChefComponent implements OnInit {
   @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
   formOrderShow: any;
   formOrderShowById: any;
-  constructor(public callapi: OrderService) { }
+    constructor(public callapi: OrderService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    // this.spinner.show();
     this.getOrderAll();
+    // setTimeout(() => {
+    //   /** spinner ends after 5 seconds */
+    //   this.spinner.hide();
+    // }, 1000);
   }
 
   getOrderAll(){

@@ -10,19 +10,42 @@ import { ManageTableComponent } from './components/manage-table/manage-table.com
 import { IncomeComponent } from './components/income/income.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { OrderChefComponent } from './components/order-chef/order-chef.component';
-
+import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.component';
+import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
+import { MenuComponent } from './components-mobile/menu/menu.component';
+import { IndexComponent } from './components-mobile/index/index.component';
+import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
+import { BillComponent } from './components-mobile/bill/bill.component';
 
 const routes: Routes = [
-  {path: '', component: MainEmployeeComponent},
-  {path: 'mainEmployee', component: MainEmployeeComponent},
-  {path: 'order', component: OrderComponent},
-  {path: 'orderHistory', component: OrderHistoryComponent},
-  {path: 'manageFood', component: ManageFoodComponent},
-  {path: 'manageEmployee', component: ManageEmployeeComponent},
-  {path: 'manageTable', component: ManageTableComponent},
-  {path: 'income', component: IncomeComponent},
-  {path: 'promotion', component: PromotionComponent},
-  {path: 'orderChef', component: OrderChefComponent},
+  { 
+    path: 'mobile', 
+    component: MobileLayoutComponent,
+    children: [
+      { path: '', component: MenuComponent, pathMatch: 'full'},
+      {path:'index', component:IndexComponent},
+      {path:'menu',component:MenuComponent},
+      {path:'order',component:OrderComponent},
+      {path:'service',component:CallServiceComponent},
+      {path:'bill',component:BillComponent}
+    ]
+  },
+  {
+    path: '',
+    component: SystemLayoutComponent,
+    children: [
+      {path: '', component: MainEmployeeComponent},
+      {path: 'mainEmployee', component: MainEmployeeComponent},
+      {path: 'order', component: OrderComponent},
+      {path: 'orderHistory', component: OrderHistoryComponent},
+      {path: 'manageFood', component: ManageFoodComponent},
+      {path: 'manageEmployee', component: ManageEmployeeComponent},
+      {path: 'manageTable', component: ManageTableComponent},
+      {path: 'income', component: IncomeComponent},
+      {path: 'promotion', component: PromotionComponent},
+      {path: 'orderChef', component: OrderChefComponent},
+    ]
+  }
 ];
 
 @NgModule({

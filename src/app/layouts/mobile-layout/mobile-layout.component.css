@@ -1,0 +1,31 @@
+.nav-link {
+    color: black;
+}
+
+.nav-item {
+    width: 25%;
+    color: black;
+}
+
+.item-main {
+    color: black;
+}
+
+.nav .row {
+    width: 100%;
+}
+
+.nav {
+    border-top: 1px solid rgb(187, 185, 185, 2);
+    border-bottom: 1px solid rgb(187, 185, 185, 2);
+    opacity: 0.8;
+    background: rgba(187, 185, 185, 0.7);
+    padding: 10px;
+    margin: auto;
+    height: 10vh;
+}
+
+.card-body {
+    padding-bottom: 12vh;
+    padding-top: 11vh;
+}

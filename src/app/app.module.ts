@@ -20,10 +20,15 @@ import { IncomeComponent } from './components/income/income.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { AccordionModule } from 'primeng/accordion'; //accordion and accordion tab
-import { MenuItem } from 'primeng/api'; //api
 import { ChartModule, UIChart } from 'primeng/chart';
 import { OrderChefComponent } from './components/order-chef/order-chef.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.component';
+import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
+import { BillComponent } from './components-mobile/bill/bill.component';
+import { IndexComponent } from './components-mobile/index/index.component';
+import { MenuComponent } from './components-mobile/menu/menu.component';
+import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +41,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
     IncomeComponent,
     PromotionComponent,
     OrderChefComponent,
+    MobileLayoutComponent,
+    SystemLayoutComponent,
+    BillComponent,
+    IndexComponent,
+    MenuComponent,
+    CallServiceComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,26 @@
+.card-header {
+    background-color: rgb(104, 100, 104);
+    text-align: center;
+}
+
+.card-body {
+    background-color: rgb(82, 77, 82);
+    text-align: center;
+    padding: 0;
+    height: 760px;
+}
+
+.card-title {
+    background-color: rgb(255, 115, 0);
+    text-align: left;
+    font-size: large;
+}
+
+.card-text {
+    color: #fff;
+    margin-top: 50px;
+}
+
+.card {
+    border: none;
+}

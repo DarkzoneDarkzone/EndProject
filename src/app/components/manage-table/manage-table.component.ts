@@ -1,9 +1,10 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { table } from 'src/app/models/table';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-manage-table',
@@ -16,7 +17,12 @@ export class ManageTableComponent implements OnInit {
   formShowTable: any;
   formEditTable: any;
 
-  constructor(public fb: FormBuilder, public callapi: TableService) {
+  constructor(
+    public fb: UntypedFormBuilder,
+    public callapi: TableService,
+    private spinner: NgxSpinnerService
+
+  ){
     this.formCreateTable = this.fb.group({
       table_id: null,
       table_NO: null,
@@ -32,7 +38,12 @@ export class ManageTableComponent implements OnInit {
    }
   
   ngOnInit(): void {
+    // this.spinner.show();
     this.getAllTable();
+    // setTimeout(() => {
+    //   /** spinner ends after 5 seconds */
+    //   this.spinner.hide();
+    // }, 1000);
   }
 
   getAllTable(){

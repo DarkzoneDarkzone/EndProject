@@ -118,5 +118,7 @@
             }
         }
     },
-    "defaultProject": "ProjectCafe"
+    "cli": {
+      "analytics": "c951325e-eb3f-40b6-9487-2f776d7ec879"
+    }
 }

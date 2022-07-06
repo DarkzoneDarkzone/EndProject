@@ -1,5 +1,4 @@
 <div class="row mt-3">
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
@@ -10,14 +9,13 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalIncome}}$</div>
                     </div>
                     <div class="col-auto">
-                        <i class="pi pi-calendar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                        <i class="pi pi-chart-bar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Earnings (Annual) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
@@ -45,14 +43,13 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalEmp}} คน</div>
                     </div>
                     <div class="col-auto">
-                        <i class="pi pi-dollar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                        <i class="pi pi-user" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Pending Requests Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
@@ -63,7 +60,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalFood}} รายการ</div>
                     </div>
                     <div class="col-auto">
-                        <i class="pi pi-comments" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                        <i class="pi pi-list" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
             </div>
@@ -82,24 +79,24 @@
         <div class="card card-doughnut">
             <div class="card-header">
                 <div class="text-title">บิล</div>
-                <button class="btn btn-success">ดูเพิ่มเติม</button>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
             </div>
             <div class="row">
                 <div class="col-4 text-center all-bill">
                     <div class="text-title">ทั้งหมด</div>
-                    <div class="text-title">100 บิล</div>
+                    <div class="text-title">{{order_success+order_unsuccess}} บิล</div>
                     <p-chart type="doughnut" [data]="datapie" [options]="chartOptionspie"></p-chart>
                 </div>
                 <div class="col detail-bill">
                     <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color:#36A2EB"></i> สำเร็จ</div>
-                        <div class="text-title">90 บิล</div>
-                        <div class="text-title">72,000 บาท</div>
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color:#36A2EB"></i> สำเร็จ ({{order_success/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
+                        <div class="text-title">{{order_success}} บิล</div>
+                        <div class="text-title">{{order_success_price}} บาท</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ไม่สำเร็จ</div>
-                        <div class="text-title">10 บิล</div>
-                        <div class="text-title">2,000 บาท</div>
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ไม่สำเร็จ ({{order_unsuccess/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
+                        <div class="text-title">{{order_unsuccess}} บิล</div>
+                        <div class="text-title">{{order_unsuccess_price}} บาท</div>
                     </div>
                 </div>
             </div>
@@ -111,7 +108,7 @@
         <div class="card card-pie" *ngIf="besttype">
             <div class="card-header">
                 <div class="text-title">ประเภทขายดี</div>
-                <button class="btn btn-success">ดูเพิ่มเติม</button>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
             </div>
             <div class="row">
                 <div class="col-4 text-center all-bill">
@@ -131,7 +128,7 @@
         <div class="card card-pie" *ngIf="bestfood">
             <div class="card-header">
                 <div class="text-title">เมนูอาหารขายดี</div>
-                <button class="btn btn-success">ดูเพิ่มเติม</button>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
             </div>
             <div class="row">
                 <div class="col-4 text-center all-bill">
@@ -148,5 +145,3 @@
         </div>
     </div>
 </div>
-<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->

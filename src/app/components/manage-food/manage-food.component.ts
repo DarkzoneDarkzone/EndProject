@@ -1,11 +1,12 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { food } from 'src/app/models/food';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-manage-food',
@@ -15,12 +16,7 @@ import Swal from 'sweetalert2';
 export class ManageFoodComponent implements OnInit {
   @ViewChild('closebuttonCreateFood') closebuttonCreateFood: any;
   @ViewChild('closebuttonEditFood') closebuttonEditFood: any;
-
-
- tid: any;
-
-
-
+  tid: any;
   formCreateFood: any;
   formEditFood: any;
   formType: any;
@@ -35,7 +31,14 @@ export class ManageFoodComponent implements OnInit {
   img_edit: any;
   img_add: any;
 
-  constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService, public callapitype: TypeFoodService) { 
+  constructor(
+    public fb: UntypedFormBuilder, 
+    public http: HttpClient, 
+    public callapi: FoodService, 
+    public callapitype: TypeFoodService,
+    private spinner: NgxSpinnerService
+
+  ){ 
     this.formCreateFood = this.fb.group({
       food_id: [null],
       name: [null,[Validators.required]],
@@ -64,8 +67,13 @@ export class ManageFoodComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.spinner.show();
     this.getFood();
     this.getTypeData();
+    // setTimeout(() => {
+    //   /** spinner ends after 5 seconds */
+    //   this.spinner.hide();
+    // }, 1000);
   }
 
   // for images 

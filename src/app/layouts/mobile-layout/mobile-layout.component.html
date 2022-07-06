@@ -1,0 +1,54 @@
+<!-- header -->
+<div class="nav fixed-top justify-content-center text-center">
+    <div class="row">
+        <div class="col pl-0">
+            <button type="button" class="btn float-left btn-outline-danger material-icons">arrow_back</button>
+        </div>
+        <div class="col m-auto">
+            <div class="form-inline">
+                <div class="material-icons m-auto">
+                    living
+                </div>
+                <div class="m-auto">
+                    <h1 class="m-auto">โต๊ะ</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col pr-0">
+            <button type="button" class="btn float-right btn-outline-danger material-icons">local_grocery_store</button>
+        </div>
+    </div>
+</div>
+
+<!-- show -->
+<div class="card-body">
+    <router-outlet></router-outlet>
+</div>
+
+<!-- footer -->
+<ul class="nav justify-content-center fixed-bottom text-center">
+    <li class="nav-item">
+        <div class="item-main" routerLink="menu">
+            <span class="material-icons">restaurant</span>
+            <h4>เมนูอาหาร</h4>
+        </div>
+    </li>
+    <li class="nav-item">
+        <div class="item-main" routerLink="order">
+            <span class="material-icons"> format_list_bulleted</span>
+            <h4>รายการที่สั่ง</h4>
+        </div>
+    </li>
+    <li class="nav-item">
+        <div class="item-main" routerLink="service">
+            <span class="material-icons"> notifications</span>
+            <h4>เรียกพนักงาน</h4>
+        </div>
+    </li>
+    <li class="nav-item">
+        <div class="item-main" routerLink="bill">
+            <span class="material-icons">assignment_turned_in </span>
+            <h4>ชำระเงิน</h4>
+        </div>
+    </li>
+</ul>

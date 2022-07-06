@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { food } from 'src/app/models/food';
 import { order } from 'src/app/models/order';
 import { FoodService } from 'src/app/services/food.service';
@@ -8,6 +8,7 @@ import { PromotionService } from 'src/app/services/promotion.service';
 import { TableService } from 'src/app/services/table.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-main-employee',
@@ -38,7 +39,14 @@ export class MainEmployeeComponent implements OnInit {
   formPromotion: any;
   tableAll: any;
 
-  constructor(public fb: FormBuilder, public callapiFood: FoodService, public callapiTable: TableService,  public callapi: OrderService, public callapipro: PromotionService) {
+  constructor(
+    public fb: UntypedFormBuilder, 
+    public callapiFood: FoodService, 
+    public callapiTable: TableService,  
+    public callapi: OrderService, 
+    public callapipro: PromotionService, 
+    private spinner: NgxSpinnerService
+  ){
     this.formCreateOrder = this.fb.group({
       order_id: null,
       table_NO: [null],
@@ -64,10 +72,14 @@ export class MainEmployeeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.getOrderAll();
     this.getFood();
     this.getPromotionAll();
     this.getTableAll()
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 
   getOrderAll(): void {
