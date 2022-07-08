@@ -180,10 +180,18 @@ select {
 }
 
 .col-side {
-    width: 30%;
     max-height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28%;
 }
 
 .card.h-30 {
     box-shadow: 0 0 2px 0 darkgrey;
+}
+
+.food {
+    position: absolute;
+    width: 72%;
 }

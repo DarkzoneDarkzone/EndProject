@@ -6,7 +6,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             รายได้ทั้งหมด</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalIncome}}$</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalIncome|currency:"":""}} บาท</div>
                     </div>
                     <div class="col-auto">
                         <i class="pi pi-chart-bar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
@@ -23,7 +23,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             รายได้เดือนนี้</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{income_month[this_month]}}$</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{income_month[this_month]|currency:"":""}} บาท</div>
                     </div>
                     <div class="col-auto">
                         <i class="pi pi-dollar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
@@ -91,12 +91,12 @@
                     <div class="text-center">
                         <div class="text-title"><i class="pi pi-circle-fill" style="color:#36A2EB"></i> สำเร็จ ({{order_success/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
                         <div class="text-title">{{order_success}} บิล</div>
-                        <div class="text-title">{{order_success_price}} บาท</div>
+                        <div class="text-title">{{order_success_price|currency:"":""}} บาท</div>
                     </div>
                     <div class="text-center">
                         <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ไม่สำเร็จ ({{order_unsuccess/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
                         <div class="text-title">{{order_unsuccess}} บิล</div>
-                        <div class="text-title">{{order_unsuccess_price}} บาท</div>
+                        <div class="text-title">{{order_unsuccess_price|currency:"":""}} บาท</div>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col mt-auto mb-auto" *ngIf="besttype">
                     <div class="text-left" *ngFor="let item of besttype">
-                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice}} บาท</div>
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice|currency:"":""}} บาท</div>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="col mt-auto mb-auto" *ngIf="bestfood">
                     <div class="text-left" *ngFor="let item of bestfood">
-                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice}} บาท</div>
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice|currency:"":""}} บาท</div>
                     </div>
                 </div>
             </div>
