@@ -2,13 +2,11 @@
     margin: 0;
     background-color: rgb(231, 231, 231);
     width: 100%;
-    height: 100vh;
-    overflow-y: hidden;
-}
-
-#wrapper {
+    height: 100%;
+    overflow: auto;
     position: relative;
 }
+
 
 body {
     overflow-x: hidden;
@@ -16,7 +14,6 @@ body {
 
 #sidebar-wrapper {
     min-height: 100vh;
-    margin-left: -15rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
@@ -43,10 +40,11 @@ body {
 }
 
 #page-content-wrapper {
-    position: absolute;
+    position: relative;
     left: 19%;
     width: 81% !important;
-    overflow: hidden;
+    overflow: auto;
+    height: 100vh;
 }
 
 #wrapper.toggled #sidebar-wrapper {

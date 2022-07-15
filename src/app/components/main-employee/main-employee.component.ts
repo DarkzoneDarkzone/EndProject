@@ -23,10 +23,9 @@ export class MainEmployeeComponent implements OnInit {
   @ViewChild('closebuttonShowPromotion') closebuttonShowPromotion: any;
 
   formCreateOrder: any;
-
-
   showFood: any;
   typeSearch: any;
+  wordTypeSearch: any;
   arrayFood : food[] = [];
   submitCreate: boolean = false;
   idShow: any;
@@ -34,11 +33,12 @@ export class MainEmployeeComponent implements OnInit {
   valuePromotion: any = 0;
   netPrice: any;
   formShowPromotion: any;
+  recommend:any 
 
   amountt: number = 0;
   formPromotion: any;
   tableAll: any;
-
+  besttype: any
   constructor(
     public fb: UntypedFormBuilder, 
     public callapiFood: FoodService, 
@@ -49,9 +49,9 @@ export class MainEmployeeComponent implements OnInit {
   ){
     this.formCreateOrder = this.fb.group({
       order_id: null,
-      table_NO: [null],
+      table_NO: [null, [Validators.required]],//
+      number: [null, [Validators.required]],//
       typeOrder: [null],
-      number: [null],
       priceTotal: null,
       foodList: [{
         food_id: null,
@@ -73,6 +73,7 @@ export class MainEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
+    this.getBestType()
     this.getOrderAll();
     this.getFood();
     this.getPromotionAll();
@@ -82,9 +83,18 @@ export class MainEmployeeComponent implements OnInit {
     }, 2000);
   }
 
+  filterType(word: any){
+    this.wordTypeSearch = word
+  }
+
+  async getBestType(){
+    this.callapi.GetBestType().toPromise().then(data => {
+      this.besttype = data
+    })
+  }
+
   getOrderAll(): void {
     this.callapi.GetOrder().subscribe(data => {
-      // var dataReceive = data;
       this.idShow = data;
       this.idShow = "Order0"+this.idShow.length;
     })
@@ -131,15 +141,17 @@ export class MainEmployeeComponent implements OnInit {
     this.callapiFood.GetFoodById(id).subscribe( food => {
       food.amount = 1;
       this.arrayFood.push(food);
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'เพิ่มรายการอาหารแล้ว',
-        showConfirmButton: false,
-        timer: 700
-      })
       this.calculatePrice();
     })
+  }
+
+  removeFoodFromArray(id: string){
+      this.arrayFood.forEach((data: any, index: any) => {
+        if(data.food_id == id){
+          this.arrayFood.splice(index, 1)
+        }
+      })
+      this.calculatePrice();
   }
 
   addFoodAmount(id: string){
@@ -148,13 +160,31 @@ export class MainEmployeeComponent implements OnInit {
         this.callapiFood.GetFoodById(id).subscribe( food => {
           this.arrayFood[i].amount += 1;
           this.arrayFood[i].price += food.price;
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'สั่งรายการอาหารเพิ่มแล้ว',
-            showConfirmButton: false,
-            timer: 700
-          })
+          this.calculatePrice();
+        })
+      }
+    }
+  }
+
+  removeFoodAmount(id: string){
+    for(let i = 0; i < this.arrayFood.length; i++){
+      if(this.arrayFood[i].food_id == id){
+        this.callapiFood.GetFoodById(id).subscribe( food => {
+          if(this.arrayFood[i].amount == 1){
+            Swal.fire({
+              title: 'ต้องการนำสินค้าออกหรือไม่?',
+              confirmButtonText: 'ต้องการ',
+              showCancelButton: true,
+              cancelButtonText: 'ไม่ต้องการ'
+            }).then((e) => {
+              if(e.isConfirmed){
+                this.removeFoodFromArray(this.arrayFood[i].food_id)
+              }
+            })
+          } else {
+            this.arrayFood[i].amount -= 1;
+            this.arrayFood[i].price -= food.price;
+          }
           this.calculatePrice();
         })
       }
@@ -232,6 +262,8 @@ export class MainEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
+        this.formCreateOrder.value = ''
+        this.totalPrice = 0
         this.arrayFood = [];
         this.getOrderAll();
       });

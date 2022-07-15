@@ -74,6 +74,12 @@ input:checked+.slider:before {
     box-shadow: 0 0 2px 0 darkgrey;
 }
 
+.card-body h3.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 /* Rounded sliders */
 

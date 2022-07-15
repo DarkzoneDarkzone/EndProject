@@ -118,7 +118,7 @@
                 </div>
                 <div class="col mt-auto mb-auto" *ngIf="besttype">
                     <div class="text-left" *ngFor="let item of besttype">
-                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice|currency:"":""}} บาท</div>
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} {{item.totalPrice|currency:"":""}} บาท</div>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="col mt-auto mb-auto" *ngIf="bestfood">
                     <div class="text-left" *ngFor="let item of bestfood">
-                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} คิดเป็น {{item.rate}}% มูลค่า {{item.totalPrice|currency:"":""}} บาท</div>
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} {{item.totalPrice|currency:"":""}} บาท</div>
                     </div>
                 </div>
             </div>
