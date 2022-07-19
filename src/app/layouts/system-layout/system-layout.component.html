@@ -19,6 +19,7 @@
       </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+        <a *ngIf="position == 'manager'" routerLink="manageTypefood" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
         <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
         <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
         <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>

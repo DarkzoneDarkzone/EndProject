@@ -7,12 +7,12 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="ค้นหา" [(ngModel)]="typeSearch"
                     aria-label="Search">
                 <div class="btn-group-toggle form-inline" data-toggle="buttons">
-                    <label class="btn btn-outline-secondary mr-2">
+                    <label class="btn btn-outline-secondary mr-2 active">
                         <input type="radio" class="btn-check" (click)="filterType('')" name="options-outlined" checked
                             autocomplete="off"> ทั้งหมด
                     </label>
                     <label class="btn btn-outline-secondary mr-2">
-                        <input type="radio" class="btn-check" (click)="filterType('')" name="options-outlined"
+                        <input type="radio" class="btn-check" (click)="filterType('recommend')" name="options-outlined"
                             autocomplete="off"> เมนูแนะนำ
                     </label>
                     <label class="btn btn-outline-secondary mr-2" *ngFor="let data of besttype">
@@ -25,7 +25,7 @@
         <div class="row p-3">
             <div class="col col-show">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
-                    <div class="col mb-3" *ngFor="let data of showFood | filter: typeSearch || wordTypeSearch || recommend">
+                    <div class="col mb-3" *ngFor="let data of foodFilter | filter: typeSearch | filter: wordTypeSearch">
                         <div class="card h-30">
                             <span *ngIf="data.recommend" class="material-icons text-white" style="position: absolute;background-color: #28a745;">star</span>
                             <img *ngIf="data.imgPath != null || data.imgPath != undefined"
@@ -154,12 +154,12 @@
                     <div class="col pr-1">
                         <button type="button" class="btn btn-warning order" data-toggle="modal"
                             data-target="#promotionModal">
-                            <h2>โปรโมชั่น</h2>
+                            <h2 class="my-auto">โปรโมชั่น</h2>
                         </button>
                     </div>
                     <div class="col pl-1">
                         <button type="button" class="btn btn-success order" (click)="createOrder()">
-                            <h2>สั่งอาหาร</h2>
+                            <h2 class="my-auto">สั่งอาหาร</h2>
                         </button>
                     </div>
                 </div>

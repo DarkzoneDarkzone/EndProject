@@ -29,6 +29,7 @@ import { BillComponent } from './components-mobile/bill/bill.component';
 import { IndexComponent } from './components-mobile/index/index.component';
 import { MenuComponent } from './components-mobile/menu/menu.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
+import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { CallServiceComponent } from './components-mobile/call-service/call-serv
     IndexComponent,
     MenuComponent,
     CallServiceComponent,
+    ManageTypefoodComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 <div class="row mt-4 mb-4">
     <div class="col">
         <div class="input-group w-300px">
-            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา"> {{searchText}}
+            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 ประเภท
             </button>
@@ -40,7 +40,6 @@
             <div class="modal-header">
                 <button type="button" #closebuttonCreateFood class="close" hidden="true" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
-
             </div>
             <div class="modal-body mt-2">
                 <form [formGroup]="formCreateFood">
@@ -62,9 +61,9 @@
                                 <option [ngValue]="null" selected [disabled]="true">เลือกประเภท</option>
                                 <option *ngFor="let data of typeData; let i = index" value="{{data.id}}">{{data.name}}</option>
                             </select>
-                            <input *ngIf="formTypeStatus == true" type="text" class="form-control" placeholder="กรอกประเภทกดแล้วยืนยัน" formControlName="type">
-                            <button *ngIf="formTypeStatus == false" class="btn btn-secondary mt" (click)="changeFormType(true)">เพิ่มประเภทใหม่</button>
-                            <button *ngIf="formTypeStatus == true" class="btn btn-secondary mt" (click)="changeFormType(false)">เลือกประเภทที่มี</button>
+                            <!-- <input *ngIf="formTypeStatus == true" type="text" class="form-control" placeholder="กรอกประเภทกดแล้วยืนยัน" formControlName="type"> -->
+                            <!-- <button *ngIf="formTypeStatus == false" class="btn btn-secondary mt" (click)="changeFormType(true)">เพิ่มประเภทใหม่</button> -->
+                            <!-- <button *ngIf="formTypeStatus == true" class="btn btn-secondary mt" (click)="changeFormType(false)">เลือกประเภทที่มี</button> -->
                         </div>
                         <button *ngIf="formTypeStatus == true && this.formCreateFood.value.typeid == null" (click)="createNewType(formCreateFood.value.type)" class="btn btn-outline-success mt-2">ยืนยัน</button>
                     </div>

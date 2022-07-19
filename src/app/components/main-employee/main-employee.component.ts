@@ -39,6 +39,7 @@ export class MainEmployeeComponent implements OnInit {
   formPromotion: any;
   tableAll: any;
   besttype: any
+  foodFilter: any
   constructor(
     public fb: UntypedFormBuilder, 
     public callapiFood: FoodService, 
@@ -84,7 +85,13 @@ export class MainEmployeeComponent implements OnInit {
   }
 
   filterType(word: any){
-    this.wordTypeSearch = word
+    if(word == 'recommend'){
+      this.foodFilter = this.showFood.filter((data: any) => data.recommend == true);
+      this.wordTypeSearch = ''
+    } else {
+      this.foodFilter = this.showFood
+      this.wordTypeSearch = word
+    }
   }
 
   async getBestType(){
@@ -130,6 +137,7 @@ export class MainEmployeeComponent implements OnInit {
   getFood(){
     this.callapiFood.GetFood().subscribe(food => {
       this.showFood = food;
+      this.foodFilter = food
     })
   }
 
