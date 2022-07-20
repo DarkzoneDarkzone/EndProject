@@ -37,7 +37,6 @@ export class ManageFoodComponent implements OnInit {
     public callapi: FoodService, 
     public callapitype: TypeFoodService,
     private spinner: NgxSpinnerService
-
   ){ 
     this.formCreateFood = this.fb.group({
       food_id: [null],
@@ -76,7 +75,7 @@ export class ManageFoodComponent implements OnInit {
     // }, 1000);
   }
 
-  // for images 
+  // for images
   public message: any;
   public progress: any;
   public response: any =  { dbPath: ''};
@@ -87,7 +86,6 @@ export class ManageFoodComponent implements OnInit {
     if(files.length == 0){
       return;
     }
-    
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);

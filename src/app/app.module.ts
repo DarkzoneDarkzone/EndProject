@@ -30,6 +30,7 @@ import { IndexComponent } from './components-mobile/index/index.component';
 import { MenuComponent } from './components-mobile/menu/menu.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
+import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,11 @@ import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.compone
     IndexComponent,
     MenuComponent,
     CallServiceComponent,
+<<<<<<< HEAD
     FoodmenuComponent,
+=======
+    ManageTypefoodComponent,
+>>>>>>> 2db2ccd6966eaaa11d9015b813fb19e7fe24d1a1
   ],
   imports: [
     BrowserModule,

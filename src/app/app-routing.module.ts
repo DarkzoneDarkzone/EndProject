@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
@@ -17,6 +16,7 @@ import { IndexComponent } from './components-mobile/index/index.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { BillComponent } from './components-mobile/bill/bill.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
+import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 
 const routes: Routes = [
   { 
@@ -47,6 +47,7 @@ const routes: Routes = [
       {path: 'income', component: IncomeComponent},
       {path: 'promotion', component: PromotionComponent},
       {path: 'orderChef', component: OrderChefComponent},
+      {path: 'manageTypefood', component: ManageTypefoodComponent},
     ]
   }
 ];
