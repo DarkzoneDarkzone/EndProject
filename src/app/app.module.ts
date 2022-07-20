@@ -49,11 +49,8 @@ import { ManageTypefoodComponent } from './components/manage-typefood/manage-typ
     IndexComponent,
     MenuComponent,
     CallServiceComponent,
-<<<<<<< HEAD
     FoodmenuComponent,
-=======
     ManageTypefoodComponent,
->>>>>>> 2db2ccd6966eaaa11d9015b813fb19e7fe24d1a1
   ],
   imports: [
     BrowserModule,
