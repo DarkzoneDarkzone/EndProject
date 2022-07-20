@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileLayoutComponent } from './mobile-layout.component';
+import { FoodmenuComponent } from './foodmenu.component';
 
-describe('MobileLayoutComponent', () => {
-  let component: MobileLayoutComponent;
-  let fixture: ComponentFixture<MobileLayoutComponent>;
+describe('FoodmenuComponent', () => {
+  let component: FoodmenuComponent;
+  let fixture: ComponentFixture<FoodmenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MobileLayoutComponent ]
+      declarations: [ FoodmenuComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MobileLayoutComponent);
+    fixture = TestBed.createComponent(FoodmenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,4 +21,3 @@ describe('MobileLayoutComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
