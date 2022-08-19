@@ -1,0 +1,16 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6" *ngIf="showFood != null || undefined">
+    <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText || filterFood">
+        <div class="card h-60">
+            <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
+            <img *ngIf="data.imgPath == null || data.imgPath == undefined" [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{data.name}}</h3>
+                <p class="card-text">ราคา: {{data.price}} บาท</p>
+                <p class="card-text">ประเภท: {{data.type}}</p>
+                <p class="card-text" *ngIf="data.status == true">สถานะ: เปิดขาย</p>
+                <p class="card-text" *ngIf="data.status == false">สถานะ: หมด</p>
+               
+            </div>
+        </div>
+    </div>
+</div>

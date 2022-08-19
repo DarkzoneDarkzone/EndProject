@@ -18,13 +18,17 @@
 .nav {
     border-top: 1px solid rgb(187, 185, 185, 2);
     border-bottom: 1px solid rgb(187, 185, 185, 2);
-    opacity: 0.8;
-    background: rgba(187, 185, 185, 0.7);
+    background: rgba(187, 185, 185, 1);
+    /* background-color: rgba(114, 113, 113, 0.5); */
     padding: 10px;
     margin: auto;
     height: 10vh;
+    
 }
-
+.navBardemoBasicUsage md-content .ext-content {
+    padding: 50px;
+    margin: 20px;
+    background-color: #FFF2E0; }
 .card-body {
     padding-bottom: 12vh;
     padding-top: 11vh;

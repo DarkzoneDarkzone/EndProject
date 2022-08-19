@@ -15,6 +15,7 @@ import { MenuComponent } from './components-mobile/menu/menu.component';
 import { IndexComponent } from './components-mobile/index/index.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { BillComponent } from './components-mobile/bill/bill.component';
+import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 
 const routes: Routes = [
@@ -27,7 +28,9 @@ const routes: Routes = [
       {path:'menu',component:MenuComponent},
       {path:'order',component:OrderComponent},
       {path:'service',component:CallServiceComponent},
-      {path:'bill',component:BillComponent}
+      {path:'bill',component:BillComponent},
+      {path:'foodmenu',component:FoodmenuComponent}
+      
     ]
   },
   {
