@@ -1,5 +1,5 @@
-<div class="table-responsive text-center">
-    <table class="table table-light">
+<div class="orders table-responsive text-center">
+    <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
                 <th scope="col">รหัสออเดอร์</th>
@@ -23,11 +23,10 @@
                 <td class="pt-1">
                     <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'approve')">ยืนยัน</button>
                     <button class="btn btn-danger" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'disapprove')">ยกเลิก</button>
-                    <!-- <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button> -->
                     <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
                 </td>
                 <td>
-                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
+                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail1">description</div>
                 </td>
             </tr>
         </tbody>
@@ -36,22 +35,23 @@
 
 
 
-<div class="modal fade " id="modalShowDetail" aria-hidden="true ">
-    <div class="modal-dialog modal-xl " style="height: 100%; ">
-        <div class="modal-content ">
-            <div class="modal-header ">
-                <h2 class="modal-title mt-2 ">รายการอาหารที่สั่ง</h2>
-                <button type="button " #closebuttonShowDetail class="close " hidden="true " data-dismiss="modal ">&times;</button>
+<div class="modal fade" id="modalShowDetail1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">รายการอาหารที่สั่ง</h2>
+                <button type="button" #closebuttonShowDetail1 class="close" hidden="true" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body ">
-                <table class="table table-light ">
+            <div class="modal-body">
+                <table class="table table-light">
                     <thead>
                         <tr>
-                            <th scope="col ">ID</th>
-                            <th scope="col ">Name</th>
-                            <th scope="col ">Type</th>
-                            <th scope="col ">Price</th>
-                            <th scope="col ">Amount</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -62,6 +62,9 @@
                             <td>{{data.type}}</td>
                             <td>{{data.price}}</td>
                             <td>{{data.amount}}</td>
+                            <td *ngIf="data.status == 'pending'">กำลังทำอาหาร</td>
+                            <td *ngIf="data.status == 'sending'">ทำอาหารเสร็จแล้ว</td>
+                            <td *ngIf="data.status == 'success'">เสิร์ฟอาหารแล้ว</td>
                         </tr>
                     </tbody>
                 </table>

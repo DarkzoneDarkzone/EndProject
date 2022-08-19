@@ -5,7 +5,8 @@ export interface food {
     typeid: string
     price: number
     imgPath: string
-    status: boolean
+    status: string
+    display: boolean
     recommend: boolean
     amount: number
 }

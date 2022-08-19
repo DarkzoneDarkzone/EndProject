@@ -147,6 +147,7 @@
                         <select class="form-control" formControlName="position" [ngClass]="{'is-invalid': submitEdit && formValidEdit.position.errors}">
                             <option [ngValue]="null" [disabled]="true" selected>เลือกตำแหน่ง</option>
                             <option value="chef">พ่อครัว</option>
+                            <option value="serve">พนักงานเสิร์ฟ</option>
                             <option value="cashier">แคชเชียร์</option>
                             <option value="manager">ผู้จัดการ</option>
                             <div class="invalid-feedback" *ngIf="submitEdit && formValidEdit.position.errors">
