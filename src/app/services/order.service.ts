@@ -26,6 +26,10 @@ export class OrderService {
     return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusOrder/${id}/${status}`);
   }
 
+  public ChangeStatusFood(order_id: string, food_id: string, status: string){
+    return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusFood/${order_id}/${food_id}/${status}`);
+  }
+
   public EditOrder(id: string, order: order){
     return this.http.put<order>(`${environment.apiUrl}Order/EditOrder/${id}`, order);
   }

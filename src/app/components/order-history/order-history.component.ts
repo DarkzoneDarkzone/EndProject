@@ -12,7 +12,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class OrderHistoryComponent implements OnInit {
 
-  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
+  @ViewChild('closebuttonShowDetail3') closebuttonShowDetail3: any;
 
   formOrderShow: any;
   formOrderShowById: any;
@@ -42,12 +42,10 @@ export class OrderHistoryComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.spinner.show();
-    this.getOrderAll();
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 1000);
+    this.spinner.show();
+    Promise.all([this.getOrderAll()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   patchValueFormShow(data: order){
@@ -66,6 +64,7 @@ export class OrderHistoryComponent implements OnInit {
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      this.formOrderShow = this.formOrderShow.filter((data: any) => data.status == "success")
       this.formOrderShow.reverse();
     })
   }
@@ -76,9 +75,6 @@ export class OrderHistoryComponent implements OnInit {
         this.formOrderShowById = e
       }
     })
-    // this.callapi.GetOrderById(id).subscribe(od => {
-    //   this.patchValueFormShow(od);      
-    // })
   }
 
   changeStatusOrder(id: string,status: string){
@@ -95,7 +91,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   closeModalShowDetail(){
-    this.closebuttonShowDetail.nativeElement.click();
+    this.closebuttonShowDetail3.nativeElement.click();
   }
 
 }

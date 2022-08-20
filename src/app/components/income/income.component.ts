@@ -42,12 +42,9 @@ export class IncomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.getDataDashboardAll()
-    this.doughtnutChartType()
-    this.doughtnutChartFood()
-    setTimeout(() => {
+    Promise.all([this.getDataDashboardAll(), this.doughtnutChartType(), this.doughtnutChartFood()]).then((values) => {
       this.spinner.hide();
-    }, 2000);
+    });
   }
 
   public async getDataDashboardAll() {

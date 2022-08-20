@@ -38,12 +38,10 @@ export class ManageTableComponent implements OnInit {
    }
   
   ngOnInit(): void {
-    // this.spinner.show();
-    this.getAllTable();
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 1000);
+    this.spinner.show();
+    Promise.all([this.getAllTable()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   getAllTable(){

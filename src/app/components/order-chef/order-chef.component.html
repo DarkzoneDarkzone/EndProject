@@ -1,5 +1,5 @@
-<div class="table-responsive text-center">
-    <table class="table table-light">
+<div class="order-chef table-responsive text-center">
+    <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
                 <th scope="col">รหัสออเดอร์</th>
@@ -8,40 +8,34 @@
                 <th scope="col">ราคารวม</th>
                 <th scope="col">สถานะ</th>
                 <th scope="col"></th>
-                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of formOrderShow | filter: 'waiting'">
+            <tr *ngFor="let data of formOrderShow">
                 <td>{{data.order_id}}</td>
                 <td>{{data.number}}</td>
                 <td>{{data.table_NO}}</td>
                 <td>{{data.priceTotal}}</td>
                 <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
-                <td *ngIf="data.status == 'waitingFood'" style="color: rgb(8, 243, 8);">กำลังทำ</td>
-                <td *ngIf="data.status == 'waitingPayment'" style="color:rgb(0, 4, 255) ;">รอการชำระ</td>
-                <td class="pt-1">
-                    <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button>
-                </td>
+                <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
+                <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
                 <td>
-                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
+                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail2">description</div>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-
-
-<div class="modal fade " id="modalShowDetail" aria-hidden="true ">
-    <div class="modal-dialog modal-xl " style="height: 100%; ">
-        <div class="modal-content ">
-            <div class="modal-header ">
-                <h2 class="modal-title mt-2 ">รายการอาหารที่สั่ง</h2>
-                <button type="button " #closebuttonShowDetail class="close " hidden="true " data-dismiss="modal ">&times;</button>
+<div class="modal fade" id="modalShowDetail2" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="height: 100%; ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">รายการอาหารที่สั่ง</h2>
+                <button type="button" #closebuttonShowDetail2 class="close" hidden="true" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body ">
-                <table class="table table-light ">
+            <div class="modal-body">
+                <table class="table table-light">
                     <thead>
                         <tr>
                             <th scope="col ">ID</th>
@@ -49,6 +43,7 @@
                             <th scope="col ">Type</th>
                             <th scope="col ">Price</th>
                             <th scope="col ">Amount</th>
+                            <th scope="col ">Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -59,6 +54,13 @@
                             <td>{{data.type}}</td>
                             <td>{{data.price}}</td>
                             <td>{{data.amount}}</td>
+                            <td *ngIf="data.status == 'pending'">กำลังทำอาหาร</td>
+                            <td *ngIf="data.status == 'sending'">ทำอาหารเสร็จแล้ว</td>
+                            <td *ngIf="data.status == 'success'">เสิร์ฟอาหารแล้ว</td>
+                            <td class="pt-1">
+                                <button class="btn btn-warning" type="button" *ngIf="data.status == 'pending'" (click)="changeStatusFood(formOrderShowById.order_id, data.food_id, 'sending')">เสร็จแล้ว</button>
+                                <button class="btn btn-success" type="button" *ngIf="data.status == 'sending'" (click)="changeStatusFood(formOrderShowById.order_id, data.food_id, 'success')">เสิร์ฟอาหาร</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

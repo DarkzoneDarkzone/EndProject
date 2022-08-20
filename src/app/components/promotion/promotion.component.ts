@@ -41,12 +41,10 @@ export class PromotionComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.spinner.show();
-    this.getPromotionManage();
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 1000);
+    this.spinner.show();
+    Promise.all([this.getPromotionManage()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   getPromotionManage(){

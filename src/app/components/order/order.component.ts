@@ -11,7 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
+  @ViewChild('closebuttonShowDetail1') closebuttonShowDetail1: any;
   
   formOrderShow: any;
   formOrderShowById: any;
@@ -19,21 +19,19 @@ export class OrderComponent implements OnInit {
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
     private spinner: NgxSpinnerService
-
   ){}
 
   ngOnInit(): void {
-    // this.spinner.show();
-    this.getOrderAll();
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 1000);
+    this.spinner.show();
+    Promise.all([this.getOrderAll()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      this.formOrderShow = this.formOrderShow.filter((data: any) => data.status != "success")
     })
   }
 
@@ -55,6 +53,6 @@ export class OrderComponent implements OnInit {
   }
 
   closeModalShowDetail(){
-    this.closebuttonShowDetail.nativeElement.click();
+    this.closebuttonShowDetail1.nativeElement.click();
   }
 }

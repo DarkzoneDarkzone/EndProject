@@ -9,6 +9,7 @@ import { TableService } from 'src/app/services/table.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { faCloudDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main-employee',
@@ -50,8 +51,8 @@ export class MainEmployeeComponent implements OnInit {
   ){
     this.formCreateOrder = this.fb.group({
       order_id: null,
-      table_NO: [null, [Validators.required]],//
-      number: [null, [Validators.required]],//
+      table_NO: [null, [Validators.required]],
+      number: [null, [Validators.required]],
       typeOrder: [null],
       priceTotal: null,
       foodList: [{
@@ -61,6 +62,7 @@ export class MainEmployeeComponent implements OnInit {
         price: null,
         imgPath: null,
         status: null,
+        display: null,
         amount: 0
       }],
       status: null,
@@ -74,14 +76,9 @@ export class MainEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.getBestType()
-    this.getOrderAll();
-    this.getFood();
-    this.getPromotionAll();
-    this.getTableAll()
-    setTimeout(() => {
+    Promise.all([this.getBestType(), this.getOrderAll(), this.getFood(), this.getPromotionAll(), this.getTableAll()]).then((values) => {
       this.spinner.hide();
-    }, 2000);
+    });
   }
 
   filterType(word: any){
@@ -94,7 +91,7 @@ export class MainEmployeeComponent implements OnInit {
     }
   }
 
-  async getBestType(){
+  getBestType(){
     this.callapi.GetBestType().toPromise().then(data => {
       this.besttype = data
     })
@@ -148,6 +145,7 @@ export class MainEmployeeComponent implements OnInit {
   addFoodToArray(id: string){
     this.callapiFood.GetFoodById(id).subscribe( food => {
       food.amount = 1;
+      food.status = "pending"
       this.arrayFood.push(food);
       this.calculatePrice();
     })
@@ -270,10 +268,12 @@ export class MainEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
-        this.formCreateOrder.value = ''
+        this.formCreateOrder.value = null
+        this.formPromotion = null
         this.totalPrice = 0
         this.arrayFood = [];
         this.getOrderAll();
+        this.submitCreate = false;
       });
     }
   }
