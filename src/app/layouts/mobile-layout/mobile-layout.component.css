@@ -2,34 +2,64 @@
     color: black;
 }
 
-.nav-item {
-    width: 25%;
-    color: black;
-}
+
 
 .item-main {
-    color: black;
+    color: rgb(184, 8, 8);
 }
 
 .nav .row {
     width: 100%;
 }
 
-.nav {
+.nav_top {
     border-top: 1px solid rgb(187, 185, 185, 2);
     border-bottom: 1px solid rgb(187, 185, 185, 2);
-    background: rgba(187, 185, 185, 1);
+    background: rgb(184, 8, 8);
     /* background-color: rgba(114, 113, 113, 0.5); */
     padding: 10px;
     margin: auto;
     height: 10vh;
     
 }
-.navBardemoBasicUsage md-content .ext-content {
-    padding: 50px;
-    margin: 20px;
-    background-color: #FFF2E0; }
+.nav_bottom {
+    border-top: 1px solid rgb(187, 185, 185, 2);
+    border-bottom: 1px solid rgb(187, 185, 185, 2);
+    background: rgb(247, 128, 128);
+    /* background-color: rgba(114, 113, 113, 0.5); */
+    padding: 10px;
+    margin: auto;
+    height: 10vh;
+    
+}
 .card-body {
+    background: white;
     padding-bottom: 12vh;
     padding-top: 11vh;
 }
+.cart_icon{
+    position: relative;
+}
+.cart_icon span{
+    padding-top: 8px;
+    font-size: 34px;
+    color: #fff;
+}
+.cart_value{
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 4px 10px;
+}
+
+  .active, .btn:hover {
+
+    color: white;
+    
+  }
+  .btn_back{
+    color: #fff;
+  }

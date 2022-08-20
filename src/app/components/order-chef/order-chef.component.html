@@ -18,8 +18,8 @@
                 <td>{{data.table_NO}}</td>
                 <td>{{data.priceTotal}}</td>
                 <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
-                <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
-                <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
+                <td *ngIf="data.status == 'waitingFood'" style="color: rgb(8, 243, 8);">กำลังทำ</td>
+                <td *ngIf="data.status == 'waitingPayment'" style="color:rgb(0, 4, 255) ;">รอการชำระ</td>
                 <td class="pt-1">
                     <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button>
                 </td>

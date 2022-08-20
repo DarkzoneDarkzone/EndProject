@@ -1,15 +1,79 @@
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6" *ngIf="showFood != null || undefined">
-    <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText || filterFood">
-        <div class="card h-60">
-            <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
-            <img *ngIf="data.imgPath == null || data.imgPath == undefined" [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h3 class="card-title">{{data.name}}</h3>
-                <p class="card-text">ราคา: {{data.price}} บาท</p>
-                <p class="card-text">ประเภท: {{data.type}}</p>
-                <p class="card-text" *ngIf="data.status == true">สถานะ: เปิดขาย</p>
-                <p class="card-text" *ngIf="data.status == false">สถานะ: หมด</p>
-               
+<div class="container-lg">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6"
+        *ngIf="showFood != null || undefined">
+        <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText || filterFood">
+            <div class="card h-60">
+                <div class="row">
+                    <div class="col mt-3 ml-3">
+                        <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)"
+                            class="card-img-top" alt="...">
+                    </div>
+                    <div class="col">
+                        <h3 class="card-title">{{data.name}}</h3>
+                        <p class="card-text">ราคา: {{data.price}} บาท</p>
+                        <p class="card-text" *ngIf="data.status == true">สถานะ: เปิดขาย</p>
+                        <p class="card-text" *ngIf="data.status == false">สถานะ: หมด</p>
+                        <button type="text" class="button-more btn " data-toggle="modal"
+                            data-target="#dishfood">เพิ่มเติม</button>
+                        <div class="row mb-3">
+                            <button class="button-plust" (click)="increment()">+</button>
+                            <input class="input" type="number" [value]="num">
+                            <button class="button-del" (click)="del()">-</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal เพิ่มเติม อาหารจานเดียว -->
+<div class="modal fade" id="dishfood" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLongTitle">สั่งเพิ่มเติม</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <h2 class="text-left">คอมเม้น</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <input class="form-control form-control-lg text-center " type="text"
+                            placeholder="คอมเม้นเพิ่มเติม">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <h2 class="text-left">จำนวน</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row ">
+                            <button class="button-plust btn-moldal" (click)="increment()">+</button>
+                            <input class="input" type="number" [value]="num">
+                            <button class="button-del" (click)="del()">-</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-primary">ยืนยัน</button>
             </div>
         </div>
     </div>

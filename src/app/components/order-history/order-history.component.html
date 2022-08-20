@@ -20,7 +20,7 @@
                     <td>{{data.number}}</td>
                     <td>{{data.table_NO}}</td>
                     <td>{{data.priceTotal}}</td>
-                    <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
+                    <td *ngIf="data.status == 'success'" style="color: red;">ชำระแล้ว</td>
                     <td>
                         <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
                     </td>

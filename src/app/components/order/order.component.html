@@ -1,3 +1,4 @@
+
 <div class="table-responsive text-center">
     <table class="table table-light">
         <thead>
@@ -17,14 +18,14 @@
                 <td>{{data.number}}</td>
                 <td>{{data.table_NO}}</td>
                 <td>{{data.priceTotal}}</td>
-                <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
-                <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
-                <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
+                <td *ngIf="data.status == 'waitingApprove'" style="color: rgb(241, 192, 31);">รอการยืนยัน</td>
+                <td *ngIf="data.status == 'waitingFood'" style="color: rgb(8, 243, 8);">กำลังทำ</td>
+                <td *ngIf="data.status == 'waitingPayment'" style="color: rgb(0, 4, 255);">รอการชำระ</td>
                 <td class="pt-1">
                     <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'approve')">ยืนยัน</button>
                     <button class="btn btn-danger" type="button" *ngIf="data.status == 'waitingApprove'" (click)="changeStatusOrder(data.order_id,'disapprove')">ยกเลิก</button>
                     <!-- <button class="btn btn-warning" type="button" *ngIf="data.status == 'waitingFood'" (click)="changeStatusOrder(data.order_id,'sentFood')">เสิร์ฟอาหาร</button> -->
-                    <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
+                    <button class="btn btn-success " type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'paid')">ชำระเงิน</button>
                 </td>
                 <td>
                     <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail">description</div>
