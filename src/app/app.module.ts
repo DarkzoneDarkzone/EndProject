@@ -26,11 +26,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.component';
 import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
 import { BillComponent } from './components-mobile/bill/bill.component';
-import { IndexComponent } from './components-mobile/index/index.component';
 import { MenuComponent } from './components-mobile/menu/menu.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
+import { DataService } from './services/data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +46,6 @@ import { ManageTypefoodComponent } from './components/manage-typefood/manage-typ
     MobileLayoutComponent,
     SystemLayoutComponent,
     BillComponent,
-    IndexComponent,
     MenuComponent,
     CallServiceComponent,
     FoodmenuComponent,
@@ -67,7 +66,7 @@ import { ManageTypefoodComponent } from './components/manage-typefood/manage-typ
     NgxSpinnerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

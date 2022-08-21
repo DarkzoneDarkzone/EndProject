@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { food } from 'src/app/models/food';
+import { DataService } from 'src/app/services/data.service';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
 import { environment } from 'src/environments/environment';
@@ -12,92 +14,86 @@ import { environment } from 'src/environments/environment';
 })
 export class FoodmenuComponent implements OnInit {
   showFood: any;
-  typeData: any;
-  searchText: any;
-  filterFood: any;
-  amountt: number = 0;
-  arrayFood : food [] =[]
-  formCreateOrder: any;
+  allFood: any
+  amount: number = 0
+  formForArray: any
+  arrayFood: food[] = []
+  subscription: any
+  dataPassed: any
   constructor(
-    public callapi: FoodService,
-    public callapiFood: FoodService, 
+    public callapiFood: FoodService,
     public callapitype: TypeFoodService,
-    public fb: UntypedFormBuilder, 
-    
-  )
-  {this.formCreateOrder = this.fb.group({
-    order_id: null,
-    table_NO: [null, [Validators.required]],//
-    number: [null, [Validators.required]],//
-    typeOrder: [null],
-    priceTotal: null,
-    foodList: [{
-      food_id: null,
-      name: null,
-      type: null,
-      price: null,
-      imgPath: null,
-      status: null,
-      amount: 0
-    }],
-    status: null,
-    creationDatetime: null,
-    emp_Name: null,
-    paytime: null,
-    netPrice: 0,
-    valuePromotion: 0
-  })}
-  ngOnInit(): void {
-    // this.spinner.show();
-    this.getFood();
-    this.getTypeData();
-    // setTimeout(() => {
-    //   /** spinner ends after 5 seconds */
-    //   this.spinner.hide();
-    // }, 1000);
+    public fb: UntypedFormBuilder,
+    private route: ActivatedRoute,
+    public ds: DataService
+  ) {}
+  async ngOnInit() {
+    await this.callapiFood.GetFood().toPromise().then(food => {
+      this.allFood = food
+    })
+    this.ds.getData().subscribe(e => {
+      console.log(e)
+    })
+    let recommend = this.route.snapshot.queryParamMap.get("recommend")
+    let typeId = this.route.snapshot.queryParamMap.get("typeId")
+    if(recommend == "true"){
+      this.showFood = this.allFood.filter((data: any) => data.recommend)
+    } else {
+      this.showFood = this.allFood.filter((data: any) => data.typeid == typeId)
+    }
   }
-  num:number = 0;
-  increment(): void{
-      this.num += 1
-    }
-    del(): void{
-      this.num = this.num - 1
-    }
-  getFood(){
-    this.callapi.GetFood().subscribe(food => {
-      this.showFood = food;
-      
+  async getFood(): Promise<any> {
+    await this.callapiFood.GetFood().toPromise().then(food => {
+      this.allFood = food
     })
   }
-  getTypeData(){
-    this.callapitype.GetType().subscribe( tf => {
-      this.typeData = tf;
-    })
-    
-
-  }
-  
   public showImages = (serverPath: string) => {
     return `${environment.apiUrlForImg}/${serverPath}`;
   }
-  addFoodAmount(id: string){
-    for(let i = 0; i < this.arrayFood.length; i++){
-      if(this.arrayFood[i].food_id == id){
-        this.callapiFood.GetFoodById(id).subscribe( food => {
-          this.arrayFood[i].amount += 1;
-        })
-      }
+  reduceAmount(){
+    if(this.amount >= 1){
+      this.amount--
     }
   }
-  checkArrayFood(id: string) {
-    for( let i = 0; i < this.arrayFood.length; i++ ){
-      if ( this.arrayFood[i].food_id == id ){
+  increaseAmount(){
+    this.amount++
+  }
+  handleSelectFood(id: string){
+    this.amount = 0
+    this.formForArray = this.showFood.find((data: any) => data.food_id == id)
+  }
+  addFoodToArray() {
+    
+    // this.subscription = this.ds.getData().subscribe(x => {                  
+    //   this.dataPassed = x; 
+    // });
+    if(this.amount > 0){
+      if(this.checkArrayFood(this.formForArray.food_id)){
+        for (let i = 0; i < this.arrayFood.length; i++) {
+          if (this.arrayFood[i].food_id == this.formForArray.food_id) {
+            // this.ds.sendData(this.dataPassed + this.amount);
+            this.arrayFood[i].amount += this.amount;
+          }
+        }
+      } else {
+        // this.ds.sendData(this.dataPassed + this.amount);
+        this.formForArray.amount = this.amount
+        this.arrayFood.push(this.formForArray)
+      }
+    }
+
+  }
+  checkArrayFood(id: string){
+    for (let i = 0; i < this.arrayFood.length; i++) {
+      if (this.arrayFood[i].food_id == id) {
         return true;
       }
     }
     return false;
   }
- 
-  
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
 }
- 

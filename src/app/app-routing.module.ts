@@ -12,7 +12,6 @@ import { OrderChefComponent } from './components/order-chef/order-chef.component
 import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.component';
 import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
 import { MenuComponent } from './components-mobile/menu/menu.component';
-import { IndexComponent } from './components-mobile/index/index.component';
 import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { BillComponent } from './components-mobile/bill/bill.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
@@ -24,7 +23,6 @@ const routes: Routes = [
     component: MobileLayoutComponent,
     children: [
       { path: '', component: MenuComponent, pathMatch: 'full'},
-      {path:'index', component:IndexComponent},
       {path:'menu',component:MenuComponent},
       {path:'order',component:OrderComponent},
       {path:'service',component:CallServiceComponent},

@@ -1,61 +1,20 @@
+.card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    word-wrap: break-word;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    flex-direction: row;
+    min-height: 6rem;
+}
 
-.button-plust{
-  margin-left: 10px;
-    width: 30px;
-    height: 30px;
-    font-size: 2em;
-    line-height: 30px;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    background: transparent;
-    border-radius: 50%;
-    background-color: rgb(146, 1, 1);
-}
-.btn-moldal{
-    margin-left: 110px;
-
-}
-.button-del{
-
-    width: 30px;
-    height: 30px;
-    font-size: 2em;
-    line-height: 30px;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    background: transparent;
-    border-radius: 50%;
-    background-color: rgb(146, 1, 1);
-}
-.button-more{
-    color: rgb(146, 1, 1);
-    margin-left: 15px;
-}
-button:active{
-    border-radius: 50%;
-}
-.input{
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    width: 45px;
-    height: 30px;
-    text-align: center;
-    font-size: 1.5em;
-    color: rgb(5, 5, 5);
-    margin-left: 10px;
-    background: transparent; 
-}
-.col span{
-    font-weight: 800;
-    font-size: 18px;
-}
-.card-img-top{
-    width: 100;
+.amountFood button {
+    border-radius: 99rem; 
+    color: white; 
+    background-color: #ffc107;
+    color: black;
+    width: 2rem; 
+    height: 2rem;
+    padding: 0;
 }

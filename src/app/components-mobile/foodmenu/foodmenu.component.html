@@ -1,79 +1,51 @@
-<div class="container-lg">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6"
-        *ngIf="showFood != null || undefined">
-        <div class="col col-image mb-4" *ngFor="let data of showFood | filter: searchText || filterFood">
-            <div class="card h-60">
-                <div class="row">
-                    <div class="col mt-3 ml-3">
-                        <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)"
-                            class="card-img-top" alt="...">
-                    </div>
-                    <div class="col">
-                        <h3 class="card-title">{{data.name}}</h3>
-                        <p class="card-text">ราคา: {{data.price}} บาท</p>
-                        <p class="card-text" *ngIf="data.status == true">สถานะ: เปิดขาย</p>
-                        <p class="card-text" *ngIf="data.status == false">สถานะ: หมด</p>
-                        <button type="text" class="button-more btn " data-toggle="modal"
-                            data-target="#dishfood">เพิ่มเติม</button>
-                        <div class="row mb-3">
-                            <button class="button-plust" (click)="increment()">+</button>
-                            <input class="input" type="number" [value]="num">
-                            <button class="button-del" (click)="del()">-</button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
+<!-- ถ้ามีรายการอาหาร -->
+<div class="" *ngIf="showFood?.length > 0" style="padding-bottom: 20vh;">
+    <div class="col col-image p-0" *ngFor="let data of showFood">
+        <div class="card h-60">
+            <img [src]="showImages(data.imgPath)" width="100">
+            <div class="food-details pl-3"
+                style="width: 100%;display: flex;flex-direction: column;justify-content: space-around;">
+                <h3 class="mb-0">{{data.name}}</h3>
+                <p class="mb-0">ราคา: {{data.price}} บาท</p>
             </div>
+            <button type="text" class="button-more btn btn-secondary mr-2"
+                style="width: 10rem; height: 2rem; margin-top: auto; margin-bottom: auto;" data-toggle="modal"
+                data-target="#moreDetails" (click)="handleSelectFood(data.food_id)">เลือก</button>
         </div>
     </div>
-
+</div>
+<!-- ถ้าไม่มีรายการอาหาร -->
+<div class="text-center" style="min-height: 10rem;" *ngIf="showFood?.length == 0">
+    <div class="mt-4">
+        <span style="font-size: x-large;">ไม่มีรายการอาหาร</span>
+    </div>
 </div>
 
-<!-- Modal เพิ่มเติม อาหารจานเดียว -->
-<div class="modal fade" id="dishfood" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal สั่งอาหารเพิ่มเติม -->
+<div class="modal fade" id="moreDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLongTitle">สั่งเพิ่มเติม</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h1 class="modal-title m-0">สั่งอาหาร</h1>
+                <button type="button" #closeModalMoreDetails class="close" hidden="true" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <h2 class="text-left">คอมเม้น</h2>
+                <h2 class="text-left mb-1">รายละเอียดเพิ่มเติม</h2>
+                <input class="form-control form-control-lg text-center " type="text" placeholder="กรอกรายละเอียดเพิ่มเติม">
+                <h2 class="text-left mt-2 mb-1">จำนวน</h2>
+                <div class="text-center">
+                    <div class="amountFood" style="width: 7rem;margin: auto;display: flex;justify-content: space-evenly;">
+                        <button type="button" class="btn button-del" (click)="reduceAmount()">-</button>
+                        <div class="m-auto">
+                            <span style="font-size: large;font-weight: 500;">{{this.amount}}</span>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <input class="form-control form-control-lg text-center " type="text"
-                            placeholder="คอมเม้นเพิ่มเติม">
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <h2 class="text-left">จำนวน</h2>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row ">
-                            <button class="button-plust btn-moldal" (click)="increment()">+</button>
-                            <input class="input" type="number" [value]="num">
-                            <button class="button-del" (click)="del()">-</button>
-                        </div>
-
+                        <button type="button" class="btn button-plust" (click)="increaseAmount()">+</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-primary">ยืนยัน</button>
+                <button type="button" class="btn btn-success" (click)="addFoodToArray()">ยืนยัน</button>
             </div>
         </div>
     </div>

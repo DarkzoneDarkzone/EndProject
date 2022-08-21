@@ -18,6 +18,10 @@ export class FoodService {
     return this.http.get<food>(`${environment.apiUrl}Food/GetFoodById/${id}`);
   }
 
+  public GetFoodByType(type: string){
+    return this.http.get<food>(`${environment.apiUrl}Food/GetFoodByType/${type}`);
+  }
+
   public CreateFood(food: food){
     return this.http.post<food>(`${environment.apiUrl}Food/CreateFood`, food);
   }

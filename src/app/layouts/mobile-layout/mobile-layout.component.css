@@ -1,65 +1,78 @@
+.container-lg {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
 .nav-link {
     color: black;
 }
-
-
-
 .item-main {
-    color: rgb(184, 8, 8);
+    color: #ffc107;
 }
-
+.nav_top {
+    width: 100%;
+    height: 10vh;
+    position: relative;
+    background: rgb(86 84 84 / 96%);
+}
 .nav .row {
     width: 100%;
-}
-
-.nav_top {
-    border-top: 1px solid rgb(187, 185, 185, 2);
-    border-bottom: 1px solid rgb(187, 185, 185, 2);
-    background: rgb(184, 8, 8);
-    /* background-color: rgba(114, 113, 113, 0.5); */
-    padding: 10px;
-    margin: auto;
-    height: 10vh;
-    
 }
 .nav_bottom {
     border-top: 1px solid rgb(187, 185, 185, 2);
     border-bottom: 1px solid rgb(187, 185, 185, 2);
-    background: rgb(247, 128, 128);
-    /* background-color: rgba(114, 113, 113, 0.5); */
-    padding: 10px;
+    background: rgb(86 84 84 / 96%);
     margin: auto;
     height: 10vh;
-    
 }
 .card-body {
     background: white;
-    padding-bottom: 12vh;
-    padding-top: 11vh;
-}
-.cart_icon{
-    position: relative;
+    padding-top: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+    max-height: 100vh;
+    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .cart_icon span{
-    padding-top: 8px;
     font-size: 34px;
     color: #fff;
 }
 .cart_value{
     position: absolute;
-    top: -8px;
-    right: 10px;
-    background: #fff;
-    border: 1px solid #fff;
+    top: 18px;
+    right: -3px;
+    background-color: #ffc107;
     border-radius: 50%;
-    padding: 4px 10px;
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    border: 1px solid gray;
+    color: black;
+    font-weight: 500;
+}
+.active, .btn:hover {
+    color: white;
+}
+.btn_back{
+    color: #fff;
+}
+.footer {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    left: 0;
 }
 
-  .active, .btn:hover {
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
-    color: white;
-    
-  }
-  .btn_back{
-    color: #fff;
-  }
+a.item-main {
+    display: block;
+    text-align: center;
+}
