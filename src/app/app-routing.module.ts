@@ -16,19 +16,19 @@ import { CallServiceComponent } from './components-mobile/call-service/call-serv
 import { BillComponent } from './components-mobile/bill/bill.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
+import { OrderMobileComponent } from './components-mobile/order-mobile/order-mobile.component';
 
 const routes: Routes = [
-  { 
-    path: 'mobile', 
+  {
+    path: 'mobile',
     component: MobileLayoutComponent,
     children: [
       { path: '', component: MenuComponent, pathMatch: 'full'},
       {path:'menu',component:MenuComponent},
-      {path:'order',component:OrderComponent},
+      {path:'order',component:OrderMobileComponent},
       {path:'service',component:CallServiceComponent},
       {path:'bill',component:BillComponent},
       {path:'foodmenu',component:FoodmenuComponent}
-      
     ]
   },
   {

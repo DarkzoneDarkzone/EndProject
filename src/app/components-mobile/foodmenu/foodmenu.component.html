@@ -31,7 +31,8 @@
             </div>
             <div class="modal-body">
                 <h2 class="text-left mb-1">รายละเอียดเพิ่มเติม</h2>
-                <input class="form-control form-control-lg text-center " type="text" placeholder="กรอกรายละเอียดเพิ่มเติม">
+                {{moreDetails}}
+                <input class="form-control form-control-lg text-center" [(ngModel)]="moreDetails" type="text" placeholder="กรอกรายละเอียดเพิ่มเติม">
                 <h2 class="text-left mt-2 mb-1">จำนวน</h2>
                 <div class="text-center">
                     <div class="amountFood" style="width: 7rem;margin: auto;display: flex;justify-content: space-evenly;">

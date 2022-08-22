@@ -12,8 +12,8 @@ export class MobileLayoutComponent implements OnInit {
   constructor(public ds: DataService) {}
 
   ngOnInit(): void {
-    this.subscription = this.ds.getData().subscribe(x => {                  
-      this.dataPassed = x; 
+    this.subscription = this.ds.getData().subscribe(x => {
+      this.dataPassed = x;
     });
     this.ds.sendData(0);
   }

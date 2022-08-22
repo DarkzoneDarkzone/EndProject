@@ -9,4 +9,5 @@ export interface food {
     display: boolean
     recommend: boolean
     amount: number
+    moreDetails: string
 }

@@ -31,6 +31,7 @@ import { CallServiceComponent } from './components-mobile/call-service/call-serv
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 import { DataService } from './services/data.service';
+import { OrderMobileComponent } from './components-mobile/order-mobile/order-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { DataService } from './services/data.service';
     CallServiceComponent,
     FoodmenuComponent,
     ManageTypefoodComponent,
+    OrderMobileComponent,
   ],
   imports: [
     BrowserModule,
