@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-order-history',
@@ -11,11 +12,15 @@ import Swal from 'sweetalert2';
 })
 export class OrderHistoryComponent implements OnInit {
 
-  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
+  @ViewChild('closebuttonShowDetail3') closebuttonShowDetail3: any;
 
   formOrderShow: any;
   formOrderShowById: any;
-  constructor(public fb: FormBuilder, public callapi: OrderService) {
+  constructor(
+    public fb: UntypedFormBuilder, 
+    public callapi: OrderService,
+    private spinner: NgxSpinnerService
+  ){
     this.formOrderShowById = this.fb.group({
       order_id: null,
       table_NO: null,
@@ -37,7 +42,10 @@ export class OrderHistoryComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getOrderAll();
+    this.spinner.show();
+    Promise.all([this.getOrderAll()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   patchValueFormShow(data: order){
@@ -56,13 +64,16 @@ export class OrderHistoryComponent implements OnInit {
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      this.formOrderShow = this.formOrderShow.filter((data: any) => data.status == "success")
       this.formOrderShow.reverse();
     })
   }
 
   getOrderById(id:string){
-    this.callapi.GetOrderById(id).subscribe(od => {
-      this.patchValueFormShow(od);      
+    this.formOrderShow.find((e: any) => {
+      if(e.order_id == id){
+        this.formOrderShowById = e
+      }
     })
   }
 
@@ -80,7 +91,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   closeModalShowDetail(){
-    this.closebuttonShowDetail.nativeElement.click();
+    this.closebuttonShowDetail3.nativeElement.click();
   }
 
 }

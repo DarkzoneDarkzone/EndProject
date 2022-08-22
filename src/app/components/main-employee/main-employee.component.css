@@ -30,6 +30,12 @@ input::-webkit-inner-spin-button {
     font-weight: bold;
 }
 
+.main-emp {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
 .idShow {
     color: black;
     cursor: default;
@@ -96,6 +102,13 @@ input::-webkit-inner-spin-button {
     padding: 1vh;
 }
 
+.card-body h3.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 select {
     cursor: pointer;
 }
@@ -135,7 +148,7 @@ select {
 }
 
 .card-order-food {
-    height: 80vh;
+    height: 92vh;
 }
 
 .row-order {
@@ -177,4 +190,35 @@ select {
 .card-footer h3 {
     color: black;
     font-size: 1vw;
+}
+
+.col-side {
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28%;
+}
+
+.card.h-30 {
+    box-shadow: 0 0 2px 0 darkgrey;
+}
+
+.food {
+    position: absolute;
+    overflow: scroll;
+    width: 72%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.food::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: rgb(231, 231, 231);
+}
+
+.food::-webkit-scrollbar-thumb
+{
+	background-color: rgb(204, 204, 204);
 }

@@ -17,4 +17,10 @@ export class TypeFoodService {
 
   public CreateType(type: typeFood){
     return this.http.post<typeFood>(`${environment.apiUrl}TypeFood/CreateTypeFood`, type);
-  }}
+  }
+
+  public EditType(id: string, type: typeFood){
+    return this.http.put<typeFood>(`${environment.apiUrl}TypeFood/EditTypeFood/${id}`, type);
+  }
+}
+

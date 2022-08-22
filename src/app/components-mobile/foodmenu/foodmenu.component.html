@@ -1,0 +1,53 @@
+<!-- ถ้ามีรายการอาหาร -->
+<div class="" *ngIf="showFood?.length > 0" style="padding-bottom: 20vh;">
+    <div class="col col-image p-0" *ngFor="let data of showFood">
+        <div class="card h-60">
+            <img [src]="showImages(data.imgPath)" width="100">
+            <div class="food-details pl-3"
+                style="width: 100%;display: flex;flex-direction: column;justify-content: space-around;">
+                <h3 class="mb-0">{{data.name}}</h3>
+                <p class="mb-0">ราคา: {{data.price}} บาท</p>
+            </div>
+            <button type="text" class="button-more btn btn-secondary mr-2"
+                style="width: 10rem; height: 2rem; margin-top: auto; margin-bottom: auto;" data-toggle="modal"
+                data-target="#moreDetails" (click)="handleSelectFood(data.food_id)">เลือก</button>
+        </div>
+    </div>
+</div>
+<!-- ถ้าไม่มีรายการอาหาร -->
+<div class="text-center" style="min-height: 10rem;" *ngIf="showFood?.length == 0">
+    <div class="mt-4">
+        <span style="font-size: x-large;">ไม่มีรายการอาหาร</span>
+    </div>
+</div>
+
+<!-- Modal สั่งอาหารเพิ่มเติม -->
+<div class="modal fade" id="moreDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title m-0">สั่งอาหาร</h1>
+                <button type="button" #closeModalMoreDetails class="close" hidden="true" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-left mb-1">รายละเอียดเพิ่มเติม</h2>
+                {{moreDetails}}
+                <input class="form-control form-control-lg text-center" [(ngModel)]="moreDetails" type="text" placeholder="กรอกรายละเอียดเพิ่มเติม">
+                <h2 class="text-left mt-2 mb-1">จำนวน</h2>
+                <div class="text-center">
+                    <div class="amountFood" style="width: 7rem;margin: auto;display: flex;justify-content: space-evenly;">
+                        <button type="button" class="btn button-del" (click)="reduceAmount()">-</button>
+                        <div class="m-auto">
+                            <span style="font-size: large;font-weight: 500;">{{this.amount}}</span>
+                        </div>
+                        <button type="button" class="btn button-plust" (click)="increaseAmount()">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-success" (click)="addFoodToArray()">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>

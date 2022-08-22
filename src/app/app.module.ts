@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { MainEmployeeComponent } from './components/main-employee/main-employee.component';
@@ -19,7 +19,19 @@ import { ManageTableComponent } from './components/manage-table/manage-table.com
 import { IncomeComponent } from './components/income/income.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PromotionComponent } from './components/promotion/promotion.component';
-
+import { AccordionModule } from 'primeng/accordion'; //accordion and accordion tab
+import { ChartModule, UIChart } from 'primeng/chart';
+import { OrderChefComponent } from './components/order-chef/order-chef.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.component';
+import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
+import { BillComponent } from './components-mobile/bill/bill.component';
+import { MenuComponent } from './components-mobile/menu/menu.component';
+import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
+import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
+import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
+import { DataService } from './services/data.service';
+import { OrderMobileComponent } from './components-mobile/order-mobile/order-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +42,16 @@ import { PromotionComponent } from './components/promotion/promotion.component';
     ManageEmployeeComponent,
     ManageTableComponent,
     IncomeComponent,
-    PromotionComponent
+    PromotionComponent,
+    OrderChefComponent,
+    MobileLayoutComponent,
+    SystemLayoutComponent,
+    BillComponent,
+    MenuComponent,
+    CallServiceComponent,
+    FoodmenuComponent,
+    ManageTypefoodComponent,
+    OrderMobileComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +62,13 @@ import { PromotionComponent } from './components/promotion/promotion.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    AccordionModule,
+    ChartModule,
+    NgxSpinnerModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [DataService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

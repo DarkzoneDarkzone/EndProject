@@ -1,3 +1,6 @@
+.orders {
+    padding: 1rem;
+}
 .cursor-pointer {
     cursor: pointer;
 }
@@ -8,4 +11,7 @@
 
 .modal-title {
     margin: auto;
+}
+.status-color{
+    color: red;
 }

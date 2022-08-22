@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-manage-employee',
@@ -21,7 +22,12 @@ export class ManageEmployeeComponent implements OnInit {
   submitCreate: boolean = false;
   submitEdit: boolean = false;
 
-  constructor(public fb: FormBuilder, public callapi: EmployeeService) {
+  constructor(
+    public fb: UntypedFormBuilder, 
+    public callapi: EmployeeService,
+    private spinner: NgxSpinnerService
+
+  ){
     this.formCreateEmployee = this.fb.group({
       emp_Id: [null],
       emp_Name: [null, [Validators.required]],
@@ -41,7 +47,10 @@ export class ManageEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getEmployee();
+    this.spinner.show();
+    Promise.all([this.getEmployee()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   patchValueFormEdit(data: employee) {

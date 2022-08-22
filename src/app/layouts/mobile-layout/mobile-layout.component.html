@@ -1,0 +1,52 @@
+<!-- header -->
+<div class="container-lg">
+    <div class="nav nav_top  fixed-top justify-content-center text-center">
+        <div class="" style="    position: absolute;left: 0.5rem;color: white;height: 100%;display: flex;">
+            <span class="material-icons-outlined m-auto" routerLink='/mobile/menu'>arrow_back</span>
+        </div>
+        <div class="form-inline">
+            <div class="m-auto">
+                <h1 class="m-auto text-white">โต๊ะ xx</h1>
+            </div>
+        </div>
+        <div class="cart_icon" style="position: absolute;right: 0.5rem;height: 100%;display: flex;">
+            <span class="material-icons m-auto">
+                shopping_cart
+            </span>
+            <div class="cart_value">
+                {{dataPassed}}
+            </div>
+        </div>
+    </div>
+    <!-- show -->
+    <div class="card-body">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- footer -->
+    <div class="footer nav nav_bottom ">
+        <div class="my-auto">
+            <a class="item-main " routerLink="/mobile/menu" routerLinkActive="active">
+                <span class="material-icons ">restaurant</span>
+                <h3 class="mb-0">เมนู</h3>
+            </a>
+        </div>
+        <div class="my-auto">
+            <a class="item-main " routerLink="/mobile/order" routerLinkActive="active">
+                <span class="material-icons ">receipt_long</span>
+                <h3 class="mb-0">รายการที่สั่ง</h3>
+            </a>
+        </div>
+        <div class="my-auto">
+            <a class="item-main " routerLink="/mobile/service" routerLinkActive="active">
+                <span class="material-icons ">notifications_none</span>
+                <h3 class="mb-0">พนักงาน</h3>
+            </a>
+        </div>
+        <div class="my-auto">
+            <a class="item-main " routerLink="/mobile/bill" routerLinkActive="active">
+                <span class="material-icons ">currency_exchange</span>
+                <h3 class="mb-0">ชำระเงิน</h3>
+            </a>
+        </div>
+    </div>
+</div>

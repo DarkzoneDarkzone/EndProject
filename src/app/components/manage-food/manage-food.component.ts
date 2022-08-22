@@ -1,12 +1,12 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { food } from 'src/app/models/food';
-import { typeFood } from 'src/app/models/typefood';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-manage-food',
@@ -16,10 +16,9 @@ import Swal from 'sweetalert2';
 export class ManageFoodComponent implements OnInit {
   @ViewChild('closebuttonCreateFood') closebuttonCreateFood: any;
   @ViewChild('closebuttonEditFood') closebuttonEditFood: any;
-
+  tid: any;
   formCreateFood: any;
   formEditFood: any;
-  formForReset: any;
   formType: any;
   submitCreate: boolean = false;
   submitEdit: boolean = false;
@@ -29,80 +28,98 @@ export class ManageFoodComponent implements OnInit {
   statusType: boolean = false;
   filterFood: any;
   formTypeStatus: boolean = false;
+  img_edit: any;
+  img_add: any;
 
-  constructor(public fb: FormBuilder, public http: HttpClient, public callapi: FoodService, public callapitype: TypeFoodService) { 
+  constructor(
+    public fb: UntypedFormBuilder,
+    public http: HttpClient,
+    public callapi: FoodService,
+    public callapitype: TypeFoodService,
+    private spinner: NgxSpinnerService
+  ) {
     this.formCreateFood = this.fb.group({
       food_id: [null],
-      name: [null,[Validators.required]],
-      type: [null,[Validators.required]],
+      name: [null, [Validators.required]],
+      typeid: [null],
+      type: [null],
       price: [0],
       imgPath: null,
       status: null,
+      display: null,
       amount: 0
     }),
-    this.formEditFood = this.fb.group({
-      food_id: null,
-      name: [null,[Validators.required]],
-      type: [null,[Validators.required]],
-      price: [null],
-      imgPath: null,
-      status: null,
-      amount: 0
-    }),
-    this.formForReset = this.fb.group({
-      food_id: null,
-      name: [null,[Validators.required]],
-      type: [null,[Validators.required]],
-      price: [null,[Validators.required, Validators.pattern('[0-9]*')]],
-      imgPath: null,
-      status: null,
-      amount: 0
-    }),
-    this.formType = this.fb.group({
-      id: null,
-      name: null
-    })
+      this.formEditFood = this.fb.group({
+        food_id: null,
+        name: [null, [Validators.required]],
+        typeid: [null],
+        type: [null],
+        price: [0],
+        imgPath: null,
+        status: null,
+        display: null,
+        amount: 0
+      }),
+      this.formType = this.fb.group({
+        id: null,
+        name: null,
+        status: null
+      })
   }
 
   ngOnInit(): void {
-    this.getFood();
-    this.getTypeData();
+    this.spinner.show();
+    Promise.all([this.getFood(), this.getTypeData()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
-  // for images 
+  // for images
   public message: any;
   public progress: any;
-  public response: any =  { dbPath: ''};
-  pathImg:any ;
+  public response: any = { dbPath: '' };
+  pathImg: any;
   @Output() public onUploadFinished = new EventEmitter();
 
   public uploadFile = (files: any) => {
-    console.log('in');
-    if(files.length == 0){
+    if (files.length == 0) {
       return;
     }
-    
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    this.http.post(`${environment.apiUrl}Food/Upload`, formData, {reportProgress: true, observe: 'events'})
-    .subscribe(event => {
-      if(event.type === HttpEventType.Response){
-        this.message = 'อัปโหลดรูปภาพสำเร็จ';
-        this.onUploadFinished.emit(event.body);
-        this.pathImg = event.body;
-        this.formEditFood.value.imgPath = this.pathImg.dbPath;
-        this.formCreateFood.value.imgPath = this.pathImg.dbPath;
-      }
-    })
+    this.http.post(`${environment.apiUrl}Food/Upload`, formData, { reportProgress: true, observe: 'events' })
+      .subscribe(event => {
+        if (event.type === HttpEventType.Response) {
+          this.message = 'อัปโหลดรูปภาพสำเร็จ';
+          this.onUploadFinished.emit(event.body);
+          this.pathImg = event.body;
+          this.img_edit = this.pathImg.dbPath;
+          this.img_add = this.pathImg.dbPath;
+        }
+      })
   }
 
-  createFood(){
+  createFood() {
     this.submitCreate = true;
-    console.log(this.formCreateFood.value);
-    this.formCreateFood.value.status = true;
-    this.checkTypeInDb(this.formCreateFood.value.type);
-    if (this.formCreateFood.valid) {
+    this.formCreateFood.value.display = true;
+    this.formCreateFood.value.imgPath = this.img_add;
+    if (this.formCreateFood.value.type == null && this.formCreateFood.value.typeid != null) {
+      for (let i = 0; i < this.typeData.length; i++) {
+        if (this.typeData[i].id == this.formCreateFood.value.typeid) {
+          this.formCreateFood.value.type = this.typeData[i].name;
+        }
+      }
+    }
+    if (this.formCreateFood.value.type == null || this.formCreateFood.value.typeid == null) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'กรุณาเลือกประเภท',
+        showConfirmButton: false,
+        timer: 1000
+      })
+    } else if (this.formCreateFood.valid) {
       this.callapi.CreateFood(this.formCreateFood.value).subscribe(food => {
         Swal.fire({
           position: 'top',
@@ -111,35 +128,45 @@ export class ManageFoodComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
-        this.setFormCreate(this.formForReset.value);
+        this.setFormCreate();
         this.formCreateFood.value.imgPath = null;
-        this.formEditFood.value.imgPath = null;
+        this.img_add = null;
         this.message = null;
         this.formTypeStatus = false;
         this.getFood();
+        this.submitCreate = false;
         this.getTypeData();
       })
       this.closeModalCreateFood();
     }
   }
 
-  closeModalCreateFood(){
+  closeModalCreateFood() {
     this.closebuttonCreateFood.nativeElement.click();
   }
 
-  closeModalEditFood(){
+  closeModalEditFood() {
     this.closebuttonEditFood.nativeElement.click();
   }
 
-  GetBeforeEdit(id: string){
-    this.callapi.GetFoodById(id).subscribe( food =>{
-      this.setFormEdit(food);
-      this.formEditFood.value.imgPath = food.imgPath;
+  GetBeforeEdit(id: string) {
+    this.showFood.map((food: any) => {
+      if (food.food_id == id) {
+        this.setFormEdit(food);
+        this.formEditFood.value.imgPath = food.imgPath;
+        this.img_edit = food.imgPath;
+      }
     })
   }
 
-  editFood(){
+  editFood() {
     this.submitEdit = true;
+    this.typeData.map((type: any) => {
+      if (type.id == this.formEditFood.value.typeid) {
+        this.formEditFood.value.type = type.name
+      }
+    })
+    this.formEditFood.value.imgPath = this.img_edit;
     this.callapi.EditFood(this.formEditFood.value.food_id, this.formEditFood.value).subscribe(food => {
       Swal.fire({
         position: 'top',
@@ -148,8 +175,8 @@ export class ManageFoodComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
-      this.formCreateFood.value.imgPath = null;
       this.formEditFood.value.imgPath = null;
+      this.img_edit = null;
       this.message = null;
       this.getFood();
       this.getTypeData();
@@ -157,37 +184,37 @@ export class ManageFoodComponent implements OnInit {
     this.closeModalEditFood();
   }
 
-  setFormEdit(data: food){
+  setFormEdit(data: food) {
     this.formEditFood.patchValue({
       food_id: data.food_id,
       name: data.name,
       type: data.type,
+      typeid: data.typeid,
       price: data.price,
       status: data.status,
+      display: data.display,
       amount: data.amount
     })
   }
 
-  setFormCreate(data: any){
+  setFormCreate() {
     this.formCreateFood.patchValue({
-      food_id: data.food_id,
-      name: data.name,
-      type: data.type,
-      price: data.price,
-      imgPath: data.imgPath,
-      status: data.status,
-      amount: data.amount
+      food_id: null,
+      name: null,
+      type: null,
+      typeid: null,
+      price: 0,
+      imgPath: null,
+      status: null,
+      display: null,
+      amount: 0
     })
   }
 
-  getFood(){
+  getFood() {
     this.callapi.GetFood().subscribe(food => {
       this.showFood = food;
     })
-  }
-
-  getFoodById(id: string){
-    this.callapi.GetFoodById(id)
   }
 
   public uploadFinished = (event: any) => {
@@ -198,21 +225,21 @@ export class ManageFoodComponent implements OnInit {
     return `${environment.apiUrlForImg}/${serverPath}`;
   }
 
-  getTypeData(){
-    this.callapitype.GetType().subscribe( tf => {
+  getTypeData() {
+    this.callapitype.GetType().subscribe(tf => {
       this.typeData = tf;
     })
   }
 
-  filterType(type: string){
+  filterType(type: string) {
     this.filterFood = type;
   }
 
-  setFormNull(){
-  this.formEditFood.value.imgPath = null;
-  this.formCreateFood.value.imgPath = null;
-  this.message = null;
-  this.submitCreate = false;
+  setFormNull() {
+    this.formEditFood.value.imgPath = null;
+    this.formCreateFood.value.imgPath = null;
+    this.message = null;
+    this.submitCreate = false;
   }
 
   get formValidCreate() {
@@ -223,18 +250,32 @@ export class ManageFoodComponent implements OnInit {
     return this.formEditFood.controls;
   }
 
-  changeFormType(status: boolean){
-    this.formTypeStatus = status;    
+  changeFormType(status: boolean) {
+    this.formTypeStatus = status;
   }
-  
-  checkTypeInDb(type: string){
-      for(let i = 0; i < this.typeData.length ; i++){
-        if(this.typeData[i].name != type){
-          this.formType.value.name = type;
-        }
-      }
-      if(type != this.formType.value.name){
-        this.callapitype.CreateType(this.formType.value).subscribe(tf => {})
-      }
+
+  createNewType(type: string) {
+    this.formType.value.name = type;
+    if (this.formType.value.name != null) {
+      this.callapitype.CreateType(this.formType.value).subscribe(tf => {
+        this.formCreateFood.value.typeid = tf.id;
+        this.formCreateFood.value.type = tf.name;
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'เพิ่มประเภทสำเร็จ',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      })
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'กรุณากรอกประเภท',
+        showConfirmButton: false,
+        timer: 1000
+      })
+    }
   }
 }

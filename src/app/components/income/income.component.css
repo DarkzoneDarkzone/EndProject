@@ -1,0 +1,100 @@
+.card-dashboard {
+    height: 14vh;
+    padding: 0;
+}
+
+.row-dashboard {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.bg-first {
+    background-color: #f8cd4a;
+}
+
+.bg-second {
+    background-color: #17a2b8;
+}
+
+.bg-third {
+    background-color: #20c997;
+}
+
+.bg-fourth {
+    background-color: rgb(238, 110, 110);
+}
+
+.all-bill {
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+}
+
+.text-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: none;
+    justify-content: space-between;
+}
+
+.h-100 {
+    height: 100px;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e;
+}
+
+.card-header .text-title {
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.text-menu {
+    font-size: 17px;
+    font-weight: 500;
+    padding: .5rem;
+}
+
+.row-bar-doughnut {
+    height: fit-content;
+}
+
+.card .detail-bill {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 6rem;
+    padding-right: 3rem;
+}
+
+.card-bar {
+    padding: 1rem;
+    height: 100%;
+}
+
+.card-doughnut {
+    height: 100%;
+}
+
+.card-doughnut .row {
+    margin-top: 1rem;
+}

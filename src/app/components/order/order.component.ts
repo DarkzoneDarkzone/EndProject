@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-order',
@@ -10,58 +11,32 @@ import Swal from 'sweetalert2';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  @ViewChild('closebuttonShowDetail') closebuttonShowDetail: any;
+  @ViewChild('closebuttonShowDetail1') closebuttonShowDetail1: any;
   
   formOrderShow: any;
   formOrderShowById: any;
-  constructor(public fb: FormBuilder, public callapi: OrderService) {
-    this.formOrderShowById = this.fb.group({
-      order_id: null,
-      table_NO: null,
-      typeOrder: null,
-      number: null,
-      priceTotal: null,
-      foodList: [{
-        food_id: null,
-        name: null,
-        type: null,
-        price: null,
-        imgPath: null,
-        status: null,
-        amount: 0
-      }],
-      status: null,
-      creationDatetime: null
-    })
-   }
+  constructor(
+    public fb: UntypedFormBuilder, 
+    public callapi: OrderService,
+    private spinner: NgxSpinnerService
+  ){}
 
   ngOnInit(): void {
-    this.getOrderAll();
-  }
-
-  patchValueFormShow(data: order){
-    this.formOrderShowById.patchValue({
-      order_id : data.order_id,
-      table_NO : data.table_NO,
-      typeOrder : data.typeOrder,
-      number: data.number,
-      priceTotal: data.priceTotal,
-      foodList : data.foodList,
-      status : data.status,
-      creationDateTime : data.creationDatetime
-    })
+    this.spinner.show();
+    Promise.all([this.getOrderAll()]).then((values) => {
+      this.spinner.hide();
+    });
   }
 
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      this.formOrderShow = this.formOrderShow.filter((data: any) => data.status != "success")
     })
   }
 
   getOrderById(id:string){
-    this.callapi.GetOrderById(id).subscribe(od => {
-      this.patchValueFormShow(od);      
-    })
+    this.formOrderShowById = this.formOrderShow.find((e: any) => e.order_id == id)
   }
 
   changeStatusOrder(id: string,status: string){
@@ -78,6 +53,6 @@ export class OrderComponent implements OnInit {
   }
 
   closeModalShowDetail(){
-    this.closebuttonShowDetail.nativeElement.click();
+    this.closebuttonShowDetail1.nativeElement.click();
   }
 }

@@ -1,0 +1,109 @@
+<div class="row mt-4 mb-4">
+    <div class="col">
+        <div class="input-group w-300px">
+            <input class="form-control w-200px" type="text" [(ngModel)]="searchText" placeholder="ค้นหา">
+        </div>
+    </div>
+    <div class="col float-right">
+        <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#createTypefood">เพิ่มประเภทอาหาร</button>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6" >
+    <div class="col col-image mb-4" *ngFor="let data of typeData | filter: searchText">
+        <div class="card h-60">
+            <img *ngIf="data.imgPath != null || data.imgPath != undefined" [src]="showImages(data.imgPath)" class="card-img-top" alt="...">
+            <img *ngIf="data.imgPath == null || data.imgPath == undefined" [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{data.name}}</h3>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" (click)="SetBeforeEdit(data.id)" data-target="#editFood">แก้ไข</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- เพิ่มรายการอาหาร -->
+<div class="modal fade" id="createTypefood" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" #closebuttonCreateTypeFood class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">กรอกรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formType">
+                    <div class="form-group">
+                        <label>ชื่อประเภทอาหาร</label>
+                        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitCreate && formValidType.name.errors}">
+                        <div class="invalid-feedback" *ngIf="submitCreate && formValidType.name.errors">
+                            <div *ngIf="formValidType.name.errors.required">กรุณากรอกประเภทอาหาร</div>
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-bottom: 15px;">
+                    <div class="row">
+                        <div class="col">
+                            <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
+                            <button type="button" class="btn btn-secondary mb-2" (click)="file.click()">เลือกรูปภาพ</button>
+                            <br>
+                            <span class="upload" style="color: green;" *ngIf="message">{{message}}</span>
+                        </div>
+                        <div class="col-8" *ngIf="img_add != null || img_add != undefined">
+                            <img [src]="showImages(img_add)" class="card-img-top pr-5" alt="...">
+                        </div>
+                        <div class="col-8" *ngIf="img_add == null || img_add == undefined">
+                            <img [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top pr-5" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="createNewType()" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- แก้ไขอาหาร -->
+<div class="modal fade" id="editFood" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" #closebuttonEditTypeFood class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title mt-2">แก้ไขรายละเอียด</h2>
+            </div>
+            <div class="modal-body mt-2">
+                <form [formGroup]="formTypeEdit">
+                    <div class="form-group">
+                        <label>ชื่อประเภทอาหาร</label>
+                        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitEdit && formValidTypeEdit.name.errors}">
+                        <div class="invalid-feedback" *ngIf="submitEdit && formValidTypeEdit.name.errors">
+                            <div *ngIf="formValidTypeEdit.name.errors.required">กรุณากรอกประเภทอาหาร</div>
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-bottom: 15px;">
+                    <div class="row">
+                        <div class="col">
+                            <input type="file" #file placeholder="เลือกรูปภาพ" (change)="uploadFile(file.files)" style="display: none;">
+                            <button type="button" class="btn btn-secondary mb-2" (click)="file.click()">เลือกรูปภาพ</button>
+                            <br>
+                            <span class="upload" style="color: green;" *ngIf="message">{{message}}</span>
+                        </div>
+                        <div class="col-8" *ngIf="img_edit != null || img_edit != undefined">
+                            <img [src]="showImages(img_edit)" class="card-img-top pr-5" alt="...">
+                        </div>
+                        <div class="col-8" *ngIf="img_edit == null || img_edit == undefined">
+                            <img [src]="showImages('Resources\\Images\\no-image.jpg')" class="card-img-top pr-5" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="setFormNull()" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" (click)="editFood()" class="btn btn-success">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="row bg-warning">
+    <div class="col">
+        <div class="text-left text-color">ชำระเงิน</div>
+    </div>
+
+</div>
+<div class="container-lg">
+    <div class="row">
+
+        <div class="col">
+            <h1 class="text-center mt-4">ร้านอาหาร</h1>
+            <p class="text-center">โต๊ะ ...</p>
+            <p class="text-center">13 มกราคม 2022</p>
+
+            <div class="row ">
+                <table class="table" style="color: wheat;">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-left">รายการ</th>
+                            <th scope="col" class="text-center">จำนวน</th>
+                            <th scope="col" class="text-right">ราคา</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-left">พิชซ่า</td>
+                            <td class="text-center">10</td>
+                            <td class="text-right">1000</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">ชาบูหม้อไฟ</td>
+                            <td class="text-center">20</td>
+                            <td class="text-right">2000</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="container-lg">
+                    <hr style="border: 1px dashed black;" />
+                    <div class="row">
+                        <a class="text-left">รวมมุลค่าก่อนภาษีมูลค่าเพิ่ม :</a>
+                        <a class="text-right text-vat "> 00000</a>
+                    </div>
+                    <div class="row">
+                        <a class="text-left">ภาษีมูลค่าเพิ่ม :</a>
+                        <a class="text-right "> 00000</a>
+                    </div>
+                    <div class="row bg-warning mt-1  pt-1">
+                        <a class="text-all text-color">รวมทั้งสิ้น :</a>
+                        <a class="text-allamount"> 00000</a>
+                    </div>
+
+                    <hr style="border: 1px dashed black;" />
+                </div>
+                <button type="button" class="btn btn-outline-warning btn-center  " data-toggle="modal"
+                    data-target="#exampleModal">ชำระเงิน</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal ชำระเงิน-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">การชำระเงิน</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center ">วิธีชำระเงิน</h2>
+                <div class="row"><button type="button" class="btn btn-warning btn-pay mb-3">แบบโอนจ่าย</button></div>
+                <div class="row"> <button type="button" class="btn btn-warning btn-pay mb-3">แบบเงินสด</button></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-pay" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
