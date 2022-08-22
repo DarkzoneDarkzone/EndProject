@@ -21,7 +21,6 @@ export class ManageTableComponent implements OnInit {
     public fb: UntypedFormBuilder,
     public callapi: TableService,
     private spinner: NgxSpinnerService
-
   ){
     this.formCreateTable = this.fb.group({
       table_id: null,
@@ -49,21 +48,6 @@ export class ManageTableComponent implements OnInit {
       this.formShowTable = tb;
     })
   }
-
-  // patchValueFormEdit(data: table){
-  //   this.formEditTable.patchValue({
-  //     table_id: data.table_id,
-  //     table_NO: data.table_NO,
-  //     status: data.status,
-  //     qrcode: data.qrcode
-  //   })
-  // }
-
-  // getTableByid(id: string){
-  //   this.callapi.GetTableById(id).subscribe(tb => {
-  //     this.patchValueFormEdit(tb);
-  //   })
-  // }
 
   createTable(){
     this.formCreateTable.value.status = 'empty';

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { food } from 'src/app/models/food';
+import { CartOrderService } from 'src/app/services/cart-order.service';
 import { DataService } from 'src/app/services/data.service';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
@@ -20,7 +21,7 @@ export class FoodmenuComponent implements OnInit {
   amount: number = 0
   moreDetails: string = ""
   formForArray: any
-  arrayFood: food[] = []
+  arrayFood: any
   prevAmount: any = 0
 
   constructor(
@@ -28,7 +29,8 @@ export class FoodmenuComponent implements OnInit {
     public callapitype: TypeFoodService,
     public fb: UntypedFormBuilder,
     private route: ActivatedRoute,
-    public ds: DataService
+    public ds: DataService,
+    public callapicart: CartOrderService
   ){}
   async ngOnInit() {
     await this.callapiFood.GetFood().toPromise().then(food => {
@@ -42,9 +44,9 @@ export class FoodmenuComponent implements OnInit {
       this.showFood = this.allFood.filter((data: any) => data.typeid == typeId)
     }
   }
-  async getFood(): Promise<any> {
-    await this.callapiFood.GetFood().toPromise().then(food => {
-      this.allFood = food
+  getCart() {
+    this.callapicart.GetCartOrderById("1").subscribe(data => {
+      this.arrayFood = data
     })
   }
   public showImages = (serverPath: string) => {
@@ -66,7 +68,7 @@ export class FoodmenuComponent implements OnInit {
   addFoodToArray() {
     if(this.amount > 0){
       this.arrayFood.forEach((data: any) => this.prevAmount += data.amount)
-      // this.addFoodToArray.moreDetails = this.moreDetails
+      this.formForArray.moreDetails = this.moreDetails
       if(this.checkArrayFood(this.formForArray.food_id)){
         for (let i = 0; i < this.arrayFood.length; i++) {
           if (this.arrayFood[i].food_id == this.formForArray.food_id) {
@@ -77,7 +79,6 @@ export class FoodmenuComponent implements OnInit {
         this.formForArray.amount = this.amount
         this.arrayFood.push(this.formForArray)
       }
-      console.log(this.arrayFood)
       this.ds.sendData(this.prevAmount + this.amount)
       this.closeModalMoreDetail()
       this.prevAmount = 0
