@@ -7,6 +7,7 @@ import { DataService } from 'src/app/services/data.service';
 import { FoodService } from 'src/app/services/food.service';
 import { TypeFoodService } from 'src/app/services/type-food.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-foodmenu',
@@ -21,8 +22,9 @@ export class FoodmenuComponent implements OnInit {
   amount: number = 0
   moreDetails: string = ""
   formForArray: any
-  arrayFood: any
+  arrayFood: any = []
   prevAmount: any = 0
+  cartOrder: any
 
   constructor(
     public callapiFood: FoodService,
@@ -33,9 +35,7 @@ export class FoodmenuComponent implements OnInit {
     public callapicart: CartOrderService
   ){}
   async ngOnInit() {
-    await this.callapiFood.GetFood().toPromise().then(food => {
-      this.allFood = food
-    })
+    await this.getFoodAll()
     let recommend = this.route.snapshot.queryParamMap.get("recommend")
     let typeId = this.route.snapshot.queryParamMap.get("typeId")
     if(recommend == "true"){
@@ -43,10 +43,21 @@ export class FoodmenuComponent implements OnInit {
     } else {
       this.showFood = this.allFood.filter((data: any) => data.typeid == typeId)
     }
+    this.getCart()
+  }
+  async getFoodAll(){
+    await this.callapiFood.GetFood().toPromise().then(food => {
+      this.allFood = food
+    })
   }
   getCart() {
-    this.callapicart.GetCartOrderById("1").subscribe(data => {
-      this.arrayFood = data
+    this.callapicart.GetCartOrderByNo(localStorage.getItem('tableNo')).subscribe(data => {
+      if(data != null){
+        this.cartOrder = data
+        this.arrayFood = data.foodList
+        this.arrayFood.forEach((el: any) => this.prevAmount += el.amount)
+        this.ds.sendData(this.prevAmount + this.amount)
+      }
     })
   }
   public showImages = (serverPath: string) => {
@@ -73,16 +84,52 @@ export class FoodmenuComponent implements OnInit {
         for (let i = 0; i < this.arrayFood.length; i++) {
           if (this.arrayFood[i].food_id == this.formForArray.food_id) {
             this.arrayFood[i].amount += this.amount;
+            this.arrayFood[i].status = "pending";
           }
         }
       } else {
         this.formForArray.amount = this.amount
+        this.formForArray.status = "pending"
         this.arrayFood.push(this.formForArray)
       }
-      this.ds.sendData(this.prevAmount + this.amount)
-      this.closeModalMoreDetail()
-      this.prevAmount = 0
-      this.amount = 0
+      if(this.cartOrder != null){
+        this.cartOrder.foodList = this.arrayFood
+        this.callapicart.EditCartOrder(this.cartOrder.cart_id, this.cartOrder).subscribe(data => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'เพิ่มรายการอาหารแล้ว',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => {
+            this.getFoodAll()
+            this.getCart()
+            this.closeModalMoreDetail()
+            this.prevAmount = 0
+            this.amount = 0
+          })
+        })
+      } else {
+        this.cartOrder = {
+          table_NO: localStorage.getItem('tableNo'),
+          foodList: this.arrayFood
+        }
+        this.callapicart.CreateCartOrder(this.cartOrder).subscribe(data => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'เพิ่มรายการอาหารแล้ว',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => {
+            this.getFoodAll()
+            this.getCart()
+            this.closeModalMoreDetail()
+            this.prevAmount = 0
+            this.amount = 0
+          })
+        })
+      }
     }
   }
   checkArrayFood(id: string){

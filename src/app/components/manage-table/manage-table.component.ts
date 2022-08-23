@@ -42,7 +42,6 @@ export class ManageTableComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(new Date())
     this.spinner.show();
     Promise.all([this.getAllTable()]).then((values) => {
       this.spinner.hide();
@@ -68,6 +67,39 @@ export class ManageTableComponent implements OnInit {
       })
       this.closeModalCreateTable();
       this.getAllTable();
+    })
+  }
+
+  generateQrcode(id: string){
+    let formEdit = this.formShowTable.find((el: any) =>  el.table_id == id)
+    
+    Swal.fire({
+      position: 'top',
+      text: "ยืนยันสร้างคิวอาร์โค้ด",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: 'green',
+      confirmButtonText: 'ยืนยัน'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        formEdit.qrcode = this.pathQRcode + formEdit.table_NO
+        let today = new Date()
+        formEdit.startTime = new Date()
+        formEdit.endTime =  new Date(today.setHours(today.getHours() + 1, today.getMinutes() + 30));
+        formEdit.status = "befull"
+        this.callapi.editTable(id, formEdit).subscribe(el => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สร้างคิวอาร์โค้ดสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => {
+            this.getAllTable();
+          })
+        })
+      }
     })
   }
 

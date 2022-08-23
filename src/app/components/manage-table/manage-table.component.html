@@ -34,12 +34,15 @@
             <tbody>
                 <tr *ngFor="let data of formShowTable">
                     <td>{{data.table_NO}}</td>
-                    <td>{{data.status}}</td>
+                    <td *ngIf="data.status == 'empty'">โต๊ะว่าง</td>
+                    <td *ngIf="data.status == 'befull'">ไม่ว่าง</td>
+                    <td>{{data.startTime | date:'HH:mm:ss'}}</td>
+                    <td>{{data.endTime | date:'HH:mm:ss'}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <!-- <td class="edit" (click)="deleteTable(data.table_id)">ลบ</td> -->
-                    <td><button type="button" class="btn btn-success" data-target="#createQrcode" (click)="handleCreateQRcode(data.table_id)" data-toggle="modal">สร้างคิวอาร์โคด</button></td>
+                    <td>
+                        <button *ngIf="data.status=='empty'" type="button" class="btn btn-success" (click)="generateQrcode(data.table_id)">สร้างคิวอาร์โคด</button>
+                        <button *ngIf="data.status=='befull'" type="button" class="btn btn-primary" (click)="handleCreateQRcode(data.table_id)" data-target="#createQrcode" data-toggle="modal">พิมพ์คิวอาร์โคด</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -79,7 +82,7 @@
                 <div class="test">
                     <h1 class="modal-title mt-2">โต๊ะ {{currentTable?.table_NO}}</h1>
                     <span>เริ่ม 09/02/2565 10:30 - 12:00</span>
-                    <qrcode [qrdata]="pathQRcode+2" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+                    <qrcode [qrdata]="pathQRcode+currentTable?.table_NO" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
                     <span class="">สลิป QR code สำหรับสั่งอาหารของโต๊ะ ท่านสามารถใช้ Smartphone ในการสแกน QR code นี้ได้ผ่าน Application สำหรับอ่าน QR code หรือเปิด Application LINE เข้าหน้าจอเพิ่มเพื่อนด้วย QR code และสแกน QR code ได้ทันที</span>
                 </div>
             </div>

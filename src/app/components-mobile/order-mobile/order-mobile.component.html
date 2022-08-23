@@ -1,4 +1,32 @@
-<div class="row bg-warning" style="height: 3rem">
-    <div class="" style="margin: auto;font-size: x-large;">รายการที่สั่ง</div>
-</div>
-<p>order-mobile works!</p>
+<!-- ถ้ามีรายการที่เลือก -->
+<!-- <div class="" *ngIf="cartOrder?.foodList.length > 0" style="padding-bottom: 20vh;">
+    <div class="row bg-warning" style="height: 3rem">
+        <div class="" style="margin: auto;font-size: x-large;">รายการที่สั่ง</div>
+    </div>
+    <div class="col col-image p-0" *ngFor="let data of cartOrder.foodList">
+        <div class="card h-60">
+            <img [src]="showImages(data.imgPath)" width="100">
+            <div class="food-details pl-3"
+                style="width: 100%;display: flex;flex-direction: column;justify-content: space-around;">
+                <h3 class="mb-0">{{data.name}} <span>x{{data.amount}}</span></h3>
+                <p class="mb-0">ราคา: {{data.price}} บาท</p>
+                <p class="mb-0">ราคารวม: {{data.price*data.amount}} บาท</p>
+            </div>
+            <div class="m-auto" style="width: 30%;">
+                <h3 *ngIf="data.status == 'pending'">กำลังทำ</h3>
+                <h3 *ngIf="data.status == 'sending'">กำลังจัดเสิร์ฟ</h3>
+                <h3 *ngIf="data.status == 'success'">สำเร็จ</h3>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- ถ้าไม่มีรายการที่เลือก -->
+<!-- <div class="text-center" style="min-height: 10rem;" *ngIf="cartOrder?.foodList.length == 0">
+    <div class="row bg-warning" style="height: 3rem">
+        <div class="" style="margin: auto;font-size: x-large;">รายการที่เลือก</div>
+    </div>
+    <div class="mt-4">
+        <span style="font-size: x-large;">ไม่มีรายการอาหารที่เลือกไว้</span>
+    </div>
+</div> -->
+

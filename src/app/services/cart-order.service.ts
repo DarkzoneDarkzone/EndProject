@@ -18,7 +18,7 @@ export class CartOrderService {
   public GetCartOrder(){
     return this.http.get<cartOrder>(`${environment.apiUrl}CartOrder/GetCartOrder`)
   }
-  public GetCartOrderById(id: string){
-    return this.http.get<cartOrder>(`${environment.apiUrl}CartOrder/GetCartOrderById/${id}`)
+  public GetCartOrderByNo(id: any){
+    return this.http.get<cartOrder>(`${environment.apiUrl}CartOrder/GetCartOrderByNo/${id}`)
   }
 }
