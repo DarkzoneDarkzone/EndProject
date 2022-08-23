@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -5,6 +6,7 @@ import { table } from 'src/app/models/table';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manage-table',
@@ -16,11 +18,14 @@ export class ManageTableComponent implements OnInit {
   formCreateTable:any ;
   formShowTable: any;
   formEditTable: any;
+  currentTable: any;
+  pathQRcode: any = window.location.origin + "/mobile?number="
 
   constructor(
     public fb: UntypedFormBuilder,
     public callapi: TableService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ){
     this.formCreateTable = this.fb.group({
       table_id: null,
@@ -35,8 +40,9 @@ export class ManageTableComponent implements OnInit {
       qrcode: null
     })
    }
-  
+
   ngOnInit(): void {
+    console.log(new Date())
     this.spinner.show();
     Promise.all([this.getAllTable()]).then((values) => {
       this.spinner.hide();
@@ -88,6 +94,10 @@ export class ManageTableComponent implements OnInit {
             })
         }
       })
+  }
+
+  handleCreateQRcode(id: string){
+    this.currentTable = this.formShowTable.find((el: any) =>  el.table_id == id)
   }
 
   closeModalCreateTable() {
