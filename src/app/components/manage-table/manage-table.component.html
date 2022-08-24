@@ -6,12 +6,8 @@
         <div class="col mr-0">
             <button type="button" data-target="#createTable" data-toggle="modal" class="btn btn-outline-success mt-0 mb-2 float-right">
                     <div class="form-inline">
-                    <div class="material-icons">
-                        add
-                    </div>
-                    <div class="">
-                        เพิ่มโต๊ะอาหาร
-                    </div>
+                    <div class="material-icons">add</div>
+                    <div class="">เพิ่มโต๊ะอาหาร</div>
                 </div>
             </button>
         </div>
@@ -40,7 +36,7 @@
                     <td>{{data.endTime | date:'HH:mm:ss'}}</td>
                     <td></td>
                     <td>
-                        <button *ngIf="data.status=='empty'" type="button" class="btn btn-success" (click)="generateQrcode(data.table_id)">สร้างคิวอาร์โคด</button>
+                        <button *ngIf="data.status=='empty'" type="button" class="btn btn-success" (click)="selectTable(data.table_id)" data-target="#openTable" data-toggle="modal">สร้างคิวอาร์โคด</button>
                         <button *ngIf="data.status=='befull'" type="button" class="btn btn-primary" (click)="handleCreateQRcode(data.table_id)" data-target="#createQrcode" data-toggle="modal">พิมพ์คิวอาร์โคด</button>
                     </td>
                 </tr>
@@ -73,7 +69,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="createQrcode" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-center">
@@ -94,3 +89,18 @@
     </div>
 </div>
 
+<div class="modal fade" id="openTable" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <button type="button" #closebuttonOpenTable class="close" hidden="true" data-dismiss="modal">&times;</button>
+            <div class="modal-body mt-2 m-auto" style="width: 20rem;" id="print-section">
+                <label for=""><h3>ระบุจำนวนลูกค้า</h3></label>
+                <input type="number" class="form-control" [(ngModel)]="numberCustomer">
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">ยกเลิก</button>
+                <button type="button" class="btn btn-success" (click)="generateQrcode()">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+</div>

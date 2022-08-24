@@ -1,9 +1,13 @@
 <!-- ถ้ามีรายการที่เลือก -->
-<div class="" *ngIf="cartOrder?.foodList.length > 0" style="padding-bottom: 20vh;">
+<div class="" style="padding-bottom: 20vh;">
     <div class="row bg-warning" style="height: 3rem">
         <div class="" style="margin: auto;font-size: x-large;">ตะกร้าสินค้า</div>
     </div>
-    <div class="col col-image p-0" *ngFor="let data of cartOrder.foodList">
+    <div class="" *ngIf="cartOrder?.foodList.length > 0">
+        <button class="btn btn-danger w-50" (click)="cancelAllFood()">ยกเลิกทั้งหมด</button>
+        <button class="btn btn-success w-50" (click)="confirmOrderFood()">ยืนยันสั่งอาหาร</button>
+    </div>
+    <div class="col col-image p-0" *ngFor="let data of cartOrder?.foodList">
         <div class="card h-60">
             <img [src]="showImages(data.imgPath)" width="100">
             <div class="food-details pl-3"
@@ -16,6 +20,9 @@
                 <h3 class="m-auto">x{{data.amount}}</h3>
             </div>
         </div>
+    </div>
+    <div class="text-center mt-3" *ngIf="!cartOrder">
+        <h2>ไม่มีรายการในตะกร้า</h2>
     </div>
 </div>
 <!-- ถ้าไม่มีรายการที่เลือก -->

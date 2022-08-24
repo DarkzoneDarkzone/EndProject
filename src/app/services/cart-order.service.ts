@@ -21,4 +21,7 @@ export class CartOrderService {
   public GetCartOrderByNo(id: any){
     return this.http.get<cartOrder>(`${environment.apiUrl}CartOrder/GetCartOrderByNo/${id}`)
   }
+  public DeleteCartOrder(id: any){
+    return this.http.get<cartOrder>(`${environment.apiUrl}CartOrder/DeleteCartOrder/${id}`)
+  }
 }

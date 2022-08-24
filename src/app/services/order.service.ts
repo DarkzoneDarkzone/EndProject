@@ -18,6 +18,10 @@ export class OrderService {
     return this.http.get<order>(`${environment.apiUrl}Order/GetOrderById/${id}`);
   }
 
+  public GetOrderByTableNumber(tableNo: any){
+    return this.http.get<order>(`${environment.apiUrl}Order/GetOrderByTableNumber/${tableNo}`);
+  }
+
   public CreateOrder(order : order){
     return this.http.post<order>(`${environment.apiUrl}Order/CreateOrder`, order);
   }
