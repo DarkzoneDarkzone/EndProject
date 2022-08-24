@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-mobile',
@@ -11,5 +12,7 @@ export class OrderMobileComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  public showImages = (serverPath: string) => {
+    return `${environment.apiUrlForImg}/${serverPath}`;
+  }
 }

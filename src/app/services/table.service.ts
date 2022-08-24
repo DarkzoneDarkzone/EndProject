@@ -22,4 +22,7 @@ export class TableService {
   public createTable(table : table){
     return this.http.post<table>(`${environment.apiUrl}Table/CreateTable`, table);
   }
+  public editTable(id: string, table : table){
+    return this.http.put<table>(`${environment.apiUrl}Table/EditTable/${id}`, table);
+  }
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -5,6 +6,7 @@ import { table } from 'src/app/models/table';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manage-table',
@@ -16,12 +18,14 @@ export class ManageTableComponent implements OnInit {
   formCreateTable:any ;
   formShowTable: any;
   formEditTable: any;
+  currentTable: any;
+  pathQRcode: any = window.location.origin + "/mobile?number="
 
   constructor(
     public fb: UntypedFormBuilder,
     public callapi: TableService,
-    private spinner: NgxSpinnerService
-
+    private spinner: NgxSpinnerService,
+    private router: Router
   ){
     this.formCreateTable = this.fb.group({
       table_id: null,
@@ -36,7 +40,7 @@ export class ManageTableComponent implements OnInit {
       qrcode: null
     })
    }
-  
+
   ngOnInit(): void {
     this.spinner.show();
     Promise.all([this.getAllTable()]).then((values) => {
@@ -49,21 +53,6 @@ export class ManageTableComponent implements OnInit {
       this.formShowTable = tb;
     })
   }
-
-  // patchValueFormEdit(data: table){
-  //   this.formEditTable.patchValue({
-  //     table_id: data.table_id,
-  //     table_NO: data.table_NO,
-  //     status: data.status,
-  //     qrcode: data.qrcode
-  //   })
-  // }
-
-  // getTableByid(id: string){
-  //   this.callapi.GetTableById(id).subscribe(tb => {
-  //     this.patchValueFormEdit(tb);
-  //   })
-  // }
 
   createTable(){
     this.formCreateTable.value.status = 'empty';
@@ -78,6 +67,39 @@ export class ManageTableComponent implements OnInit {
       })
       this.closeModalCreateTable();
       this.getAllTable();
+    })
+  }
+
+  generateQrcode(id: string){
+    let formEdit = this.formShowTable.find((el: any) =>  el.table_id == id)
+    
+    Swal.fire({
+      position: 'top',
+      text: "ยืนยันสร้างคิวอาร์โค้ด",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: 'green',
+      confirmButtonText: 'ยืนยัน'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        formEdit.qrcode = this.pathQRcode + formEdit.table_NO
+        let today = new Date()
+        formEdit.startTime = new Date()
+        formEdit.endTime =  new Date(today.setHours(today.getHours() + 1, today.getMinutes() + 30));
+        formEdit.status = "befull"
+        this.callapi.editTable(id, formEdit).subscribe(el => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สร้างคิวอาร์โค้ดสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => {
+            this.getAllTable();
+          })
+        })
+      }
     })
   }
 
@@ -104,6 +126,10 @@ export class ManageTableComponent implements OnInit {
             })
         }
       })
+  }
+
+  handleCreateQRcode(id: string){
+    this.currentTable = this.formShowTable.find((el: any) =>  el.table_id == id)
   }
 
   closeModalCreateTable() {

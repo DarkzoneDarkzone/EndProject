@@ -32,6 +32,10 @@ import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.compone
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 import { DataService } from './services/data.service';
 import { OrderMobileComponent } from './components-mobile/order-mobile/order-mobile.component';
+import { CartOrderComponent } from './components-mobile/cart-order/cart-order.component';
+
+import {NgxPrintModule} from 'ngx-print';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +56,7 @@ import { OrderMobileComponent } from './components-mobile/order-mobile/order-mob
     FoodmenuComponent,
     ManageTypefoodComponent,
     OrderMobileComponent,
+    CartOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,8 @@ import { OrderMobileComponent } from './components-mobile/order-mobile/order-mob
     Ng2SearchPipeModule,
     AccordionModule,
     ChartModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxPrintModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DataService],
