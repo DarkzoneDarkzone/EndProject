@@ -1,10 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { QRCodeModule } from 'angularx-qrcode';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,7 +32,7 @@ import { OrderMobileComponent } from './components-mobile/order-mobile/order-mob
 import { CartOrderComponent } from './components-mobile/cart-order/cart-order.component';
 
 import {NgxPrintModule} from 'ngx-print';
-
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +58,6 @@ import {NgxPrintModule} from 'ngx-print';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QRCodeModule,
     BrowserAnimationsModule,
     MatIconModule,
     FormsModule,
@@ -71,7 +67,8 @@ import {NgxPrintModule} from 'ngx-print';
     AccordionModule,
     ChartModule,
     NgxSpinnerModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxQRCodeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DataService],

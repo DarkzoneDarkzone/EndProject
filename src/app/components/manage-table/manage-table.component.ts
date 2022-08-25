@@ -2,13 +2,11 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { table } from 'src/app/models/table';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
-import { environment } from 'src/environments/environment';
 import { OrderService } from 'src/app/services/order.service';
-
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 @Component({
   selector: 'app-manage-table',
   templateUrl: './manage-table.component.html',
@@ -17,6 +15,8 @@ import { OrderService } from 'src/app/services/order.service';
 export class ManageTableComponent implements OnInit {
   @ViewChild('closebuttonCreateTable') closebuttonCreateTable: any;
   @ViewChild('closebuttonOpenTable') closebuttonOpenTable: any;
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   formCreateTable:any ;
   formShowTable: any;
   formEditTable: any;
