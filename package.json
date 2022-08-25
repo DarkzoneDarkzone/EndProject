@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@techiediaries/ngx-qrcode": "^9.1.0",
+    "angular-shorturl": "^0.1.7",
     "angularx-qrcode": "^10.0.12",
     "bootstrap": "^4.6.0",
     "chart.js": "^3.8.0",

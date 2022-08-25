@@ -20,6 +20,7 @@ export class OrderMobileComponent implements OnInit {
   getOrderTable(){
     this.callapiorder.GetOrderByTableNumber(localStorage.getItem('tableNo')).subscribe(data => {
       this.tableOrder = data
+      console.log(data)
   })
   }
 }

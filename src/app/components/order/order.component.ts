@@ -4,6 +4,7 @@ import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { TableService } from 'src/app/services/table.service';
 
 @Component({
   selector: 'app-order',
@@ -18,7 +19,8 @@ export class OrderComponent implements OnInit {
   constructor(
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public callapitable: TableService,
   ){}
 
   ngOnInit(): void {
