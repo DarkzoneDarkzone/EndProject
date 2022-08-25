@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
-  apiUrl : "https://localhost:5001/api/",
-  apiUrlForImg : "https://localhost:5001",
-  //  apiUrl : "https://testrestaurant.azurewebsites.net/api/",
-  //  apiUrlForImg : "https://testrestaurant.azurewebsites.net/"
+  production: false,
+  // apiUrl : "https://localhost:5001/api/",
+  // apiUrlForImg : "https://localhost:5001",
+   apiUrl : "https://testrestaurant.azurewebsites.net/api/",
+   apiUrlForImg : "https://testrestaurant.azurewebsites.net/"
 };
