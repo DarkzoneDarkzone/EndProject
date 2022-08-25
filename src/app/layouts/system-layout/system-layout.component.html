@@ -1,0 +1,120 @@
+<div *ngIf="status_login != null" class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-dark" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+        <img src="../assets/image/pngtree-coffee.jpg" class="photo" alt="">
+      </div>
+      <div class="text-center">
+        ---การขาย---
+      </div>
+      <div class="list-group list-group-flush mb-3">
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
+        <a *ngIf="position == 'manager' || position == 'chef'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ (for chef)</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
+      </div>
+      <div class="text-center">
+        ---การจัดการ---
+      </div>
+      <div class="list-group list-group-flush mb-3">
+        <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+        <a *ngIf="position == 'manager'" routerLink="manageTypefood" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
+        <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
+        <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
+      </div>
+      <div class="text-center">
+        ---รายงาน---
+      </div>
+      <div class="list-group list-group-flush mb-3">
+        <a *ngIf="position == 'manager'" routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
+      </div>
+      <div class="list-group list-group-flush mb-3" style="position: absolute; bottom: 0">
+        <button type="button" class="btn btn-outline-warning" style="margin-inline: 2rem;" (click)="onSignOut()">ออกจากระบบ</button>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+  
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+  
+  <div *ngIf="status_login == null && formForLogin" class="container">
+    <div class="form-login">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="text-center text-white">เข้าสู่ระบบ</h1>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formLogin">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text material-icons">person</span>
+                </div>
+                <input type="text" formControlName="username" class="form-control" placeholder="username">
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text material-icons">key</span>
+                </div>
+                <input type="password" formControlName="password" class="form-control" placeholder="password">
+              </div>
+              <div class="form-group">
+                <input type="button" (click)="onSignin()" value="เข้าสู่ระบบ" class="btn float-right login_btn">
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <!-- <div class="d-flex justify-content-center links">
+              ยังไม่มีบัญชีผู้ใช้?<a style="cursor: pointer; text-decoration: underline;" (click)="changeForm()">ลงทะเบียน</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="status_login == null && !formForLogin" class="container-fluid">
+    <div class="form-login">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="text-center text-white">ลงทะเบียน</h1>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formRegister">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text material-icons">person</span>
+                </div>
+                <input type="text" formControlName="username" class="form-control" placeholder="username">
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text material-icons">key</span>
+                </div>
+                <input type="password" formControlName="password" class="form-control" placeholder="password">
+              </div>
+              <div class="form-group">
+                <input type="button" (click)="onRegister()" value="ยืนยัน" class="btn float-right login_btn">
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-center links">
+              มีบัญชีผู้ใช้แล้ว?<a style="cursor: pointer; text-decoration: underline;"
+                (click)="changeForm()">เข้าสู่ระบบ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.95)"></ngx-spinner>
+  

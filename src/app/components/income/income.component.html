@@ -1,0 +1,147 @@
+<div class="row mt-3">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            รายได้ทั้งหมด</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalIncome|currency:"":""}} บาท</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-chart-bar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            รายได้เดือนนี้</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{income_month[this_month]|currency:"":""}} บาท</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-dollar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            พนักงานทั้งหมด</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalEmp}} คน</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-user" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            เมนอาหารทั้งหมด</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalFood}} รายการ</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="pi pi-list" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row row-bar-doughnut">
+    <div class="col-6">
+        <div class="card card-bar">
+            <p-chart type="line" #chart [data]="lineData" [options]="lineOption"></p-chart>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card card-doughnut">
+            <div class="card-header">
+                <div class="text-title">บิล</div>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">{{order_success+order_unsuccess}} บิล</div>
+                    <p-chart type="doughnut" [data]="datapie" [options]="chartOptionspie"></p-chart>
+                </div>
+                <div class="col detail-bill">
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color:#36A2EB"></i> สำเร็จ ({{order_success/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
+                        <div class="text-title">{{order_success}} บิล</div>
+                        <div class="text-title">{{order_success_price|currency:"":""}} บาท</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-title"><i class="pi pi-circle-fill" style="color: #FF6384"></i> ไม่สำเร็จ ({{order_unsuccess/(order_success+order_unsuccess)*100 | number:'1.0-0'}}%)</div>
+                        <div class="text-title">{{order_unsuccess}} บิล</div>
+                        <div class="text-title">{{order_unsuccess_price|currency:"":""}} บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-6">
+        <div class="card card-pie" *ngIf="besttype">
+            <div class="card-header">
+                <div class="text-title">ประเภทขายดี</div>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">{{besttype.length}} รายการ</div>
+                    <p-chart type="pie" [data]="doughtnutType" [options]="optionsdoughtnutType"></p-chart>
+                </div>
+                <div class="col mt-auto mb-auto" *ngIf="besttype">
+                    <div class="text-left" *ngFor="let item of besttype">
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} {{item.totalPrice|currency:"":""}} บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card card-pie" *ngIf="bestfood">
+            <div class="card-header">
+                <div class="text-title">เมนูอาหารขายดี</div>
+                <!-- <button class="btn btn-success">ดูเพิ่มเติม</button> -->
+            </div>
+            <div class="row">
+                <div class="col-4 text-center all-bill">
+                    <div class="text-title">ทั้งหมด</div>
+                    <div class="text-title">{{bestfood.length}} รายการ</div>
+                    <p-chart type="pie" [data]="doughtnutFood" [options]="optionsdoughtnutFood"></p-chart>
+                </div>
+                <div class="col mt-auto mb-auto" *ngIf="bestfood">
+                    <div class="text-left" *ngFor="let item of bestfood">
+                        <div class="text-menu"><i class="pi pi-circle-fill" [ngStyle]="{'color': item.color}"></i> {{item.name}} {{item.totalPrice|currency:"":""}} บาท</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

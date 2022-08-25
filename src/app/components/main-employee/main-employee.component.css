@@ -1,0 +1,224 @@
+.cardButton {
+    height: 10rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px black inset;
+}
+
+.Bg-Modal {
+    background-color: rgb(231, 231, 231);
+}
+
+.w-130px {
+    width: 130px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.order h1 {
+    margin: auto;
+}
+
+.w-200px {
+    width: 10vw;
+}
+
+.row .text-food h1 {
+    font-weight: bold;
+}
+
+.main-emp {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.idShow {
+    color: black;
+    cursor: default;
+    margin: 0 auto;
+    padding: auto;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+#idShow {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.card-body-style {
+    margin-top: 2.5rem;
+}
+
+.card-img-top {
+    height: 8rem;
+    padding: 0;
+    /* width: 10rem; */
+}
+
+.card-img-topp {
+    height: 7rem;
+    width: 7rem;
+}
+
+.card-order:hover {
+    background-color: rgb(255, 238, 0);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card-ordered:hover {
+    background-color: rgb(91, 248, 99);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.deleteBill:hover {
+    color: red;
+}
+
+.card-order {
+    background-color: rgb(241, 247, 210);
+}
+
+.card-ordered {
+    background-color: rgb(206, 245, 208);
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+.modal-body {
+    margin: top 0;
+    padding-top: 0;
+}
+
+.card-body {
+    padding: 1vh;
+}
+
+.card-body h3.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+select {
+    cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card-top-food {
+    color: red;
+    height: 8vh;
+}
+
+.card-food {
+    margin-top: 1vh;
+    padding: 1vh;
+    /* padding-right: 0%; */
+    color: white;
+}
+
+.text-food {
+    color: black;
+}
+
+.order {
+    width: 100%;
+    height: 8vh;
+}
+
+.styleDelete {
+    margin: auto;
+}
+
+.collapse .card-body {
+    background-color: white;
+    border: none;
+}
+
+.card-order-food {
+    height: 92vh;
+}
+
+.row-order {
+    padding: 1vh;
+    /* margin-top: 1vh; */
+}
+
+.modal-header {
+    text-align: center;
+    /* margin: auto; */
+}
+
+.card-food select {
+    margin: auto;
+}
+
+.modal-body {
+    padding: 1vw;
+}
+
+.modal-body .card {
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.modal-title {
+    margin: auto;
+}
+
+.orderFoodStyle {
+    font-size: 1vw;
+}
+
+.card-footer {
+    border: none;
+    background-color: white;
+}
+
+.card-footer h3 {
+    color: black;
+    font-size: 1vw;
+}
+
+.col-side {
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28%;
+}
+
+.card.h-30 {
+    box-shadow: 0 0 2px 0 darkgrey;
+}
+
+.food {
+    position: absolute;
+    overflow: scroll;
+    width: 72%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.food::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: rgb(231, 231, 231);
+}
+
+.food::-webkit-scrollbar-thumb
+{
+	background-color: rgb(204, 204, 204);
+}

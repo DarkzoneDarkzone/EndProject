@@ -1,0 +1,23 @@
+.w-300px {
+    width: 300px;
+}
+
+.w-200px {
+    width: 200px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+select {
+    cursor: pointer;
+}
+
+.modal-header {
+    text-align: center;
+}
+
+.modal-title {
+    margin: auto;
+}

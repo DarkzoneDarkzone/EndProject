@@ -1,0 +1,84 @@
+.text-left {
+    padding-top: 4px;
+    padding-left: 5px;
+}
+
+.btn {
+    width: 100px;
+    font-size: 10px;
+}
+
+.btn-trolly {
+    width: auto;
+}
+.btn-delete {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+.btn-plus {
+    width: 50px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+.btn-w-h{
+    width: 80px;
+    height: 30px;
+}
+.btn-total-number{
+    width: 80px;
+    height: 40px;
+}
+.modal-header {
+    background-color: rgba(187, 185, 185, 0.7);
+    color: black;
+    height: 50px;
+    padding-bottom: 40px;
+}
+
+.modal-body {
+    
+    color: black;
+}
+
+.modal-footer {
+    background-color: rgba(187, 185, 185, 0.7);
+    color: black;
+}
+
+.fromcontrol {
+    width: 30px;
+    height: 30px;
+}
+
+
+.icons-delete {
+    text-align: center;
+}
+
+.card {
+    border: none;
+}
+.row{
+    text-align: center;
+}
+.margin-buttom{
+    
+    margin-bottom: 20px;
+}
+.row-width{
+    height: 100%;
+}
+.texe-right{
+    text-align: right;
+}
+.card-header{
+    height: 50px;
+}
+.a-color{
+color: white;
+}
