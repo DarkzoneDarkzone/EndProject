@@ -33,6 +33,7 @@ import { CartOrderComponent } from './components-mobile/cart-order/cart-order.co
 
 import {NgxPrintModule} from 'ngx-print';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
