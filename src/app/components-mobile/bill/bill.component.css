@@ -84,3 +84,8 @@
 hr.new1 {
     border-top: 1px dashed red;
   }
+
+  .detailsPrice {
+    display: flex;
+    justify-content: space-between;
+  }

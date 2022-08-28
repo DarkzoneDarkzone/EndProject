@@ -15,6 +15,7 @@ export class CartOrderComponent implements OnInit {
   cartOrder: any
   tableOrder: any
   formCreateOrder: any
+  arrayFood: any
   constructor(public callapicart: CartOrderService, public callapiorder: OrderService, public ds: DataService) {}
 
   ngOnInit(): void {
@@ -53,27 +54,56 @@ export class CartOrderComponent implements OnInit {
   getOrderTable(){
     this.callapiorder.GetOrderByTableNumber(localStorage.getItem('tableNo')).subscribe(data => {
       this.tableOrder = data
+      this.arrayFood = data.foodList
     })
   }
   confirmOrderFood(){
-    let total: number = 0
-    this.cartOrder.foodList.forEach((el: any) => total + el.price);
-    for (let i = 0; i < this.cartOrder.foodList.length; i++) {
-      this.tableOrder.foodList.push(this.cartOrder.foodList[i])
-    }
-    this.tableOrder.priceTotal = total
-    this.tableOrder.netPrice = total
-    this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {})
-    this.callapicart.DeleteCartOrder(this.cartOrder.cart_id).subscribe(data => {
+    if(!this.tableOrder){
       Swal.fire({
         position: 'top',
-        icon: 'success',
-        title: 'สั่งอาหารแล้ว',
+        icon: 'error',
+        title: 'หมดเวลาสั่งอาหาร',
         showConfirmButton: false,
         timer: 1000
       })
-      this.getCart()
-      this.getOrderTable()
-    })
+    } else {
+      let total: number = 0
+      this.cartOrder.foodList.forEach((el: any) => total + el.price);
+      for (let i = 0; i < this.cartOrder.foodList.length; i++) {
+        if(this.checkArrayFood(this.cartOrder.foodList[i].food_id)){
+          for (let j = 0; j < this.arrayFood.length; j++) {
+            if (this.arrayFood[j].food_id == this.cartOrder.foodList[i].food_id) {
+              this.arrayFood[j].amount += this.cartOrder.foodList[i].amount;
+              this.arrayFood[j].status = "pending";
+            }
+          }
+        } else {
+          this.arrayFood.push(this.cartOrder.foodList[i])
+        }
+      }
+      this.tableOrder.priceTotal = total
+      this.tableOrder.netPrice = total
+      this.tableOrder.foodList = this.arrayFood
+      this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {})
+      this.callapicart.DeleteCartOrder(this.cartOrder.cart_id).subscribe(data => {
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'สั่งอาหารแล้ว',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.getCart()
+        this.getOrderTable()
+      })
+    }
+  }
+  checkArrayFood(id: string){
+    for (let i = 0; i < this.arrayFood.length; i++) {
+      if (this.arrayFood[i].food_id == id) {
+        return true;
+      }
+    }
+    return false;
   }
 }
