@@ -1,43 +1,51 @@
-<div class="row bg-warning" style="height: 3rem">
-    <div class="" style="margin: auto;font-size: x-large;">ชำระเงิน</div>
-</div>
-<div class="container-lg">
-    <div class="row">
-        <div class="col">
-            <!-- <h1 class="text-center mt-4">ร้านอาหาร</h1> -->
-            <h2 class="text-center mt-4">โต๊ะ {{table}}</h2>
-            <h4 class="text-center">วันที่ {{currentDate | date:'YY/MM/dd'}}    เวลา {{currentDate | date:'HH:mm:ss'}}</h4>
-            <div class="row ">
-                <table class="table" style="color: wheat;">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-left">รายการ</th>
-                            <th scope="col" class="text-center">จำนวน</th>
-                            <th scope="col" class="text-right">ราคา</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of tableOrder?.foodList">
-                            <td class="text-left">{{data.name}}</td>
-                            <td class="text-center">{{data.amount}}</td>
-                            <td class="text-right">{{data.amount*data.price}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="container-lg">
-                    <hr style="border: 1px dashed black;" />
-                    <div class="detailsPrice">
-                        <h3 class="">ภาษีมูลค่าเพิ่ม :</h3>
-                        <h3 class="">0 บาท</h3>
+<div class="" style="padding-bottom: 25vh;">
+    <div class="row bg-warning" style="height: 3rem">
+        <div class="" style="margin: auto;font-size: x-large;">ชำระเงิน</div>
+    </div>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+                <!-- <h1 class="text-center mt-4">ร้านอาหาร</h1> -->
+                <h2 class="text-center mt-4">โต๊ะ {{table}}</h2>
+                <h4 class="text-center">วันที่ {{currentDate | date:'YY/MM/dd'}}    เวลา {{currentDate | date:'HH:mm:ss'}}</h4>
+                <div class="text-center">
+                    <table class="table" style="color: wheat;">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-left">รายการ</th>
+                                <th scope="col" class="text-center">จำนวน</th>
+                                <th scope="col" class="text-right">ราคา</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of tableOrder?.foodList">
+                                <td class="text-left">{{data.name}}</td>
+                                <td class="text-center">{{data.amount}}</td>
+                                <td class="text-right">{{data.amount*data.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="container-lg">
+                        <hr style="border: 1px dashed black;" />
+                        <div class="detailsPrice">
+                            <h3 class="">ภาษีมูลค่าเพิ่ม :</h3>
+                            <h3 class="">0 บาท</h3>
+                        </div>
+                        <div class="detailsPrice">
+                            <h3 class="">ราคารวม :</h3>
+                            <h3 class="">{{tableOrder?.priceTotal}} บาท</h3>
+                        </div>
+                        <hr style="border: 1px dashed black;" />
                     </div>
-                    <div class="detailsPrice">
-                        <h3 class="">ราคารวม :</h3>
-                        <h3 class="">{{tableOrder?.priceTotal}} บาท</h3>
+                    <div class="mt-5">
+                        <button *ngIf="tableOrder?.status == 'waitingFood'" type="button" class="btn btn-outline-warning btn-center" data-toggle="modal" data-target="#exampleModal">ชำระเงิน</button>
+                        <button *ngIf="tableOrder?.status == 'payOnline' || tableOrder?.status == 'payOnsite'" type="button" class="btn btn-outline-warning btn-center">กำลังรอพนักงาน</button>
                     </div>
-                    <hr style="border: 1px dashed black;" />
+                    <div class="mt-5"><span>---- หรือ ----</span></div>
+                    <div class="">
+                        <button *ngIf="tableOrder?.status != 'success'" (click)="callService()" type="button" class="mt-5 material-icons btn btn-outline-warning btn-center">notifications_none เรียกพนักงาน</button>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-outline-warning btn-center  " data-toggle="modal"
-                    data-target="#exampleModal">ชำระเงิน</button>
             </div>
         </div>
     </div>
@@ -50,17 +58,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel">การชำระเงิน</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" #closeModalSelectPay class="close" hidden="true" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
-                <h2 class="text-center ">วิธีชำระเงิน</h2>
-                <div class="row"><button type="button" class="btn btn-warning btn-pay mb-3">แบบโอนจ่าย</button></div>
-                <div class="row"> <button type="button" class="btn btn-warning btn-pay mb-3">แบบเงินสด</button></div>
+            <div class="modal-body p-5">
+                <h2 class="text-center ">เลือกวิธีชำระเงิน</h2>
+                <button type="button" (click)="handlePayment('payOnline')" class="btn btn-warning btn-pay mb-3">แบบโอนจ่าย</button>
+                <button type="button" (click)="handlePayment('payOnsite')" class="btn btn-warning btn-pay mb-3">แบบเงินสด</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-pay" data-dismiss="modal">ยกเลิก</button>
+                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">ยกเลิก</button>
             </div>
         </div>
     </div>

@@ -2,9 +2,9 @@
     <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
-                <th scope="col">รหัสออเดอร์</th>
-                <th scope="col">จำนวนคน</th>
+                <!-- <th scope="col">รหัสออเดอร์</th> -->
                 <th scope="col">โต๊ะ</th>
+                <th scope="col">จำนวนคน</th>
                 <th scope="col">ราคารวม (บาท)</th>
                 <th scope="col">สถานะ</th>
                 <th scope="col"></th>
@@ -14,9 +14,9 @@
         <tbody>
             <tr>
                 <tr *ngFor="let data of formOrderShow | filter: 'success'">
-                    <td>{{data.order_id}}</td>
-                    <td>{{data.number}}</td>
+                    <!-- <td>{{data.order_id}}</td> -->
                     <td>{{data.table_NO}}</td>
+                    <td>{{data.number}}</td>
                     <td>{{data.priceTotal}}</td>
                     <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
                     <td>

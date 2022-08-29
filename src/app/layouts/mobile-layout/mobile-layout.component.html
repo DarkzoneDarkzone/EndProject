@@ -19,8 +19,11 @@
         </div>
     </div>
     <!-- show -->
-    <div class="card-body">
+    <div class="card-body" *ngIf="tableOrder != undefined">
         <router-outlet></router-outlet>
+    </div>
+    <div class="card-body text-center" *ngIf="tableOrder == undefined">
+        <h1 class="mt-3">ไม่สามารถสั่งอาหารได้</h1>
     </div>
     <!-- footer -->
     <div class="footer nav nav_bottom ">
@@ -37,7 +40,7 @@
             </a>
         </div>
         <div class="my-auto w-25">
-            <a class="item-main " routerLink="/mobile/service" routerLinkActive="active">
+            <a class="item-main " routerLink="/mobile/" routerLinkActive="active">
                 <span class="material-icons ">notifications_none</span>
                 <h3 class="mb-0">พนักงาน</h3>
             </a>

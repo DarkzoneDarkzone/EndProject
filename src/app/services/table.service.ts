@@ -16,6 +16,9 @@ export class TableService {
   public getTableById(id: string){
     return this.http.get<table>(`${environment.apiUrl}Table/GetTableById/${id}`);
   }
+  public getTableByNumber(no: any){
+    return this.http.get<table>(`${environment.apiUrl}Table/GetTableByNo/${no}`);
+  }
   public deleteTables(id: string){
     return this.http.get<table>(`${environment.apiUrl}Table/DeleteTable/${id}`);
   }

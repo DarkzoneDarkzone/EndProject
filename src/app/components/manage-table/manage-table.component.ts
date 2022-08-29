@@ -96,37 +96,25 @@ export class ManageTableComponent implements OnInit {
     this.formCreateOrder.value.number = this.numberCustomer
     this.formCreateOrder.value.status = "waitingFood"
     this.formCreateOrder.value.foodList = []
-    Swal.fire({
-      position: 'top',
-      text: "ยืนยันสร้างคิวอาร์โค้ด",
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonColor: '#3085d6',
-      confirmButtonColor: 'green',
-      confirmButtonText: 'ยืนยัน'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        formEdit.qrcode = this.pathQRcode + formEdit.table_NO
-        let today = new Date()
-        formEdit.startTime = new Date()
-        formEdit.endTime =  new Date(today.setHours(today.getHours() + 1, today.getMinutes() + 30));
-        formEdit.status = "befull"
-        this.callapi.editTable(this.currentTableId, formEdit).subscribe(el => {
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'สร้างคิวอาร์โค้ดสำเร็จ',
-            showConfirmButton: false,
-            timer: 1000
-          }).then(() => {
-            this.callapiorder.CreateOrder(this.formCreateOrder.value).subscribe(order => {
-              this.formCreateOrder.value = null
-            });
-            this.closeModalOpenTable()
-            this.getAllTable();
-          })
-        })
-      }
+    formEdit.qrcode = this.pathQRcode + formEdit.table_NO
+    let today = new Date()
+    formEdit.startTime = new Date()
+    formEdit.endTime =  new Date(today.setHours(today.getHours() + 1, today.getMinutes() + 30));
+    formEdit.status = "befull"
+    this.callapi.editTable(this.currentTableId, formEdit).subscribe(el => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สร้างคิวอาร์โค้ดสำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      }).then(() => {
+        this.callapiorder.CreateOrder(this.formCreateOrder.value).subscribe(order => {
+          this.formCreateOrder.value = null
+        });
+        this.closeModalOpenTable()
+        this.getAllTable();
+      })
     })
   }
 
@@ -157,6 +145,51 @@ export class ManageTableComponent implements OnInit {
 
   handleCreateQRcode(id: string){
     this.currentTable = this.formShowTable.find((el: any) =>  el.table_id == id)
+  }
+
+  handleCancelTable(id: string){
+    Swal.fire({
+      position: 'top',
+      text: "ยืนยันปิดโต๊ะนี้หรือไม่? รายการอาหารที่ลูกค้าโต๊ะนี้สั่งจะสูญหาย",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'ใช่, ฉันต้องการปิดโต๊ะ'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.currentTable = this.formShowTable.find((el: any) =>  el.table_id == id)
+        this.currentTable.status = "empty"
+        this.callapi.editTable(this.currentTable.table_id, this.currentTable).subscribe(el => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'ปิดโต๊ะสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(() => {
+            this.callapiorder.DeleteOrder(this.currentTable.table_NO).subscribe(data => {})
+            this.getAllTable();
+          })
+        })
+      }
+    })
+  }
+
+  handleServiceCustomer(id: any){
+    let serviceTable: any = this.formShowTable.find((el: any) =>  el.table_id == id)
+    serviceTable.status = 'befull'
+    this.callapi.editTable(serviceTable.table_id, serviceTable).subscribe(el => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'ให้บริการแล้ว',
+        showConfirmButton: false,
+        timer: 1000
+      }).then(() => {
+        this.getAllTable();
+      })
+    })
   }
 
   selectTable(id: string){
