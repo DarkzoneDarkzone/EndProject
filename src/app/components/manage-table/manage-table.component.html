@@ -23,21 +23,27 @@
                     <th scope="col">สถานะ</th>
                     <th scope="col">เวลาที่เริ่ม</th>
                     <th scope="col">เวลาที่หมด</th>
-                    <th scope="col">จัดการ</th>
+                    <th scope="col">เรียกพนักงาน</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of formShowTable">
                     <td>{{data.table_NO}}</td>
-                    <td *ngIf="data.status == 'empty'">โต๊ะว่าง</td>
-                    <td *ngIf="data.status == 'befull'">ไม่ว่าง</td>
-                    <td>{{data.startTime | date:'HH:mm:ss'}}</td>
-                    <td>{{data.endTime | date:'HH:mm:ss'}}</td>
-                    <td></td>
+                    <td *ngIf="data.status != 'callservice' && data.status == 'empty'">โต๊ะว่าง</td>
+                    <td *ngIf="data.status != 'callservice' && data.status == 'empty'"></td>
+                    <td *ngIf="data.status != 'callservice' && data.status == 'empty'"></td>
+                    <td *ngIf="data.status == 'callservice' || data.status == 'befull'">ไม่ว่าง</td>
+                    <td *ngIf="data.status == 'callservice' || data.status == 'befull'">{{data.startTime | date:'HH:mm:ss'}}</td>
+                    <td *ngIf="data.status == 'callservice' || data.status == 'befull'">{{data.endTime | date:'HH:mm:ss'}}</td>
+                    <td *ngIf="data.status != 'callservice' || data.status == 'empty'"></td>
+                    <td *ngIf="data.status == 'callservice'">
+                        <button type="button" class="btn btn-warning" (click)="handleServiceCustomer(data.table_id)">ให้บริการ</button>
+                    </td>
                     <td>
-                        <button *ngIf="data.status=='empty'" type="button" class="btn btn-success" (click)="selectTable(data.table_id)" data-target="#openTable" data-toggle="modal">สร้างคิวอาร์โคด</button>
-                        <button *ngIf="data.status=='befull'" type="button" class="btn btn-primary" (click)="handleCreateQRcode(data.table_id)" data-target="#createQrcode" data-toggle="modal">พิมพ์คิวอาร์โคด</button>
+                        <button *ngIf="data.status != 'callservice' && data.status=='empty'" type="button" class="btn btn-success" (click)="selectTable(data.table_id)" data-target="#openTable" data-toggle="modal">สร้างคิวอาร์โคด</button>
+                        <button *ngIf="data.status == 'callservice' || data.status=='befull'" type="button" class="btn btn-primary mr-2" (click)="handleCreateQRcode(data.table_id)" data-target="#createQrcode" data-toggle="modal">พิมพ์คิวอาร์โคด</button>
+                        <button *ngIf="data.status == 'callservice' || data.status=='befull'" type="button" class="btn btn-danger" (click)="handleCancelTable(data.table_id)">ปิดโต๊ะ</button>
                     </td>
                 </tr>
             </tbody>

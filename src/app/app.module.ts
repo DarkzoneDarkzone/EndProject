@@ -24,7 +24,6 @@ import { MobileLayoutComponent } from './layouts/mobile-layout/mobile-layout.com
 import { SystemLayoutComponent } from './layouts/system-layout/system-layout.component';
 import { BillComponent } from './components-mobile/bill/bill.component';
 import { MenuComponent } from './components-mobile/menu/menu.component';
-import { CallServiceComponent } from './components-mobile/call-service/call-service.component';
 import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.component';
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 import { DataService } from './services/data.service';
@@ -50,7 +49,6 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     SystemLayoutComponent,
     BillComponent,
     MenuComponent,
-    CallServiceComponent,
     FoodmenuComponent,
     ManageTypefoodComponent,
     OrderMobileComponent,

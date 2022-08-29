@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartOrderService } from 'src/app/services/cart-order.service';
 import { DataService } from 'src/app/services/data.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-mobile-layout',
@@ -12,10 +13,17 @@ export class MobileLayoutComponent implements OnInit {
   subscription: any
   dataPassed: any
   tableNo : any = null
-    
-    constructor(public ds: DataService, private route: ActivatedRoute, public callapicart: CartOrderService) {}
+  tableOrder: any
+  constructor(public ds: DataService, private route: ActivatedRoute, public callapicart: CartOrderService, public callapiorder: OrderService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.tableNo = this.route.snapshot.queryParamMap.get('number')
+    if(this.tableNo != null){
+      localStorage.setItem('tableNo', this.tableNo);
+    } else {
+      this.tableNo = localStorage.getItem('tableNo')
+    }
+    Promise.all([this.getOrderTable()]).then((values) => {});
     this.subscription = this.ds.getData().subscribe(x => {
       this.dataPassed = x;
     });
@@ -27,13 +35,12 @@ export class MobileLayoutComponent implements OnInit {
       this.ds.sendData(amount)
     })
     this.ds.sendData(0);
-    
-    this.tableNo = this.route.snapshot.queryParamMap.get('number')
-    if(this.tableNo != null){
-      localStorage.setItem('tableNo', this.tableNo);
-    } else {
-      this.tableNo = localStorage.getItem('tableNo')
-    }
+  }
+
+  async getOrderTable(){
+    await this.callapiorder.GetOrderByTableNumber(localStorage.getItem('tableNo')).toPromise().then(data => {
+      this.tableOrder = data
+    })
   }
 
   ngOnDestroy() {

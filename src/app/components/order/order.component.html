@@ -2,9 +2,9 @@
     <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
-                <th scope="col">รหัสออเดอร์</th>
-                <th scope="col">จำนวนคน</th>
+                <!-- <th scope="col">รหัสออเดอร์</th> -->
                 <th scope="col">โต๊ะ</th>
+                <th scope="col">จำนวนคน</th>
                 <th scope="col">ราคารวม</th>
                 <th scope="col">สถานะ</th>
                 <th scope="col"></th>
@@ -12,16 +12,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of formOrderShow | filter: 'waiting'">
-                <td>{{data.order_id}}</td>
-                <td>{{data.number}}</td>
+            <tr *ngFor="let data of formOrderShow">
+                <!-- <td>{{data.order_id}}</td> -->
                 <td>{{data.table_NO}}</td>
+                <td>{{data.number}}</td>
                 <td>{{data.priceTotal}}</td>
-                <td *ngIf="data.status == 'waitingApprove'" style="color: rgb(241, 192, 31);">รอการยืนยัน</td>
-                <td *ngIf="data.status == 'waitingFood'" style="color: rgb(8, 243, 8);">กำลังทำ</td>
-                <td *ngIf="data.status == 'waitingPayment'" style="color: rgb(0, 4, 255);">รอการชำระ</td>
+                <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
+                <td *ngIf="data.status == 'payOnline'">ชำระแบบโอนจ่าย</td>
+                <td *ngIf="data.status == 'payOnsite'">ชำระแบบเงินสด</td>
                 <td class="pt-1">
-                    <button class="btn btn-primary" type="button" *ngIf="data.status == 'waitingPayment'" (click)="changeStatusOrder(data.order_id,'success')">ชำระเงิน</button>
+                    <button class="btn btn-primary" type="button" *ngIf="data.status == 'payOnline' || data.status == 'payOnsite'" (click)="changeStatusOrder(data.order_id,'success')">ชำระเงิน</button>
                 </td>
                 <td>
                     <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail1">description</div>
