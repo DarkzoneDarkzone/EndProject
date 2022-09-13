@@ -17,6 +17,7 @@ import { FoodmenuComponent } from './components-mobile/foodmenu/foodmenu.compone
 import { ManageTypefoodComponent } from './components/manage-typefood/manage-typefood.component';
 import { OrderMobileComponent } from './components-mobile/order-mobile/order-mobile.component';
 import { CartOrderComponent } from './components-mobile/cart-order/cart-order.component';
+import { PromotionCustomerComponent } from './components-mobile/promotion-customer/promotion-customer.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
       {path:'order',component:OrderMobileComponent},
       {path:'bill',component:BillComponent},
       {path:'foodmenu',component:FoodmenuComponent},
-      {path:'cart',component:CartOrderComponent}
+      {path:'cart',component:CartOrderComponent},
+      {path:'promotion',component:PromotionCustomerComponent}
     ]
   },
   {

@@ -7,7 +7,7 @@
             <div class="col">
                 <!-- <h1 class="text-center mt-4">ร้านอาหาร</h1> -->
                 <h2 class="text-center mt-4">โต๊ะ {{table}}</h2>
-                <h4 class="text-center">วันที่ {{currentDate | date:'YY/MM/dd'}}    เวลา {{currentDate | date:'HH:mm:ss'}}</h4>
+                <h4 class="text-center">วันที่ {{currentDate | date:'dd/MM/YYYY'}}    เวลา {{currentDate | date:'HH:mm:ss'}}</h4>
                 <div class="text-center">
                     <table class="table" style="color: wheat;">
                         <thead>
@@ -26,24 +26,36 @@
                         </tbody>
                     </table>
                     <div class="container-lg">
-                        <hr style="border: 1px dashed black;" />
+                        <!-- <hr style="border: 1px dashed black;" /> -->
                         <div class="detailsPrice">
                             <h3 class="">ภาษีมูลค่าเพิ่ม :</h3>
                             <h3 class="">0 บาท</h3>
                         </div>
                         <div class="detailsPrice">
+                            <h3 class="">ส่วนลด :</h3>
+                            <h3 class="">-{{valuePromotion}} บาท</h3>
+                        </div>
+                        <div class="detailsPrice">
                             <h3 class="">ราคารวม :</h3>
-                            <h3 class="">{{tableOrder?.priceTotal}} บาท</h3>
+                            <h3 class="">{{totalPrice - valuePromotion}} บาท</h3>
+                        </div>
+                        <hr style="border: 1px dashed black;" />
+                        <div class="detailsPrice">
+                            <input type="text" placeholder="กรอกรหัสโปรโมชั่น" [(ngModel)]="promotionId" style="text-transform:uppercase">
+                            <button type="button" (click)="usePromotion()" class="btn btn-outline-warning btn-center ml-0">ยืนยัน</button>
+                        </div>
+                        <div *ngIf="promotion != null && promotion != undefined" class="promotion">
+                            <span>{{promotion.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
                         </div>
                         <hr style="border: 1px dashed black;" />
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-4">
                         <button *ngIf="tableOrder?.status == 'waitingFood'" type="button" class="btn btn-outline-warning btn-center" data-toggle="modal" data-target="#exampleModal">ชำระเงิน</button>
                         <button *ngIf="tableOrder?.status == 'payOnline' || tableOrder?.status == 'payOnsite'" type="button" class="btn btn-outline-warning btn-center">กำลังรอพนักงาน</button>
                     </div>
-                    <div class="mt-5"><span>---- หรือ ----</span></div>
+                    <div class="mt-4"><span>---- หรือ ----</span></div>
                     <div class="">
-                        <button *ngIf="tableOrder?.status != 'success'" (click)="callService()" type="button" class="mt-5 material-icons btn btn-outline-warning btn-center">notifications_none เรียกพนักงาน</button>
+                        <button *ngIf="tableOrder?.status != 'success'" (click)="callService()" type="button" class="mt-4 material-icons btn btn-outline-warning btn-center">notifications_none เรียกพนักงาน</button>
                     </div>
                 </div>
             </div>
