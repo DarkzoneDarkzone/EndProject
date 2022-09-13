@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
+import { PromotionService } from 'src/app/services/promotion.service';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
 
@@ -10,9 +11,13 @@ import Swal from 'sweetalert2';
 })
 export class BillComponent implements OnInit {
   @ViewChild('closeModalSelectPay') closeModalSelectPay: any;
-  constructor(public callapiorder: OrderService, public callapitable: TableService) {}
+  constructor(public callapiorder: OrderService, public callapitable: TableService, public callapiPro: PromotionService) {}
   tableOrder: any
   tableByNo: any
+  promotionId: any
+  totalPrice: any = 0
+  promotion: any
+  valuePromotion: any = 0
   currentDate: any = new Date()
   table: any = localStorage.getItem('tableNo')
   ngOnInit(): void {
@@ -22,6 +27,8 @@ export class BillComponent implements OnInit {
   getOrderTable(){
     this.callapiorder.GetOrderByTableNumber(localStorage.getItem('tableNo')).subscribe(data => {
       this.tableOrder = data
+      this.totalPrice = this.tableOrder?.priceTotal
+      console.log(data)
     })
   }
   getTableByNumber(){
@@ -31,6 +38,9 @@ export class BillComponent implements OnInit {
   }
   handlePayment(type: any){
     this.tableOrder.status = type
+    this.tableOrder.promotion = this.promotion.promotion_id
+    this.tableOrder.netPrice = this.totalPrice - this.valuePromotion
+    this.tableOrder.valuePromotion = this.valuePromotion
     this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {
       Swal.fire({
         position: 'top',
@@ -61,5 +71,25 @@ export class BillComponent implements OnInit {
         this.getTableByNumber()
       })
     })
+  }
+  usePromotion(){
+    this.callapiPro.GetPromotionById(this.promotionId.toUpperCase()).subscribe((pro: any) => {
+      this.promotion = pro;
+      this.calculatePrice()
+    })
+  }
+  romovePromotion(){
+    this.promotion = null
+    this.promotionId = null
+    this.calculatePrice()
+  }
+  calculatePrice() {
+    if(this.promotion == null || this.promotion == undefined) {
+      this.valuePromotion = 0;
+    } else if(this.promotion.type == 'bath'){
+      this.valuePromotion = this.promotion.value;
+    } else if(this.promotion.type == 'percent'){
+      this.valuePromotion = (this.promotion.value*this.totalPrice)/100;
+    }
   }
 }

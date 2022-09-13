@@ -32,6 +32,7 @@ import { CartOrderComponent } from './components-mobile/cart-order/cart-order.co
 
 import {NgxPrintModule} from 'ngx-print';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { PromotionCustomerComponent } from './components-mobile/promotion-customer/promotion-customer.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     ManageTypefoodComponent,
     OrderMobileComponent,
     CartOrderComponent,
+    PromotionCustomerComponent,
   ],
   imports: [
     BrowserModule,
