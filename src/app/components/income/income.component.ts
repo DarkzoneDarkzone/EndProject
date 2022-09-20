@@ -52,8 +52,8 @@ export class IncomeComponent implements OnInit {
       this.income = data;
       for (let i = 0; i < this.income.length; i++) {
         let month = new Date(this.income[i].creationDatetime).getMonth()
-        this.income_month[month] += this.income[i].priceTotal
-        this.totalIncome += this.income[i].priceTotal
+        this.income_month[month] += this.income[i].netPrice
+        this.totalIncome += this.income[i].netPrice
       }
       this.lineChart()
     })
@@ -61,10 +61,10 @@ export class IncomeComponent implements OnInit {
       for (let i = 0; i < data.length; i++) {
         if(data[i].status == "success"){
           this.order_success += 1
-          this.order_success_price += data[i].priceTotal
+          this.order_success_price += data[i].netPrice
         } else {
           this.order_unsuccess += 1
-          this.order_unsuccess_price += data[i].priceTotal
+          this.order_unsuccess_price += data[i].netPrice
         }
       }
       this.pieChart()

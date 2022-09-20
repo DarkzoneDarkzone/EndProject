@@ -2,23 +2,25 @@
     <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
-                <!-- <th scope="col">รหัสออเดอร์</th> -->
+                <th scope="col">ลำดับ</th>
                 <th scope="col">โต๊ะ</th>
                 <th scope="col">จำนวนคน</th>
                 <th scope="col">ราคารวม (บาท)</th>
                 <th scope="col">สถานะ</th>
+                <th scope="col">วันที่/เวลา</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <tr *ngFor="let data of formOrderShow | filter: 'success'">
-                    <!-- <td>{{data.order_id}}</td> -->
+                <tr *ngFor="let data of formOrderShow | filter: 'success'; let i = index">
+                    <td>{{i+1}}</td>
                     <td>{{data.table_NO}}</td>
                     <td>{{data.number}}</td>
-                    <td>{{data.priceTotal}}</td>
+                    <td>{{data.netPrice}}</td>
                     <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
+                    <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
                     <td>
                         <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail3">description</div>
                     </td>

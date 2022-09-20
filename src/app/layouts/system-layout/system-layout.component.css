@@ -35,10 +35,6 @@ body {
     margin-left: 30%;
 }
 
-#sidebar-wrapper .list-group {
-    width: 15rem;
-}
-
 #page-content-wrapper {
     position: relative;
     left: 19%;

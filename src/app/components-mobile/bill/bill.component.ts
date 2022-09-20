@@ -28,7 +28,7 @@ export class BillComponent implements OnInit {
     this.callapiorder.GetOrderByTableNumber(localStorage.getItem('tableNo')).subscribe(data => {
       this.tableOrder = data
       this.totalPrice = this.tableOrder?.priceTotal
-      console.log(data)
+      this.valuePromotion = data.valuePromotion
     })
   }
   getTableByNumber(){
@@ -38,9 +38,11 @@ export class BillComponent implements OnInit {
   }
   handlePayment(type: any){
     this.tableOrder.status = type
-    this.tableOrder.promotion = this.promotion.promotion_id
+    if(this.promotion != null || this.promotion != undefined){
+      this.tableOrder.promotion = this.promotion.promotion_id
+      this.tableOrder.valuePromotion = this.valuePromotion
+    }
     this.tableOrder.netPrice = this.totalPrice - this.valuePromotion
-    this.tableOrder.valuePromotion = this.valuePromotion
     this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {
       Swal.fire({
         position: 'top',

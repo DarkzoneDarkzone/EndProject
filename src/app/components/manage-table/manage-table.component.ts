@@ -96,6 +96,7 @@ export class ManageTableComponent implements OnInit {
     this.formCreateOrder.value.number = this.numberCustomer
     this.formCreateOrder.value.status = "waitingFood"
     this.formCreateOrder.value.foodList = []
+    this.formCreateOrder.value.creationDatetime = new Date();
     formEdit.qrcode = this.pathQRcode + formEdit.table_NO
     let today = new Date()
     formEdit.startTime = new Date()
