@@ -19,7 +19,8 @@
                     <td>{{data.table_NO}}</td>
                     <td>{{data.number}}</td>
                     <td>{{data.netPrice}}</td>
-                    <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
+                    <td>ชำระแล้ว</td>
+                    <!-- <td *ngIf="data.status == 'success'">ชำระแล้ว</td> -->
                     <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
                     <td>
                         <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail3">description</div>

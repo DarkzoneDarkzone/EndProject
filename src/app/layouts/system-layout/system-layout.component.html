@@ -9,9 +9,9 @@
       </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่ยังไม่สำเร็จ</a>
+        <!-- <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่ยังไม่สำเร็จ</a> -->
         <a *ngIf="position == 'manager' || position == 'chef'|| position == 'serve'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติออเดอร์</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ออเดอร์ภายในร้าน</a>
       </div>
       <div class="text-center">
         ---การจัดการ---

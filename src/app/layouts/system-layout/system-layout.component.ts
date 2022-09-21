@@ -54,6 +54,8 @@ export class SystemLayoutComponent implements OnInit {
           localStorage.setItem('position', e.position)
           if(e.position == "manager"){
             location.href = '/income'
+          } else {
+            location.reload()
           }
         })
       } else {

@@ -1,5 +1,10 @@
 .test {
     text-align: center;
     margin: auto;
-    width: 20rem;
+    width: 57mm;
+    padding-inline: 2rem;
+    font-size: small;
+    margin-top: 0.5rem;
 }
+
+@page { size: 57mm 90mm }

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { OrderService } from 'src/app/services/order.service';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import { CartOrderService } from 'src/app/services/cart-order.service';
 @Component({
   selector: 'app-manage-table',
   templateUrl: './manage-table.component.html',
@@ -30,6 +31,7 @@ export class ManageTableComponent implements OnInit {
     public fb: UntypedFormBuilder,
     public callapi: TableService,
     public callapiorder: OrderService,
+    public callapicart: CartOrderService,
     private spinner: NgxSpinnerService,
     private router: Router
   ){
@@ -170,6 +172,9 @@ export class ManageTableComponent implements OnInit {
             timer: 1000
           }).then(() => {
             this.callapiorder.DeleteOrder(this.currentTable.table_NO).subscribe(data => {})
+            this.callapicart.GetCartOrderByNo(this.currentTable.table_NO).subscribe(data => {
+              this.callapicart.DeleteCartOrder(data.cart_id).subscribe(dd => {})
+            })
             this.getAllTable();
           })
         })

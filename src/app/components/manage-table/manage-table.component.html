@@ -79,7 +79,7 @@
     <div class="modal-dialog">
         <div class="modal-content text-center">
             <button type="button" #closebuttonCreateTable class="close" hidden="true" data-dismiss="modal">&times;</button>
-            <div class="modal-body mt-2 m-auto" style="width: 20rem;" id="print-section">
+            <div class="modal-body mt-2 m-auto" id="print-section">
                 <div class="test">
                     <h1 class="modal-title mt-2">โต๊ะ {{currentTable?.table_NO}}</h1>
                     <span>เริ่ม 09/02/2565 10:30 - 12:00</span>
@@ -88,7 +88,7 @@
                         [errorCorrectionLevel]="correctionLevel"
                         [value]="pathQRcode+currentTable?.table_NO">
                     </ngx-qrcode>
-                    <span class="">สลิป QR code สำหรับสั่งอาหารของโต๊ะ ท่านสามารถใช้ Smartphone ในการสแกน QR code นี้ได้ผ่าน Application สำหรับอ่าน QR code หรือเปิด Application LINE เข้าหน้าจอเพิ่มเพื่อนด้วย QR code และสแกน QR code ได้ทันที</span>
+                    <span class="details" style="padding-inline: 1rem;">สลิป QR code สำหรับสั่งอาหารของโต๊ะ ท่านสามารถใช้ Smartphone ในการสแกน QR code นี้ได้ผ่าน Application สำหรับอ่าน QR code หรือเปิด Application LINE เข้าหน้าจอเพิ่มเพื่อนด้วย QR code และสแกน QR code ได้ทันที</span>
                 </div>
             </div>
             <div class="modal-footer">
