@@ -9,17 +9,17 @@
       </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่เปิดอยู่</a>
-        <a *ngIf="position == 'manager' || position == 'chef'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ (for chef)</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติการขาย</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่ยังไม่สำเร็จ</a>
+        <a *ngIf="position == 'manager' || position == 'chef'|| position == 'serve'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ประวัติออเดอร์</a>
       </div>
       <div class="text-center">
         ---การจัดการ---
       </div>
       <div class="list-group list-group-flush mb-3">
+        <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
         <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
         <a *ngIf="position == 'manager'" routerLink="manageTypefood" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
         <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
         <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
       </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
-  
+
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container-fluid">
@@ -43,7 +43,7 @@
     </div>
     <!-- /#page-content-wrapper -->
   </div>
-  
+
   <div *ngIf="status_login == null && formForLogin" class="container">
     <div class="form-login">
       <div class="d-flex justify-content-center h-100">
@@ -79,7 +79,7 @@
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="status_login == null && !formForLogin" class="container-fluid">
     <div class="form-login">
       <div class="d-flex justify-content-center h-100">
@@ -117,4 +117,3 @@
     </div>
   </div>
   <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.95)"></ngx-spinner>
-  
