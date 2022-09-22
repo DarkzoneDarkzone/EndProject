@@ -41,9 +41,10 @@
                 <h2 class="text-left mt-2 mb-1">จำนวน</h2>
                 <div class="text-center">
                     <div class="amountFood" style="width: 7rem;margin: auto;display: flex;justify-content: space-evenly;">
-                        <button type="button" class="btn button-del" (click)="reduceAmount()">-</button>
+                        <button *ngIf="amount>0" type="button" class="btn button-del" (click)="reduceAmount()">-</button>
+                        <div *ngIf="amount==0" class="btn"></div>
                         <div class="m-auto">
-                            <span style="font-size: large;font-weight: 500;">{{this.amount}}</span>
+                            <span style="font-size: large;font-weight: 500;">{{amount}}</span>
                         </div>
                         <button type="button" class="btn button-plust" (click)="increaseAmount()">+</button>
                     </div>

@@ -3,6 +3,12 @@
     /* width: 10rem; */
 }
 
+.head {
+    font-size: 30px;
+    font-weight: bold;
+    color: gray;
+}
+
 .w-300px {
     width: 300px;
 }

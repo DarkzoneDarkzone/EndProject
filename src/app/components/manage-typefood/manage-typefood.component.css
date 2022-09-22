@@ -70,6 +70,12 @@ input:checked+.slider:before {
     transform: translateX(26px);
 }
 
+.head {
+    font-size: 30px;
+    font-weight: bold;
+    color: gray;
+}
+
 .card.h-60 {
     box-shadow: 0 0 2px 0 darkgrey;
 }
