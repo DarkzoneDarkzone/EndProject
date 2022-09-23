@@ -4,17 +4,20 @@
             <span class="head">ออเดอร์ภายในร้าน</span>
         </div>
         <div class="col mr-0">
+            <button class="btn btn-secondary dropdown-toggle mt-0 float-right" style="max-width: 9rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                สถานะ
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="cursor: pointer;">
+                <div class="dropdown-item" (click)="filterStatus('')">ดูทั้งหมด</div>
+                <div class="dropdown-item" (click)="filterStatus('waitingFood')">กำลังทำ</div>
+                <div class="dropdown-item" (click)="filterStatus('waitingPayment')">รอการชำระ</div>
+                <div class="dropdown-item" (click)="filterStatus('success')">สำเร็จ</div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="order-history table-responsive text-center">
-    <select class="custom-select" style="max-width: 9rem;">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
     <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
@@ -22,22 +25,28 @@
                 <th scope="col">โต๊ะ</th>
                 <th scope="col">จำนวนคน</th>
                 <th scope="col">ราคารวม (บาท)</th>
+                <th scope="col">การจ่ายเงิน</th>
+                <th scope="col">เวลาที่เข้าร้าน</th>
+                <th scope="col">เวลาที่ชำระเงิน</th>
+                <th scope="col">โปรโมชั่น</th>
                 <th scope="col">สถานะ</th>
-                <th scope="col">วันที่/เวลา</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">รายละเอียด</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <tr *ngFor="let data of formOrderShow | filter: 'success'; let i = index">
+                <tr *ngFor="let data of formOrderShow; let i = index">
                     <td>{{i+1}}</td>
                     <td>{{data.table_NO}}</td>
                     <td>{{data.number}}</td>
                     <td>{{data.netPrice}}</td>
-                    <td>ชำระแล้ว</td>
-                    <!-- <td *ngIf="data.status == 'success'">ชำระแล้ว</td> -->
+                    <td></td>
                     <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
+                    <td></td>
+                    <td></td>
+                    <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
+                    <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
+                    <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
                     <td>
                         <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail3">description</div>
                     </td>

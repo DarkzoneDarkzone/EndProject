@@ -62,4 +62,8 @@ export class OrderChefComponent implements OnInit {
   closeModalShowDetail(){
     this.closebuttonShowDetail2.nativeElement.click();
   }
+
+  counter(i: number) {
+    return new Array(i);
+}
 }

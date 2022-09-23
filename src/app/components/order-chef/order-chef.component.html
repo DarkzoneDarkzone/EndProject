@@ -12,28 +12,47 @@
     <table class="table shadow-sm bg-white rounded">
         <thead>
             <tr>
-                <!-- <th scope="col">รหัสออเดอร์</th> -->
-                <th scope="col">โต๊ะ</th>
-                <th scope="col">จำนวนคน</th>
-                <th scope="col">ราคารวม</th>
-                <th scope="col">สถานะ</th>
-                <th scope="col"></th>
+                <th scope="col ">โต๊ะ</th>
+                <th scope="col ">เมนูอาหาร</th>
+                <th scope="col ">ประเภทอาหาร</th>
+                <th scope="col ">ราคา</th>
+                <th scope="col ">จำนวน</th>
+                <th scope="col ">สถานะ</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
+            <ng-container *ngFor="let order of formOrderShow">
+                <ng-container *ngFor="let data of order.foodList">
+                    <tr *ngFor="let repeat of counter(data.amount)">
+                        <td>{{order.table_NO}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.type}}</td>
+                        <td>{{data.price}}</td>
+                        <td>1</td>
+                        <td *ngIf="data.status == 'pending'">กำลังทำอาหาร</td>
+                        <td *ngIf="data.status == 'sending'">ทำอาหารเสร็จแล้ว</td>
+                        <td *ngIf="data.status == 'success'">เสิร์ฟอาหารแล้ว</td>
+                        <td class="pt-1">
+                            <button class="btn btn-warning" type="button" *ngIf="data.status == 'pending'" (click)="changeStatusFood(order.order_id, data.food_id, 'sending')">เสร็จแล้ว</button>
+                            <button class="btn btn-success" type="button" *ngIf="data.status == 'sending'" (click)="changeStatusFood(order.order_id, data.food_id, 'success')">เสิร์ฟอาหาร</button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </tbody>
+        <!-- <tbody>
             <tr *ngFor="let data of formOrderShow">
-                <!-- <td>{{data.order_id}}</td> -->
                 <td>{{data.table_NO}}</td>
                 <td>{{data.number}}</td>
                 <td>{{data.priceTotal}}</td>
-                <td *ngIf="data.status == 'waitingApprove'">รอการยืนยัน</td>
                 <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
                 <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
                 <td>
                     <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail2">description</div>
                 </td>
             </tr>
-        </tbody>
+        </tbody> -->
     </table>
 </div>
 

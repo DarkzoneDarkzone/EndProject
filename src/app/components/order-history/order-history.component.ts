@@ -15,6 +15,7 @@ export class OrderHistoryComponent implements OnInit {
   @ViewChild('closebuttonShowDetail3') closebuttonShowDetail3: any;
 
   formOrderShow: any;
+  formOrderAll: any;
   formOrderShowById: any;
   constructor(
     public fb: UntypedFormBuilder, 
@@ -63,13 +64,14 @@ export class OrderHistoryComponent implements OnInit {
 
   getOrderAll(){
     this.callapi.GetOrder().subscribe(od => {
-      this.formOrderShow = od
-      this.formOrderShow.reverse();
+      this.formOrderAll = od
+      this.formOrderAll.reverse();
+      this.formOrderShow = this.formOrderAll
     })
   }
 
   getOrderById(id:string){
-    this.formOrderShow.find((e: any) => {
+    this.formOrderAll.find((e: any) => {
       if(e.order_id == id){
         this.formOrderShowById = e
       }
@@ -91,6 +93,14 @@ export class OrderHistoryComponent implements OnInit {
 
   closeModalShowDetail(){
     this.closebuttonShowDetail3.nativeElement.click();
+  }
+
+  filterStatus(status: string){
+    if(status == ''){
+      this.formOrderShow = this.formOrderAll
+    } else {
+      this.formOrderShow = this.formOrderAll.filter((data: any) => data.status == status)
+    }
   }
 
 }

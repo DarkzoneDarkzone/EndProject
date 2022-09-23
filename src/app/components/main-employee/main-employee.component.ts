@@ -181,7 +181,8 @@ export class MainEmployeeComponent implements OnInit {
               title: 'ต้องการนำสินค้าออกหรือไม่?',
               confirmButtonText: 'ต้องการ',
               showCancelButton: true,
-              cancelButtonText: 'ไม่ต้องการ'
+              cancelButtonText: 'ไม่ต้องการ',
+              reverseButtons: true
             }).then((e) => {
               if(e.isConfirmed){
                 this.removeFoodFromArray(this.arrayFood[i].food_id)
