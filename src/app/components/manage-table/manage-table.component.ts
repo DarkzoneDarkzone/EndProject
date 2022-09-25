@@ -25,6 +25,7 @@ export class ManageTableComponent implements OnInit {
   formCreateOrder: any;
   numberCustomer: any;
   currentTableId: any;
+  position: any;
   pathQRcode: any = window.location.origin + "/mobile?number="
 
   constructor(
@@ -65,6 +66,7 @@ export class ManageTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
+    this.position = localStorage.getItem('position')
     Promise.all([this.getAllTable()]).then((values) => {
       this.spinner.hide();
     });
@@ -79,7 +81,7 @@ export class ManageTableComponent implements OnInit {
   createTable(){
     this.formCreateTable.value.status = 'empty';
     this.formCreateTable.value.qrcode = null;
-    this.callapi.createTable(this.formCreateTable.value).subscribe(tb => {
+    this.callapi.createTable(this.formCreateTable.value).toPromise().then(tb => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -89,6 +91,14 @@ export class ManageTableComponent implements OnInit {
       })
       this.closeModalCreateTable();
       this.getAllTable();
+    }).catch((error) => {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'ไม่สำเร็จ! โปรดลองอีกครั้ง',
+        showConfirmButton: false,
+        timer: 1000
+      })
     })
   }
 
@@ -100,9 +110,6 @@ export class ManageTableComponent implements OnInit {
     this.formCreateOrder.value.foodList = []
     this.formCreateOrder.value.creationDatetime = new Date();
     formEdit.qrcode = this.pathQRcode + formEdit.table_NO
-    let today = new Date()
-    formEdit.startTime = new Date()
-    formEdit.endTime =  new Date(today.setHours(today.getHours() + 1, today.getMinutes() + 30));
     formEdit.status = "befull"
     this.callapi.editTable(this.currentTableId, formEdit).subscribe(el => {
       Swal.fire({
@@ -115,6 +122,7 @@ export class ManageTableComponent implements OnInit {
         this.callapiorder.CreateOrder(this.formCreateOrder.value).subscribe(order => {
           this.formCreateOrder.value = null
         });
+        this.numberCustomer = null
         this.closeModalOpenTable()
         this.getAllTable();
       })

@@ -13,10 +13,13 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class OrderHistoryComponent implements OnInit {
 
   @ViewChild('closebuttonShowDetail3') closebuttonShowDetail3: any;
+  @ViewChild('closebuttonShowModalPayment') closebuttonShowModalPayment: any;
 
   formOrderShow: any;
   formOrderAll: any;
   formOrderShowById: any;
+  bankSelected: any = null;
+  current_order: any;
   constructor(
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
@@ -91,13 +94,50 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
+  confirmPayment(){
+    return false
+    Swal.fire({
+      position: 'top',
+      text: "ยืนยันการชำระเงินโต๊ะนี้หรือไม่?",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'ยืนยัน'
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected).subscribe(order => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          this.getOrderAll()
+        });
+      }
+    })
+  }
+
+  selectOrder(id: string){
+    this.current_order = this.formOrderAll.find((el: any) => el.order_id == id)
+    console.log(this.current_order)
+  }
+
   closeModalShowDetail(){
     this.closebuttonShowDetail3.nativeElement.click();
+  }
+
+  closebuttonModalPayment(){
+    this.closebuttonShowModalPayment.nativeElement.click();
   }
 
   filterStatus(status: string){
     if(status == ''){
       this.formOrderShow = this.formOrderAll
+    } else if(status == 'waitingPayment'){
+      this.formOrderShow = this.formOrderAll.filter((data: any) => data.status == 'payOnsite' || data.status == 'payOnline')
     } else {
       this.formOrderShow = this.formOrderAll.filter((data: any) => data.status == status)
     }

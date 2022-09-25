@@ -16,6 +16,8 @@ export class SystemLayoutComponent implements OnInit {
   formLogin: any;
   formRegister: any;
   formForLogin: Boolean = true
+
+  name: any
   constructor(public fb: UntypedFormBuilder, public callApi: EmployeeService, private router: Router) {
     this.formLogin = this.fb.group({
       username: "EMP00",
@@ -29,6 +31,7 @@ export class SystemLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.status_login = localStorage.getItem('statusLogin')
     this.position = localStorage.getItem('position')
+    this.name = localStorage.getItem('name')
   }
   public onSignin(){
     const Toast = Swal.mixin({
@@ -52,6 +55,7 @@ export class SystemLayoutComponent implements OnInit {
         }).then(event => {
           localStorage.setItem('statusLogin', 'yes')
           localStorage.setItem('position', e.position)
+          localStorage.setItem('name', e.emp_Name)
           if(e.position == "manager"){
             location.href = '/income'
           } else if (e.position == "chef"){

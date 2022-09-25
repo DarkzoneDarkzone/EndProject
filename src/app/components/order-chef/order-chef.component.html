@@ -30,9 +30,26 @@
                         <td>{{data.type}}</td>
                         <td>{{data.price}}</td>
                         <td>1</td>
-                        <td *ngIf="data.status == 'pending'">กำลังทำอาหาร</td>
-                        <td *ngIf="data.status == 'sending'">ทำอาหารเสร็จแล้ว</td>
-                        <td *ngIf="data.status == 'success'">เสิร์ฟอาหารแล้ว</td>
+                        <td *ngIf="data.status == 'wait'">
+                            <span style="background-color: red;border-radius: 5px;padding-inline: 7px;">
+                                รอคิว
+                            </span>
+                        </td>
+                        <td *ngIf="data.status == 'pending'">
+                            <span style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
+                                กำลังทำอาหาร
+                            </span>
+                        </td>
+                        <td *ngIf="data.status == 'sending'">
+                            <span style="background-color: lightskyblue;border-radius: 5px;padding-inline: 7px;">
+                                ทำอาหารเสร็จแล้ว
+                            </span>
+                        </td>
+                        <td *ngIf="data.status == 'success'">
+                            <span style="background-color: limegreen;border-radius: 5px;padding-inline: 7px;">
+                                เสิร์ฟอาหารแล้ว
+                            </span>
+                        </td>
                         <td class="pt-1">
                             <button class="btn btn-warning" type="button" *ngIf="data.status == 'pending'" (click)="changeStatusFood(order.order_id, data.food_id, 'sending')">เสร็จแล้ว</button>
                             <button class="btn btn-success" type="button" *ngIf="data.status == 'sending'" (click)="changeStatusFood(order.order_id, data.food_id, 'success')">เสิร์ฟอาหาร</button>

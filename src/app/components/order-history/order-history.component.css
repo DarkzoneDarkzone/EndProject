@@ -19,3 +19,14 @@
     font-weight: bold;
     color: gray;
 }
+
+.detailsPrice {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .promotion .cancel {
+    position: absolute;
+    font-size: x-large;
+    right: 10px;
+  }

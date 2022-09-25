@@ -47,6 +47,7 @@ export class ManageFoodComponent implements OnInit {
       imgPath: null,
       status: null,
       display: null,
+      recommend: null,
       amount: 0
     }),
       this.formEditFood = this.fb.group({
@@ -58,6 +59,7 @@ export class ManageFoodComponent implements OnInit {
         imgPath: null,
         status: null,
         display: null,
+        recommend: null,
         amount: 0
       }),
       this.formType = this.fb.group({
@@ -193,7 +195,8 @@ export class ManageFoodComponent implements OnInit {
       price: data.price,
       status: data.status,
       display: data.display,
-      amount: data.amount
+      amount: data.amount,
+      recommend: data.recommend
     })
   }
 

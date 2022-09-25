@@ -58,17 +58,8 @@ export class CartOrderComponent implements OnInit {
     })
   }
   confirmOrderFood(){
-    if(!this.tableOrder){
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'หมดเวลาสั่งอาหาร',
-        showConfirmButton: false,
-        timer: 1000
-      })
-    } else {
       let total: number = 0
-      this.cartOrder.foodList.forEach((el: any) => total + el.price);
+      this.cartOrder.foodList.forEach((el: any) => total = el.price * el.amount);
       for (let i = 0; i < this.cartOrder.foodList.length; i++) {
         if(this.checkArrayFood(this.cartOrder.foodList[i].food_id)){
           for (let j = 0; j < this.arrayFood.length; j++) {
@@ -96,7 +87,6 @@ export class CartOrderComponent implements OnInit {
         this.getCart()
         this.getOrderTable()
       })
-    }
   }
   checkArrayFood(id: string){
     for (let i = 0; i < this.arrayFood.length; i++) {

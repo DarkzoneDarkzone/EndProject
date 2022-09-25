@@ -4,7 +4,8 @@
             <span class="head">ออเดอร์ภายในร้าน</span>
         </div>
         <div class="col mr-0">
-            <button class="btn btn-secondary dropdown-toggle mt-0 float-right" style="max-width: 9rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle mt-0 float-right" style="max-width: 9rem;" type="button"
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 สถานะ
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="cursor: pointer;">
@@ -30,27 +31,46 @@
                 <th scope="col">เวลาที่ชำระเงิน</th>
                 <th scope="col">โปรโมชั่น</th>
                 <th scope="col">สถานะ</th>
+                <th scope="col">ชำระเงิน</th>
                 <th scope="col">รายละเอียด</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <tr *ngFor="let data of formOrderShow; let i = index">
-                    <td>{{i+1}}</td>
-                    <td>{{data.table_NO}}</td>
-                    <td>{{data.number}}</td>
-                    <td>{{data.netPrice}}</td>
-                    <td></td>
-                    <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
-                    <td></td>
-                    <td></td>
-                    <td *ngIf="data.status == 'waitingFood'">กำลังทำ</td>
-                    <td *ngIf="data.status == 'waitingPayment'">รอการชำระ</td>
-                    <td *ngIf="data.status == 'success'">ชำระแล้ว</td>
-                    <td>
-                        <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal" data-target="#modalShowDetail3">description</div>
-                    </td>
-                </tr>
+            <tr *ngFor="let data of formOrderShow; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data.table_NO}}</td>
+                <td>{{data.number}}</td>
+                <td>{{data.netPrice}}</td>
+                <td></td>
+                <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span *ngIf="data.status == 'waitingFood'"
+                        style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
+                        กำลังทำ
+                    </span>
+                    <span *ngIf="data.status == 'payOnline' || data.status == 'payOnsite'"
+                        style="background-color: lightskyblue;border-radius: 5px;padding-inline: 7px;">
+                        รอการชำระ
+                    </span>
+                    <span *ngIf="data.status == 'success'"
+                        style="background-color: limegreen;border-radius: 5px;padding-inline: 7px;">
+                        ชำระแล้ว
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="button"
+                        *ngIf="data.status == 'payOnline' || data.status == 'payOnsite'"
+                        (click)="selectOrder(data.order_id)" data-toggle="modal"
+                        data-target="#modalPayment">ชำระเงิน</button>
+                </td>
+                <td>
+                    <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal"
+                        data-target="#modalShowDetail3">description</div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -60,7 +80,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title mt-2">รายการอาหารที่สั่ง</h2>
-                <button type="button" #closebuttonShowDetail3 class="close" hidden="true" data-dismiss="modal">&times;</button>
+                <button type="button" #closebuttonShowDetail3 class="close" hidden="true"
+                    data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body  text-center">
                 <table class="table table-light">
@@ -87,6 +108,65 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPayment" aria-hidden="true">
+    <div class="modal-dialog modal-sx" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">รายการชำระเงิน</h2>
+                <button type="button" #closebuttonShowModalPayment class="close" hidden="true"
+                    data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-center mt-4">โต๊ะ {{current_order?.table_NO}}</h2>
+                            <h4 class="text-center">{{current_order?.creationDatetime | date:'วันที่ dd MMM เวลา HH:mm:ss'}}</h4>
+                            <div class="text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left">รายการ</th>
+                                            <th scope="col" class="text-center">จำนวน</th>
+                                            <th scope="col" class="text-right">ราคา</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of current_order?.foodList">
+                                            <td class="text-left">{{data.name}}</td>
+                                            <td class="text-center">{{data.amount}}</td>
+                                            <td class="text-right">{{data.amount*data.price}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr style="border: 1px dashed black;" />
+                                <div class="container">
+                                    <div class="detailsPrice">
+                                        <h3 class="">ส่วนลด :</h3>
+                                        <h3 class="">-{{current_order?.valuePromotion}} บาท</h3>
+                                    </div>
+                                    <div class="detailsPrice">
+                                        <h3 class="">ราคารวม :</h3>
+                                        <h3 class="">{{current_order?.netPrice}} บาท</h3>
+                                    </div>
+                                    <!-- <div *ngIf="promotion != null && promotion != undefined" class="promotion"> -->
+                                    <!-- <span>{{promotion.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span> -->
+                                    <!-- </div> -->
+                                </div>
+                                <hr style="border: 1px dashed black;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="confirmPayment()">ยืนยัน</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
             </div>
         </div>
     </div>

@@ -3,9 +3,11 @@
     <div class="bg-dark border-dark" id="sidebar-wrapper">
       <div class="sidebar-heading">
         <img src="../assets/image/pngtree-coffee.jpg" class="photo" alt="">
-      </div>
-      <div class="text-center">
-        ---การขาย---
+        <p class="text-center mt-3" style="color: white; font-size:large;">{{name}}</p>
+        <p *ngIf="position == 'chef'" class="text-center" style="color: white; font-size:large;">ตำแหน่ง: พ่อครัว</p>
+        <p *ngIf="position == 'serve'" class="text-center" style="color: white; font-size:large;">ตำแหน่ง: พนักงานเสิร์ฟ</p>
+        <p *ngIf="position == 'cashier'" class="text-center" style="color: white; font-size:large;">ตำแหน่ง: แคชเชียร์</p>
+        <p *ngIf="position == 'manager'" class="text-center" style="color: white; font-size:large;">ตำแหน่ง: ผู้จัดการ</p>
       </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
@@ -13,18 +15,12 @@
         <a *ngIf="position == 'manager' || position == 'chef'|| position == 'serve'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ</a>
         <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ออเดอร์ภายในร้าน</a>
       </div>
-      <div class="text-center">
-        ---การจัดการ---
-      </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
         <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
         <a *ngIf="position == 'manager'" routerLink="manageTypefood" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
         <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
         <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
-      </div>
-      <div class="text-center">
-        ---รายงาน---
       </div>
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager'" routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
