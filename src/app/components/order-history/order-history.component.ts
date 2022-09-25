@@ -4,6 +4,7 @@ import { order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { PromotionService } from 'src/app/services/promotion.service';
 
 @Component({
   selector: 'app-order-history',
@@ -20,15 +21,17 @@ export class OrderHistoryComponent implements OnInit {
   formOrderShowById: any;
   bankSelected: any = null;
   current_order: any;
+  promotionAll: any;
+  promotion_current: any;
   constructor(
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
+    public callapiPro: PromotionService,
     private spinner: NgxSpinnerService
   ){
     this.formOrderShowById = this.fb.group({
       order_id: null,
       table_NO: null,
-      typeOrder: null,
       number: null,
       priceTotal: null,
       foodList: [{
@@ -50,13 +53,13 @@ export class OrderHistoryComponent implements OnInit {
     Promise.all([this.getOrderAll()]).then((values) => {
       this.spinner.hide();
     });
+    this.getPromotionManage()
   }
 
   patchValueFormShow(data: order){
     this.formOrderShowById.patchValue({
       order_id : data.order_id,
       table_NO : data.table_NO,
-      typeOrder : data.typeOrder,
       number: data.number,
       priceTotal: data.priceTotal,
       foodList : data.foodList,
@@ -95,34 +98,28 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   confirmPayment(){
-    return false
-    Swal.fire({
-      position: 'top',
-      text: "ยืนยันการชำระเงินโต๊ะนี้หรือไม่?",
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonColor: '#3085d6',
-      confirmButtonColor: '#d33',
-      confirmButtonText: 'ยืนยัน'
-    }).then((result) => {
-      if(result.isConfirmed){
-        this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected).subscribe(order => {
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'สำเร็จ',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          this.getOrderAll()
-        });
-      }
+    this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected).subscribe(order => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.closebuttonModalPayment()
+      this.getOrderAll()
+    });
+  }
+
+  getPromotionManage(){
+    this.callapiPro.GetPromotionManage().subscribe(pro => {
+      this.promotionAll = pro;
     })
   }
 
   selectOrder(id: string){
     this.current_order = this.formOrderAll.find((el: any) => el.order_id == id)
-    console.log(this.current_order)
+    this.promotion_current = this.promotionAll.find((el: any) => el.promotion_id == this.current_order.promotion)
   }
 
   closeModalShowDetail(){
@@ -143,4 +140,19 @@ export class OrderHistoryComponent implements OnInit {
     }
   }
 
+  romovePromotion(){
+    this.promotion_current = null
+    this.current_order.valuePromotion = 0;
+    this.current_order.promotion = null;
+    this.current_order.netPrice = this.current_order.priceTotal;
+    this.callapi.EditOrder(this.current_order.order_id, this.current_order).subscribe(data => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'นำโปรโมชั่นออกแล้ว',
+        showConfirmButton: false,
+        timer: 1000
+      })
+    })
+  }
 }

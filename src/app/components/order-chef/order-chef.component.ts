@@ -21,18 +21,18 @@ export class OrderChefComponent implements OnInit {
     });
   }
 
-  getOrderAll(){
+  getOrderAll() {
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
       this.formOrderShow = this.formOrderShow.filter((data: any) => data.status == "waitingFood")
     })
   }
 
-  getOrderById(id:string){
+  getOrderById(id: string) {
     this.formOrderShowById = this.formOrderShow.find((e: any) => e.order_id == id)
   }
 
-  changeStatusOrder(id: string,status: string){
+  changeStatusOrder(id: string, status: string) {
     this.callapi.ChangeStatusOrder(id, status).subscribe(order => {
       Swal.fire({
         position: 'top',
@@ -45,7 +45,7 @@ export class OrderChefComponent implements OnInit {
     });
   }
 
-  changeStatusFood(order_id: string, food_id: string, status: string){
+  changeStatusFood(order_id: string, food_id: string, status: string) {
     this.callapi.ChangeStatusFood(order_id, food_id, status).subscribe(order => {
       Swal.fire({
         position: 'top',
@@ -59,11 +59,11 @@ export class OrderChefComponent implements OnInit {
     })
   }
 
-  closeModalShowDetail(){
+  closeModalShowDetail() {
     this.closebuttonShowDetail2.nativeElement.click();
   }
 
   counter(i: number) {
     return new Array(i);
-}
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { bank } from '../models/bank';
 import { food } from '../models/food';
 
 @Injectable({
@@ -32,5 +33,9 @@ export class FoodService {
 
   public TotalFood(){
     return this.http.get(`${environment.apiUrl}Food/GetTotalFood`);
+  }
+
+  public GetBank(){
+    return this.http.get<bank>(`${environment.apiUrl}Food/GetBankAll`);
   }
 }

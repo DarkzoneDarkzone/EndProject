@@ -40,7 +40,6 @@ export class ManageTableComponent implements OnInit {
       order_id: null,
       table_NO: null,
       number: null,
-      typeOrder: null,
       priceTotal: 0,
       foodList: [],
       status: null,
@@ -111,6 +110,7 @@ export class ManageTableComponent implements OnInit {
     this.formCreateOrder.value.creationDatetime = new Date();
     formEdit.qrcode = this.pathQRcode + formEdit.table_NO
     formEdit.status = "befull"
+    formEdit.startTime = new Date()
     this.callapi.editTable(this.currentTableId, formEdit).subscribe(el => {
       Swal.fire({
         position: 'top',

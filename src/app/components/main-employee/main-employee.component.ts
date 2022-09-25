@@ -53,7 +53,6 @@ export class MainEmployeeComponent implements OnInit {
       order_id: null,
       table_NO: [null, [Validators.required]],
       number: [null, [Validators.required]],
-      typeOrder: [null],
       priceTotal: null,
       foodList: [{
         food_id: null,

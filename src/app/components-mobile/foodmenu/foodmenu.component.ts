@@ -81,7 +81,7 @@ export class FoodmenuComponent implements OnInit {
   }
   async addFoodToArray() {
     await this.getOrderTable()
-    if(this.tableOrder != null && this.tableOrder != undefined){
+    if(this.tableOrder != null && this.tableOrder != undefined && this.tableOrder.status == 'waitingFood'){
       if(this.amount > 0){
         this.arrayFood.forEach((data: any) => this.prevAmount += data.amount)
         this.formForArray.moreDetails = this.moreDetails
@@ -140,7 +140,7 @@ export class FoodmenuComponent implements OnInit {
       Swal.fire({
         position: 'top',
         icon: 'error',
-        title: 'หมดเวลาสั่งอาหาร',
+        title: 'ไม่สามารถสั่งอาหารได้',
         showConfirmButton: false,
         timer: 1000
       })

@@ -31,7 +31,7 @@
                 <th scope="col">เวลาที่ชำระเงิน</th>
                 <th scope="col">โปรโมชั่น</th>
                 <th scope="col">สถานะ</th>
-                <th scope="col">ชำระเงิน</th>
+                <th scope="col">จัดการ</th>
                 <th scope="col">รายละเอียด</th>
             </tr>
         </thead>
@@ -42,10 +42,14 @@
                 <td>{{data.table_NO}}</td>
                 <td>{{data.number}}</td>
                 <td>{{data.netPrice}}</td>
-                <td></td>
+                <td>
+                    <span *ngIf="data.typePayment=='payOnline'">เงินโอน</span><br>
+                    <span *ngIf="data.typePayment=='payOnline'">บัญชี: {{data.bankProvider}}</span>
+                    <span *ngIf="data.typePayment=='payOnsite'">เงินสด</span>
+                </td>
                 <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
-                <td></td>
-                <td></td>
+                <td>{{data.paytime | date:'dd MMM HH:mm:ss'}}</td>
+                <td>{{data.promotion}}</td>
                 <td>
                     <span *ngIf="data.status == 'waitingFood'"
                         style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
@@ -154,9 +158,9 @@
                                         <h3 class="">ราคารวม :</h3>
                                         <h3 class="">{{current_order?.netPrice}} บาท</h3>
                                     </div>
-                                    <!-- <div *ngIf="promotion != null && promotion != undefined" class="promotion"> -->
-                                    <!-- <span>{{promotion.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span> -->
-                                    <!-- </div> -->
+                                    <div *ngIf="current_order?.promotion != null" class="promotion">
+                                        <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
+                                    </div>
                                 </div>
                                 <hr style="border: 1px dashed black;" />
                             </div>

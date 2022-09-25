@@ -40,9 +40,9 @@ export class BillComponent implements OnInit {
     this.tableOrder.status = type
     if(this.promotion != null || this.promotion != undefined){
       this.tableOrder.promotion = this.promotion.promotion_id
-      this.tableOrder.valuePromotion = this.valuePromotion
+      this.tableOrder.valuePromotion = Math.floor(this.valuePromotion)
     }
-    this.tableOrder.netPrice = this.totalPrice - this.valuePromotion
+    this.tableOrder.netPrice = Math.floor(this.totalPrice) - Math.floor(this.valuePromotion)
     this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {
       Swal.fire({
         position: 'top',
@@ -89,9 +89,9 @@ export class BillComponent implements OnInit {
     if(this.promotion == null || this.promotion == undefined) {
       this.valuePromotion = 0;
     } else if(this.promotion.type == 'bath'){
-      this.valuePromotion = this.promotion.value;
+      this.valuePromotion = Math.floor(this.promotion.value);
     } else if(this.promotion.type == 'percent'){
-      this.valuePromotion = (this.promotion.value*this.totalPrice)/100;
+      this.valuePromotion = Math.floor((this.promotion.value*this.totalPrice)/100);
     }
   }
 }

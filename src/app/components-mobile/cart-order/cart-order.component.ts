@@ -59,7 +59,6 @@ export class CartOrderComponent implements OnInit {
   }
   confirmOrderFood(){
       let total: number = 0
-      this.cartOrder.foodList.forEach((el: any) => total = el.price * el.amount);
       for (let i = 0; i < this.cartOrder.foodList.length; i++) {
         if(this.checkArrayFood(this.cartOrder.foodList[i].food_id)){
           for (let j = 0; j < this.arrayFood.length; j++) {
@@ -72,6 +71,9 @@ export class CartOrderComponent implements OnInit {
           this.arrayFood.push(this.cartOrder.foodList[i])
         }
       }
+      this.arrayFood.forEach((el: any) => {
+        total += el.price * el.amount
+      });
       this.tableOrder.priceTotal = total
       this.tableOrder.netPrice = total
       this.tableOrder.foodList = this.arrayFood

@@ -29,4 +29,16 @@
     position: absolute;
     font-size: x-large;
     right: 10px;
+    cursor: pointer;
+  }
+
+  .promotion {
+    height: 2rem;
+    margin-top: 1rem;
+    border: 1px solid gray;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
   }
