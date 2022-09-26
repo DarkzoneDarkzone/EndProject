@@ -43,6 +43,22 @@ export class BillComponent implements OnInit {
       this.tableOrder.valuePromotion = Math.floor(this.valuePromotion)
     }
     this.tableOrder.netPrice = Math.floor(this.totalPrice) - Math.floor(this.valuePromotion)
+    let foodNotSuccess = 0
+    this.tableOrder.foodList.forEach((element: any) => {
+      if(element.status != 'success'){
+        foodNotSuccess ++
+      }
+    });
+    if(foodNotSuccess > 0){
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'มีรายการที่ยังไม่ได้รับ',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return
+    }
     this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {
       Swal.fire({
         position: 'top',

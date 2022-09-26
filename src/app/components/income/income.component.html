@@ -1,6 +1,6 @@
 <div class="row mt-3">
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card border-left-primary shadow h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -12,12 +12,16 @@
                         <i class="pi pi-chart-bar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
+                <div class="mt-2" style="display: flex; justify-content: space-around;">
+                    <span style="font-size: larger;">เงินสด: {{cash_price_all}}</span>
+                    <span style="font-size: larger;">เงินโอน: {{bank_price_all}}</span>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-success shadow h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -29,12 +33,16 @@
                         <i class="pi pi-dollar" style="font-size: 3rem; color: rgb(214, 214, 214);"></i>
                     </div>
                 </div>
+                <div class="mt-2" style="display: flex; justify-content: space-around;">
+                    <span style="font-size: larger;">เงินสด: {{cash_price_month[this_month]}}</span>
+                    <span style="font-size: larger;">เงินโอน: {{bank_price_month[this_month]}}</span>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-success shadow h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -51,7 +59,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card border-left-warning shadow h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">

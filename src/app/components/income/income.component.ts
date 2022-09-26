@@ -26,13 +26,17 @@ export class IncomeComponent implements OnInit {
   totalIncome: any = 0
   totalEmp: any
   totalFood: any
-  income_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   this_month: any = new Date().getMonth()
   order_success: any = 0
   order_unsuccess: any = 0
   order_success_price: any = 0
+  cash_price_all: any = 0
+  bank_price_all: any = 0
   order_unsuccess_price: any = 0
-
+  income_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  cash_price_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  bank_price_month: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  
   constructor(
     private callOrderApi: OrderService, 
     private callEmpApi: EmployeeService, 
@@ -54,6 +58,14 @@ export class IncomeComponent implements OnInit {
         let month = new Date(this.income[i].creationDatetime).getMonth()
         this.income_month[month] += this.income[i].netPrice
         this.totalIncome += this.income[i].netPrice
+        if(this.income[i].typePayment === 'payOnsite'){
+          this.cash_price_all += this.income[i].netPrice
+          this.cash_price_month[month] += this.income[i].netPrice
+        }
+        if(this.income[i].typePayment === 'payOnline'){
+          this.bank_price_all += this.income[i].netPrice
+          this.bank_price_month[month] += this.income[i].netPrice
+        }
       }
       this.lineChart()
     })
@@ -149,7 +161,6 @@ export class IncomeComponent implements OnInit {
       },
     };
   }
-
   lineChart() {
     this.lineData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

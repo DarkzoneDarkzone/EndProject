@@ -5,6 +5,7 @@ import { OrderService } from 'src/app/services/order.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { PromotionService } from 'src/app/services/promotion.service';
+import { FoodService } from 'src/app/services/food.service';
 
 @Component({
   selector: 'app-order-history',
@@ -19,14 +20,16 @@ export class OrderHistoryComponent implements OnInit {
   formOrderShow: any;
   formOrderAll: any;
   formOrderShowById: any;
-  bankSelected: any = null;
+  bankSelected: any = "";
   current_order: any;
   promotionAll: any;
   promotion_current: any;
+  bank: any;
   constructor(
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
     public callapiPro: PromotionService,
+    public callapiFood: FoodService,
     private spinner: NgxSpinnerService
   ){
     this.formOrderShowById = this.fb.group({
@@ -54,6 +57,7 @@ export class OrderHistoryComponent implements OnInit {
       this.spinner.hide();
     });
     this.getPromotionManage()
+    this.getฺBankAll()
   }
 
   patchValueFormShow(data: order){
@@ -73,6 +77,12 @@ export class OrderHistoryComponent implements OnInit {
       this.formOrderAll = od
       this.formOrderAll.reverse();
       this.formOrderShow = this.formOrderAll
+    })
+  }
+
+  getฺBankAll(){
+    this.callapiFood.GetBank().subscribe(od => {
+      this.bank = od
     })
   }
 

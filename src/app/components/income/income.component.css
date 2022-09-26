@@ -98,3 +98,6 @@
 .card-doughnut .row {
     margin-top: 1rem;
 }
+.card-body {
+    padding: 0.85rem;
+}

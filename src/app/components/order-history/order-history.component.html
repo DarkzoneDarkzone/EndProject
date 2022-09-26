@@ -43,9 +43,9 @@
                 <td>{{data.number}}</td>
                 <td>{{data.netPrice}}</td>
                 <td>
+                    <span *ngIf="data.typePayment=='payOnsite'">เงินสด</span>
                     <span *ngIf="data.typePayment=='payOnline'">เงินโอน</span><br>
                     <span *ngIf="data.typePayment=='payOnline'">บัญชี: {{data.bankProvider}}</span>
-                    <span *ngIf="data.typePayment=='payOnsite'">เงินสด</span>
                 </td>
                 <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
                 <td>{{data.paytime | date:'dd MMM HH:mm:ss'}}</td>
@@ -96,6 +96,7 @@
                             <th scope="col">ประเภทอาหาร</th>
                             <th scope="col">ราคา</th>
                             <th scope="col">จำนวน</th>
+                            <th scope="col">สถานะ</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -106,6 +107,24 @@
                             <td>{{data.type}}</td>
                             <td>{{data.price}}</td>
                             <td>{{data.amount}}</td>
+                            <td>
+                                <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
+                                    รอคิว
+                                </span>
+                                <span *ngIf="data.status == 'pending'" style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
+                                    กำลังทำอาหาร
+                                </span>
+                                <span *ngIf="data.status == 'sending'" style="background-color: lightskyblue;border-radius: 5px;padding-inline: 7px;">
+                                    ทำอาหารเสร็จแล้ว
+                                </span>
+                                <span *ngIf="data.status == 'success'" style="background-color: limegreen;border-radius: 5px;padding-inline: 7px;">
+                                    เสิร์ฟอาหารแล้ว
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning material-icons mr-2" type="button" *ngIf="formOrderShowById.status != 'success' && data.status != 'success'">edit</button>
+                                <button class="btn btn-danger material-icons" type="button" *ngIf="formOrderShowById.status != 'success' && data.status != 'success'">delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -162,6 +181,12 @@
                                         <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
                                     </div>
                                 </div>
+                                <select class="form-control" [(ngModel)]="bankSelected">
+                                    <option selected disabled value="">เลือกธนาคาร</option>
+                                    <option *ngFor="let data of bank" value="{{data.bank_name}}">
+                                        <span>{{data.bank_name}} ({{data.short_name}})</span>
+                                    </option>
+                                </select>
                                 <hr style="border: 1px dashed black;" />
                             </div>
                         </div>
