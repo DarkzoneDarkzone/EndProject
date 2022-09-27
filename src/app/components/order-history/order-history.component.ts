@@ -165,4 +165,19 @@ export class OrderHistoryComponent implements OnInit {
       })
     })
   }
+
+  onDeleteFood(id: any){
+    this.formOrderShowById.foodList = this.formOrderShowById.foodList.filter((data: any) => data.food_id != id);
+    this.callapi.EditOrder(this.formOrderShowById.order_id, this.formOrderShowById).subscribe(data => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'นำรายการอาหารออกแล้ว',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.getOrderAll()
+      this.closeModalShowDetail()
+    })
+  }
 }

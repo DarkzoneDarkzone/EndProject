@@ -12,10 +12,19 @@
                 <p class="mb-0">ราคา: {{data.price}} บาท</p>
                 <p class="mb-0">ราคารวม: {{data.price*data.amount}} บาท</p>
             </div>
-            <div class="m-auto text-right pr-2" style="width: 35%;">
-                <h3 *ngIf="data.status == 'pending'">กำลังทำ</h3>
-                <h3 *ngIf="data.status == 'sending'">กำลังจัดเสิร์ฟ</h3>
-                <h3 *ngIf="data.status == 'success'">สำเร็จ</h3>
+            <div class="m-auto text-right pr-2" style="width: 40%;">
+                <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
+                    รอคิว
+                </span>
+                <span *ngIf="data.status == 'pending'" style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
+                    กำลังทำอาหาร
+                </span>
+                <span *ngIf="data.status == 'sending'" style="background-color: lightskyblue;border-radius: 5px;padding-inline: 7px;">
+                    กำลังจัดเสิร์ฟ
+                </span>
+                <span *ngIf="data.status == 'success'" style="background-color: limegreen;border-radius: 5px;padding-inline: 7px;">
+                    เสิร์ฟแล้ว
+                </span>
             </div>
         </div>
     </div>
