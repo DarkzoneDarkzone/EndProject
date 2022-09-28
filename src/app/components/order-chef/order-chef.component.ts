@@ -12,6 +12,8 @@ export class OrderChefComponent implements OnInit {
   @ViewChild('closebuttonShowDetail2') closebuttonShowDetail2: any;
   formOrderShow: any;
   formOrderShowById: any;
+  myId: any
+  position: any
   constructor(public callapi: OrderService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -19,6 +21,8 @@ export class OrderChefComponent implements OnInit {
     Promise.all([this.getOrderAll()]).then((values) => {
       this.spinner.hide();
     });
+    this.myId = localStorage.getItem('emp_id')
+    this.position = localStorage.getItem('position')
   }
 
   getOrderAll() {
@@ -47,6 +51,34 @@ export class OrderChefComponent implements OnInit {
 
   changeStatusFood(order_id: string, food_id: string, status: string) {
     this.callapi.ChangeStatusFood(order_id, food_id, status).subscribe(order => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.getOrderAll()
+      this.closeModalShowDetail()
+    })
+  }
+
+  receiveFoodOrder(order_id: string, food_id: string) {
+    this.callapi.ReceiveFoodOrder(order_id, food_id, localStorage.getItem('emp_id')).subscribe(order => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.getOrderAll()
+      this.closeModalShowDetail()
+    })
+  }
+
+  sendFoodOrder(order_id: string, food_id: string) {
+    this.callapi.SendFoodOrder(order_id, food_id, localStorage.getItem('emp_id')).subscribe(order => {
       Swal.fire({
         position: 'top',
         icon: 'success',

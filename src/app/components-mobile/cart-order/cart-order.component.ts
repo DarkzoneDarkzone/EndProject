@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
+import { food } from 'src/app/models/food';
 import { CartOrderService } from 'src/app/services/cart-order.service';
 import { DataService } from 'src/app/services/data.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -27,8 +28,8 @@ export class CartOrderComponent implements OnInit {
     this.callapicart.GetCartOrderByNo(localStorage.getItem('tableNo')).subscribe(data => {
       if(data != null){
         this.cartOrder = data
-        let arrayFood = data.foodList
-        arrayFood.forEach((el: any) => prevAmount += el.amount)
+        let arrayFoods = data.foodList
+        arrayFoods.forEach((el: any) => prevAmount += el.amount)
       } else {
         this.cartOrder = null
       }
@@ -60,15 +61,25 @@ export class CartOrderComponent implements OnInit {
   confirmOrderFood(){
       let total: number = 0
       for (let i = 0; i < this.cartOrder.foodList.length; i++) {
-        if(this.checkArrayFood(this.cartOrder.foodList[i].food_id)){
-          for (let j = 0; j < this.arrayFood.length; j++) {
-            if (this.arrayFood[j].food_id == this.cartOrder.foodList[i].food_id) {
-              this.arrayFood[j].amount += this.cartOrder.foodList[i].amount;
-              this.arrayFood[j].status = "pending";
-            }
+        const num = this.cartOrder.foodList[i].amount
+        for (let j = 0; j < num; j++) {
+          let foods = {
+            id: new Date().getTime().toString() + j,
+            status: 'wait',
+            amount: 1,
+            chef_id: null,
+            display: this.cartOrder.foodList[i].display,
+            food_id: this.cartOrder.foodList[i].food_id,
+            imgPath: this.cartOrder.foodList[i].imgPath,
+            moreDetails: this.cartOrder.foodList[i].moreDetails,
+            name: this.cartOrder.foodList[i].name,
+            price: this.cartOrder.foodList[i].price,
+            recommend: this.cartOrder.foodList[i].recommend,
+            serve_id: null,
+            type: this.cartOrder.foodList[i].type,
+            typeid: this.cartOrder.foodList[i].typeid,
           }
-        } else {
-          this.arrayFood.push(this.cartOrder.foodList[i])
+          this.arrayFood.push(foods)
         }
       }
       this.arrayFood.forEach((el: any) => {
@@ -89,13 +100,5 @@ export class CartOrderComponent implements OnInit {
         this.getCart()
         this.getOrderTable()
       })
-  }
-  checkArrayFood(id: string){
-    for (let i = 0; i < this.arrayFood.length; i++) {
-      if (this.arrayFood[i].food_id == id) {
-        return true;
-      }
-    }
-    return false;
   }
 }

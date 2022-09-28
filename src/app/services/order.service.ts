@@ -31,6 +31,12 @@ export class OrderService {
   public ChangeStatusFood(order_id: string, food_id: string, status: string){
     return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusFood/${order_id}/${food_id}/${status}`);
   }
+  public ReceiveFoodOrder(order_id: string, food_id: string, emp_id: any){
+    return this.http.get<order>(`${environment.apiUrl}Order/ReceiveFoodOrder/${order_id}/${food_id}/${emp_id}`);
+  }
+  public SendFoodOrder(order_id: string, food_id: string, emp_id: any){
+    return this.http.get<order>(`${environment.apiUrl}Order/SendFoodOrder/${order_id}/${food_id}/${emp_id}`);
+  }
   public EditOrder(id: string, order: order){
     return this.http.put<order>(`${environment.apiUrl}Order/EditOrder/${id}`, order);
   }

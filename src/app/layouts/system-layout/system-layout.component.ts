@@ -56,6 +56,7 @@ export class SystemLayoutComponent implements OnInit {
           localStorage.setItem('statusLogin', 'yes')
           localStorage.setItem('position', e.position)
           localStorage.setItem('name', e.emp_Name)
+          localStorage.setItem('emp_id', e.emp_Id)
           if(e.position == "manager"){
             location.href = '/income'
           } else if (e.position == "chef"){

@@ -10,7 +10,7 @@
                 style="width: 65%;display: flex;flex-direction: column;justify-content: space-around;">
                 <h3 class="mb-0">{{data.name}} <span>x{{data.amount}}</span></h3>
                 <p class="mb-0">ราคา: {{data.price}} บาท</p>
-                <p class="mb-0">ราคารวม: {{data.price*data.amount}} บาท</p>
+                <!-- <p class="mb-0">ราคารวม: {{data.price*data.amount}} บาท</p> -->
             </div>
             <div class="m-auto text-right pr-2" style="width: 40%;">
                 <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
