@@ -25,6 +25,7 @@ export class OrderHistoryComponent implements OnInit {
   promotionAll: any;
   promotion_current: any;
   bank: any;
+  submitConfirmPayment: boolean = false;
   constructor(
     public fb: UntypedFormBuilder, 
     public callapi: OrderService,
@@ -108,7 +109,18 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   confirmPayment(){
-    this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected).subscribe(order => {
+    this.submitConfirmPayment = true
+    if(this.bankSelected == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุธนาคาร',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected, localStorage.getItem('emp_id')).subscribe(order => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -118,6 +130,7 @@ export class OrderHistoryComponent implements OnInit {
       })
       this.closebuttonModalPayment()
       this.getOrderAll()
+      this.submitConfirmPayment = false
     });
   }
 
@@ -167,7 +180,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   onDeleteFood(id: any){
-    this.formOrderShowById.foodList = this.formOrderShowById.foodList.filter((data: any) => data.food_id != id);
+    this.formOrderShowById.foodList = this.formOrderShowById.foodList.filter((data: any) => data.id != id);
     this.callapi.EditOrder(this.formOrderShowById.order_id, this.formOrderShowById).subscribe(data => {
       Swal.fire({
         position: 'top',
@@ -177,7 +190,6 @@ export class OrderHistoryComponent implements OnInit {
         timer: 1000
       })
       this.getOrderAll()
-      this.closeModalShowDetail()
     })
   }
 }

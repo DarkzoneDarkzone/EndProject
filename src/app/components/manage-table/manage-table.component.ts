@@ -88,6 +88,7 @@ export class ManageTableComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
+      this.formCreateTable.reset()
       this.closeModalCreateTable();
       this.getAllTable();
     }).catch((error) => {
@@ -102,6 +103,16 @@ export class ManageTableComponent implements OnInit {
   }
 
   generateQrcode(){
+    if(this.numberCustomer == 0){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุจำนวนลูกค้า',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
     let formEdit = this.formShowTable.find((el: any) =>  el.table_id == this.currentTableId)
     this.formCreateOrder.value.table_NO = formEdit.table_NO
     this.formCreateOrder.value.number = this.numberCustomer
@@ -215,5 +226,14 @@ export class ManageTableComponent implements OnInit {
   }
   closeModalOpenTable() {
     this.closebuttonOpenTable.nativeElement.click();
+  }
+
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 }

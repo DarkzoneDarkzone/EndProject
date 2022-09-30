@@ -115,6 +115,10 @@ export class ManageTypefoodComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
+        this.submitCreate = false
+        this.img_edit = null
+        this.img_add = null
+        this.formType.reset()
         this.setFormNull()
         this.closeModalCreateTypeFood()
         this.getTypeData()
@@ -142,8 +146,12 @@ export class ManageTypefoodComponent implements OnInit {
         timer: 1000
       })
       this.formTypeEdit.value.imgPath = null;
+      this.formTypeEdit.reset()
+      this.setFormNull()
       this.img_edit = null;
+      this.img_add = null;
       this.message = null;
+      this.message = "";
       this.getTypeData();
       this.closeModalEditTypeFood()
     })

@@ -123,15 +123,15 @@
                                 </span>
                             </td>
                             <td>
-                                <button class="btn btn-warning material-icons mr-2" 
+                                <!-- <button class="btn btn-warning material-icons mr-2" 
                                         type="button" 
                                         *ngIf="formOrderShowById.status != 'success' && data.status != 'success'">
                                     edit
-                                </button>
+                                </button> -->
                                 <button class="btn btn-danger material-icons" 
                                         type="button" 
-                                        (click)="onDeleteFood(data.food_id)"
-                                        *ngIf="formOrderShowById.status != 'success' && data.status != 'success'">
+                                        (click)="onDeleteFood(data.id)"
+                                        *ngIf="formOrderShowById.status != 'success' && data.status != 'success' && data.status != 'pending'">
                                     delete
                                 </button>
                             </td>
@@ -191,12 +191,15 @@
                                         <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
                                     </div>
                                 </div>
-                                <select class="form-control" [(ngModel)]="bankSelected">
+                                <select class="form-control" [(ngModel)]="bankSelected" [ngClass]="{'is-invalid': bankSelected == '' && submitConfirmPayment}">
                                     <option selected disabled value="">เลือกธนาคาร</option>
                                     <option *ngFor="let data of bank" value="{{data.bank_name}}">
                                         <span>{{data.bank_name}} ({{data.short_name}})</span>
                                     </option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    <div>กรุณาเลือกธนาคาร</div>
+                                </div>
                                 <hr style="border: 1px dashed black;" />
                             </div>
                         </div>

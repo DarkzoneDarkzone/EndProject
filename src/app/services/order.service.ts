@@ -25,8 +25,8 @@ export class OrderService {
   public ChangeStatusOrder(id: string, status: string){
     return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusOrder/${id}/${status}`);
   }
-  public PaymentOrder(id: string, typePay: string, bank: string){
-    return this.http.get<order>(`${environment.apiUrl}Order/PaymentOrder/${id}/${typePay}/${bank}`);
+  public PaymentOrder(id: string, typePay: string, bank: string, emp_id: any){
+    return this.http.get<order>(`${environment.apiUrl}Order/PaymentOrder/${id}/${typePay}/${bank}/${emp_id}`);
   }
   public ChangeStatusFood(order_id: string, food_id: string, status: string){
     return this.http.get<order>(`${environment.apiUrl}Order/ChangeStatusFood/${order_id}/${food_id}/${status}`);

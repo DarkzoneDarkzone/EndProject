@@ -28,4 +28,7 @@ export class PromotionService {
   public EditPromotion(id: string, data: promotion){
     return this.http.put<promotion>(`${environment.apiUrl}Promotion/EditPromotion/${id}`, data);
   }
+  public DeletePromotion(id: string){
+    return this.http.get<promotion>(`${environment.apiUrl}Promotion/DeletePromotionOne/${id}`);
+  }
 }

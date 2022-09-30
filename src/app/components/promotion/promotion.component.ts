@@ -73,7 +73,7 @@ export class PromotionComponent implements OnInit {
   createPromotion(){
     this.formCreatePromotion.value.status = false;
     this.formCreatePromotion.value.value = parseInt(this.formCreatePromotion.value.value);
-    this.callapiPro.CreatePromotion(this.formCreatePromotion.value).subscribe(pro => {
+    this.callapiPro.CreatePromotion(this.formCreatePromotion.value).toPromise().then(pro => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -81,13 +81,22 @@ export class PromotionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
+      this.formCreatePromotion.reset()
       this.closeModalCreatePromotion();
       this.getPromotionManage();
+    }).catch(err => {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'โปรดลองใหม่อีกครั้ง',
+        showConfirmButton: false,
+        timer: 1000
+      })
     })
   }
 
   editPromotion(){
-    this.callapiPro.EditPromotion(this.formEditPromotion.value.promotion_id, this.formEditPromotion.value).subscribe(pro => {
+    this.callapiPro.EditPromotion(this.formEditPromotion.value.promotion_id, this.formEditPromotion.value).toPromise().then(pro => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -95,8 +104,17 @@ export class PromotionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
+      this.formEditPromotion.reset()
       this.closeModalEditPromotion();
       this.getPromotionManage();
+    }).catch(err => {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'โปรดลองใหม่อีกครั้ง',
+        showConfirmButton: false,
+        timer: 1000
+      })
     })
   }
 
@@ -107,4 +125,25 @@ export class PromotionComponent implements OnInit {
     this.closebuttonEditPromotion.nativeElement.click();
   }
 
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
+  deletePromotion(id: any) {
+    this.callapiPro.DeletePromotion(id).toPromise().then(pro => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'ลบสำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.closeModalEditPromotion();
+      this.getPromotionManage();
+    })
+  }
 }
