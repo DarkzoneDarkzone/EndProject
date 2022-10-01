@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'mobile',
     component: MobileLayoutComponent,
     children: [
-      { path: '', component: MenuComponent, pathMatch: 'full'},
+      {path: '', component: MenuComponent, pathMatch: 'full'},
       {path:'menu',component:MenuComponent},
       {path:'order',component:OrderMobileComponent},
       {path:'bill',component:BillComponent},

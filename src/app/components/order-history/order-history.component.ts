@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { PromotionService } from 'src/app/services/promotion.service';
 import { FoodService } from 'src/app/services/food.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-order-history',
@@ -25,11 +26,13 @@ export class OrderHistoryComponent implements OnInit {
   promotionAll: any;
   promotion_current: any;
   bank: any;
+  employeeFromApi: any;
   constructor(
-    public fb: UntypedFormBuilder, 
+    public fb: UntypedFormBuilder,
     public callapi: OrderService,
     public callapiPro: PromotionService,
     public callapiFood: FoodService,
+    public callapiEmp: EmployeeService,
     private spinner: NgxSpinnerService
   ){
     this.formOrderShowById = this.fb.group({
@@ -53,11 +56,17 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    Promise.all([this.getOrderAll()]).then((values) => {
+    Promise.all([this.getOrderAll(), this.getEmployee()]).then((values) => {
       this.spinner.hide();
     });
     this.getPromotionManage()
     this.getฺBankAll()
+  }
+
+  getEmployee() {
+    this.callapiEmp.GetEmployee().subscribe(emp => {
+      this.employeeFromApi = emp;
+    })
   }
 
   patchValueFormShow(data: order){
