@@ -38,9 +38,9 @@
                             <h3 class="">ราคารวม :</h3>
                             <h3 class="">{{totalPrice - valuePromotion}} บาท</h3>
                         </div>
-                        <hr style="border: 1px dashed black;" />
+                        <hr *ngIf="tableOrder?.status == 'waitingFood'" style="border: 1px dashed black;" />
                         <div class="" >
-                            <div class="" style="display: flex;justify-content: center;margin-left: 10rem;margin-right: 10rem;">
+                            <div *ngIf="tableOrder?.status == 'waitingFood'" class="" style="display: flex;justify-content: center;margin-left: 10rem;margin-right: 10rem;">
                                 <input type="text" placeholder="กรอกรหัสโปรโมชั่น" [(ngModel)]="promotionId" style="text-transform:uppercase">
                                 <button type="button" (click)="usePromotion()" class="btn btn-primary btn-center ml-0">ยืนยัน</button>
                             </div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="mt-4">
                         <button *ngIf="tableOrder?.status == 'waitingFood'" type="button" class="btn btn-primary btn-center" data-toggle="modal" data-target="#exampleModal">ชำระเงิน</button>
-                        <button *ngIf="tableOrder?.status == 'payOnline' || tableOrder?.status == 'payOnsite'" type="button" class="btn btn-waring btn-center">กำลังรอพนักงาน</button>
+                        <button *ngIf="tableOrder?.status == 'payOnline' || tableOrder?.status == 'payOnsite'" type="button" disabled class="btn btn-warning btn-center">กำลังรอพนักงาน</button>
                     </div>
                     <div class="mt-4"><span>---- หรือ ----</span></div>
                     <div class="">

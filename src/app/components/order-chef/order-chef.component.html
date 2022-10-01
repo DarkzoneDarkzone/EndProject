@@ -24,7 +24,7 @@
         <tbody>
             <ng-container *ngFor="let order of formOrderShow">
                 <ng-container *ngFor="let data of order.foodList">
-                    <tr *ngFor="let repeat of counter(data.amount)">
+                    <tr *ngIf="data.chef_id == '' || data.chef_id == null || data.chef_id == myId">
                         <td>{{order.table_NO}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.type}}</td>
@@ -45,8 +45,9 @@
                             </span>
                         </td>
                         <td class="pt-1">
-                            <button class="btn btn-warning" type="button" *ngIf="data.status == 'pending'" (click)="changeStatusFood(order.order_id, data.food_id, 'sending')">เสร็จแล้ว</button>
-                            <button class="btn btn-success" type="button" *ngIf="data.status == 'sending'" (click)="changeStatusFood(order.order_id, data.food_id, 'success')">เสิร์ฟอาหาร</button>
+                            <button *ngIf="(position == 'manager' || position == 'chef') && data.status == 'wait'" class="btn btn-primary" type="button" (click)="receiveFoodOrder(order.order_id, data.id)">รับรายการ</button>
+                            <button *ngIf="(position == 'manager' || position == 'chef') && data.status == 'pending'" class="btn btn-success" type="button" (click)="changeStatusFood(order.order_id, data.id, 'sending')">ทำอาหารเสร็จแล้ว</button>
+                            <button *ngIf="(position == 'manager' || position == 'serve') && data.status == 'sending'" class="btn btn-success" type="button" (click)="sendFoodOrder(order.order_id, data.id)">เสิร์ฟอาหาร</button>
                         </td>
                     </tr>
                 </ng-container>

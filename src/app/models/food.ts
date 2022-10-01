@@ -1,4 +1,5 @@
 export interface food {
+    id: string
     food_id: string
     name: string
     type: string
@@ -10,4 +11,6 @@ export interface food {
     recommend: boolean
     amount: number
     moreDetails: string
+    chef_id: string
+    serve_id: string
 }

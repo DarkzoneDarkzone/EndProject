@@ -10,7 +10,7 @@ export interface order {
     creationDatetime: Date
     promotion: string
 
-    emp_Name: string
+    emp_id: string
     paytime: Date
     netPrice: number
     valuePromotion: number

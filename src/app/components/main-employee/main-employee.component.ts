@@ -39,6 +39,7 @@ export class MainEmployeeComponent implements OnInit {
   amountt: number = 0;
   formPromotion: any;
   tableAll: any;
+  tableShow: any;
   besttype: any
   foodFilter: any
   constructor(
@@ -106,6 +107,8 @@ export class MainEmployeeComponent implements OnInit {
   getTableAll(){
     this.callapiTable.getTable().subscribe(data => {
       this.tableAll = data
+      this.tableShow = this.tableAll.filter((data: any) => data.status == "empty")
+      console.log(this.tableShow)
     })
   }
 
@@ -144,7 +147,7 @@ export class MainEmployeeComponent implements OnInit {
   addFoodToArray(id: string){
     this.callapiFood.GetFoodById(id).subscribe( food => {
       food.amount = 1;
-      food.status = "pending"
+      food.status = "wait"
       this.arrayFood.push(food);
       this.calculatePrice();
     })
@@ -260,6 +263,7 @@ export class MainEmployeeComponent implements OnInit {
       this.formCreateOrder.value.creationDatetime = new Date();
       this.formCreateOrder.value.foodList = this.arrayFood;
       this.formCreateOrder.value.netPrice = this.netPrice;
+      this.formCreateOrder.value.valuePromotion = this.valuePromotion;
       this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
         Swal.fire({
           position: 'top',
@@ -268,7 +272,7 @@ export class MainEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
-        this.formCreateOrder.value = null
+        this.formCreateOrder.reset()
         this.formPromotion = null
         this.totalPrice = 0
         this.arrayFood = [];

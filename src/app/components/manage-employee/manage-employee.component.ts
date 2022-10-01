@@ -83,6 +83,8 @@ export class ManageEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
+        this.submitCreate = false;
+        this.formCreateEmployee.reset()
         this.getEmployee();
       })
       this.closeModalCreateEmployee();

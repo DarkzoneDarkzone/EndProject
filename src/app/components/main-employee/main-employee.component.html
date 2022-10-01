@@ -39,14 +39,9 @@
                             </div>
                             <div class="card-footer p-2 text-center"
                                 style="display: flex; justify-content: space-around;">
-                                <button *ngIf="checkArrayFood(data.food_id) == false" type="button"
-                                    class="btn btn-secondary" (click)="addFoodToArray(data.food_id)">เลือก</button>
-                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button"
-                                    class="btn btn-danger" style="width:45%"
-                                    (click)="removeFoodAmount(data.food_id)">-</button>
-                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button"
-                                    class="btn btn-success" style="width:45%"
-                                    (click)="addFoodAmount(data.food_id)">+</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == false" type="button" class="btn btn-secondary" (click)="addFoodToArray(data.food_id)">เลือก</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn" style="width:45%; background-color: #ff717e; border-color: #ff717e;" (click)="removeFoodAmount(data.food_id)">-</button>
+                                <button *ngIf="checkArrayFood(data.food_id) == true" type="button" class="btn" style="width:45%; background-color: #6fcf86; border-color: #6fcf86;" (click)="addFoodAmount(data.food_id)">+</button>
                             </div>
                         </div>
                     </div>
@@ -90,8 +85,7 @@
                             <select class="form-control" formControlName="table_NO"
                                 [ngClass]="{'is-invalid': submitCreate && formValidCreateOrder.table_NO.errors}">
                                 <option [ngValue]="null" [disabled]="true" selected>เลือกโต๊ะ</option>
-                                <option *ngFor="let table of tableAll" value="{{table.table_NO}}">{{table.table_NO}}
-                                </option>
+                                <option *ngFor="let table of tableShow" value="{{table.table_NO}}">{{table.table_NO}}</option>
                             </select>
                             <div class="invalid-feedback" *ngIf="submitCreate && formValidCreateOrder.table_NO.errors">
                                 <div *ngIf="formValidCreateOrder.table_NO.errors.required">เลือกโต๊ะ</div>

@@ -47,10 +47,11 @@ export class ManageFoodComponent implements OnInit {
       imgPath: null,
       status: null,
       display: null,
-      recommend: null,
+      recommend: false,
       amount: 0
     }),
       this.formEditFood = this.fb.group({
+        id: null,
         food_id: null,
         name: [null, [Validators.required]],
         typeid: [null],
@@ -188,6 +189,7 @@ export class ManageFoodComponent implements OnInit {
 
   setFormEdit(data: food) {
     this.formEditFood.patchValue({
+      id: data.id,
       food_id: data.food_id,
       name: data.name,
       type: data.type,
