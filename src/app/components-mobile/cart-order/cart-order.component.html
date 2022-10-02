@@ -1,25 +1,33 @@
 <!-- ถ้ามีรายการที่เลือก -->
-<div class="cart-order" style="padding-bottom: 20vh;">
+<div class="cart-order" style="padding-bottom: 20vh;" *ngIf="cartOrder?.foodList.length != 0">
     <div class="row bg-warning" style="height: 3rem">
         <div class="" style="margin: auto;font-size: x-large;">ตะกร้าสินค้า</div>
     </div>
-    <div class="" style="display: flex;justify-content: end;height: 3rem;">
+    <!-- <div class="" style="display: flex;justify-content: end;height: 3rem;">
         <label class="container">
             <input type="checkbox" class="">
             <span class="checkmark m-0 mr-2">เลือกทั้งหมด</span>
         </label>
-    </div>
+    </div> -->
     <div class="col col-image p-0" *ngFor="let data of cartOrder?.foodList">
         <div class="card h-60">
             <img [src]="showImages(data.imgPath)" width="100">
             <div class="food-details pl-3"
-            style="width: 85%;display: flex;flex-direction: column;justify-content: space-around;">
+            style="width: 70%;display: flex;flex-direction: column;justify-content: space-around;">
             <h3 class="mb-0">{{data.name}}</h3>
                 <p class="mb-0">ราคา: {{data.price}} บาท</p>
                 <p class="mb-0">ราคารวม: {{data.price*data.amount}} บาท</p>
             </div>
-            <div class="m-auto" style="width: 15%;">
+            <!-- <div class="m-auto" style="width: 15%;">
                 <h3 class="m-auto">x{{data.amount}}</h3>
+            </div> -->
+            <div class="amountFood" style="width: 35%;margin: auto;display: flex;justify-content: space-evenly;">
+                <button *ngIf="data.amount>0" type="button" class="btn button-del" (click)="reduceAmount(data.id)">-</button>
+                <div *ngIf="data.amount==0" class="btn"></div>
+                <div class="m-auto">
+                    <span style="font-size: large;font-weight: 500;">{{data.amount}}</span>
+                </div>
+                <button type="button" class="btn button-plust" (click)="increaseAmount(data.id)">+</button>
             </div>
         </div>
     </div>
@@ -34,9 +42,9 @@
 <!-- ถ้าไม่มีรายการที่เลือก -->
 <div class="text-center" style="min-height: 10rem;" *ngIf="cartOrder?.foodList.length == 0">
     <div class="row bg-warning" style="height: 3rem">
-        <div class="" style="margin: auto;font-size: x-large;">รายการที่เลือก</div>
+        <div class="" style="margin: auto;font-size: x-large;">ตะกร้าสินค้า</div>
     </div>
     <div class="mt-4">
-        <span style="font-size: x-large;">ไม่มีรายการอาหารที่เลือกไว้</span>
+        <span style="font-size: x-large;">ไม่มีรายการอาหารในตะกร้า</span>
     </div>
 </div>

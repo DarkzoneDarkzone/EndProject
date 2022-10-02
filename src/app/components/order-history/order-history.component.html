@@ -4,7 +4,8 @@
             <span class="head">ออเดอร์ภายในร้าน</span>
         </div>
         <div class="col mr-0">
-            <button class="btn btn-secondary dropdown-toggle mt-0 float-right" style="max-width: 9rem;" type="button"
+            <button class="btn btn-primary float-right " type="button" data-toggle="modal" data-target="#modalPaymentAdmin">ชำระเงิน</button>
+            <button class="btn btn-secondary dropdown-toggle mt-0 float-right mr-2" style="max-width: 9rem;" type="button"
                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 สถานะ
             </button>
@@ -96,6 +97,8 @@
                             <th scope="col">ชื่ออาหาร</th>
                             <th scope="col">ประเภทอาหาร</th>
                             <th scope="col">ราคา</th>
+                            <th scope="col">พ่อครัว</th>
+                            <th scope="col">พนักงานเสิร์ฟ</th>
                             <th scope="col">จำนวน</th>
                             <th scope="col">สถานะ</th>
                             <th></th>
@@ -107,6 +110,8 @@
                             <td>{{data.name}}</td>
                             <td>{{data.type}}</td>
                             <td>{{data.price}}</td>
+                            <td>{{arrEmp[data.chef_id]}}</td>
+                            <td>{{arrEmp[data.serve_id]}}</td>
                             <td>{{data.amount}}</td>
                             <td>
                                 <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
@@ -200,6 +205,86 @@
                                 <div class="invalid-feedback">
                                     <div>กรุณาเลือกธนาคาร</div>
                                 </div>
+                                <hr style="border: 1px dashed black;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="confirmPayment()">ยืนยัน</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPaymentAdmin" aria-hidden="true">
+    <div class="modal-dialog modal-sx" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">รายการชำระเงิน</h2>
+                <button type="button" #closebuttonShowModalPaymentAdmin class="close" hidden="true"
+                    data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <!-- <h2 class="text-center mt-4">โต๊ะ {{current_order?.table_NO}}</h2> -->
+                            <select (change)="selectOrderAdmin()" class="form-control" [(ngModel)]="tableSelected" [ngClass]="{'is-invalid': tableSelected == '' && submitConfirmPayment}">
+                                <option selected disabled value="">เลือกโต๊ะ</option>
+                                <option *ngFor="let data of orderForPayment" value="{{data.order_id}}">
+                                    <span>{{data.table_NO}}</span>
+                                </option>
+                            </select>
+                            <h4 class="text-center mt-3">{{current_order?.creationDatetime | date:'วันที่ dd MMM เวลา HH:mm:ss'}}</h4>
+                            <div class="text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left">รายการ</th>
+                                            <th scope="col" class="text-center">จำนวน</th>
+                                            <th scope="col" class="text-right">ราคา</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of current_order?.foodList">
+                                            <td class="text-left">{{data.name}}</td>
+                                            <td class="text-center">{{data.amount}}</td>
+                                            <td class="text-right">{{data.amount*data.price}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr style="border: 1px dashed black;" />
+                                <div class="container">
+                                    <div class="detailsPrice">
+                                        <h3 class="">ราคารวม :</h3>
+                                        <h3 class="">{{current_order?.priceTotal}} บาท</h3>
+                                    </div>
+                                    <div class="detailsPrice">
+                                        <h3 class="">ส่วนลด :</h3>
+                                        <h3 class="">-{{current_order?.valuePromotion}} บาท</h3>
+                                    </div>
+                                    <div class="detailsPrice">
+                                        <h3 class="">ราคาสุทธิ :</h3>
+                                        <h3 class="">{{current_order?.netPrice}} บาท</h3>
+                                    </div>
+                                    <div *ngIf="current_order?.promotion != null" class="promotion">
+                                        <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
+                                    </div>
+                                </div>
+                                <select class="form-control mb-3" [(ngModel)]="typePay" [ngClass]="{'is-invalid': typePay == '' && submitConfirmPayment}">
+                                    <option selected disabled value="">ประเภทการชำระ</option>
+                                    <option value="payOnline"><span>โอนจ่าย</span></option>
+                                    <option value="payOnsite"><span>เงินสด</span></option>
+                                </select>
+                                <select *ngIf="typePay == 'payOnline'" class="form-control" [(ngModel)]="bankSelected" [ngClass]="{'is-invalid': bankSelected == '' && submitConfirmPayment}">
+                                    <option selected disabled value="">เลือกธนาคาร</option>
+                                    <option *ngFor="let data of bank" value="{{data.bank_name}}">
+                                        <span>{{data.bank_name}} ({{data.short_name}})</span>
+                                    </option>
+                                </select>
                                 <hr style="border: 1px dashed black;" />
                             </div>
                         </div>

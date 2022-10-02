@@ -17,17 +17,24 @@ export class OrderHistoryComponent implements OnInit {
 
   @ViewChild('closebuttonShowDetail3') closebuttonShowDetail3: any;
   @ViewChild('closebuttonShowModalPayment') closebuttonShowModalPayment: any;
+  @ViewChild('closebuttonShowModalPaymentAdmin') closebuttonShowModalPaymentAdmin: any;
 
   formOrderShow: any;
   formOrderAll: any;
   formOrderShowById: any;
-  bankSelected: any = "";
   current_order: any;
   promotionAll: any;
   promotion_current: any;
   bank: any;
   employeeFromApi: any;
   submitConfirmPayment: boolean = false;
+  submitConfirmPaymentAdmin: boolean = false;
+  bankSelected: any = "";
+  
+  orderForPayment: any
+  tableSelected: any = "";
+  typePay: any = "";
+  arrEmp: any[] = []
   constructor(
     public fb: UntypedFormBuilder,
     public callapi: OrderService,
@@ -67,6 +74,9 @@ export class OrderHistoryComponent implements OnInit {
   getEmployee() {
     this.callapiEmp.GetEmployee().subscribe(emp => {
       this.employeeFromApi = emp;
+      this.employeeFromApi.forEach((element: any) => {
+        this.arrEmp[element.emp_Id] = element.emp_Name
+      });
     })
   }
 
@@ -87,6 +97,7 @@ export class OrderHistoryComponent implements OnInit {
       this.formOrderAll = od
       this.formOrderAll.reverse();
       this.formOrderShow = this.formOrderAll
+      this.orderForPayment = this.formOrderAll.filter((data: any) => data.status == "waitingFood")
     })
   }
 
@@ -119,7 +130,27 @@ export class OrderHistoryComponent implements OnInit {
 
   confirmPayment(){
     this.submitConfirmPayment = true
-    if(this.bankSelected == ""){
+    if(this.tableSelected == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาเลือกโต๊ะ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.typePay == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุวิธีการชำระ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.bankSelected == "" && this.typePay == 'payOnline'){
       Swal.fire({
         position: 'top',
         icon: 'info',
@@ -129,7 +160,26 @@ export class OrderHistoryComponent implements OnInit {
       })
       return
     }
-    this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected, localStorage.getItem('emp_id')).subscribe(order => {
+    let success_food = 0
+    for (let i = 0; i < this.current_order.foodList.length; i++) {
+      if(this.current_order.foodList[i].status != 'success'){
+        success_food++
+      }
+    }
+    if(success_food > 0){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'ยังได้รับอาหารไม่ครบ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.bankSelected == ""){
+      this.bankSelected = 'cash'
+    }
+    this.callapi.PaymentOrder(this.current_order.order_id, this.typePay, this.bankSelected, localStorage.getItem('emp_id')).subscribe(order => {
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -138,8 +188,12 @@ export class OrderHistoryComponent implements OnInit {
         timer: 1000
       })
       this.closebuttonModalPayment()
+      this.closebuttonModalPaymentAdmin()
       this.getOrderAll()
       this.submitConfirmPayment = false
+      this.tableSelected = ""
+      this.typePay = ""
+      this.bankSelected = ""
     });
   }
 
@@ -154,12 +208,20 @@ export class OrderHistoryComponent implements OnInit {
     this.promotion_current = this.promotionAll.find((el: any) => el.promotion_id == this.current_order.promotion)
   }
 
+  selectOrderAdmin(){
+    this.current_order = this.formOrderAll.find((el: any) => el.order_id == this.tableSelected)
+    this.promotion_current = this.promotionAll.find((el: any) => el.promotion_id == this.current_order.promotion)
+  }
+
   closeModalShowDetail(){
     this.closebuttonShowDetail3.nativeElement.click();
   }
 
   closebuttonModalPayment(){
     this.closebuttonShowModalPayment.nativeElement.click();
+  }
+  closebuttonModalPaymentAdmin(){
+    this.closebuttonShowModalPaymentAdmin.nativeElement.click();
   }
 
   filterStatus(status: string){

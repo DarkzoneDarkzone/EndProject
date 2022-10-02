@@ -24,7 +24,7 @@
         <tbody>
             <ng-container *ngFor="let order of formOrderShow">
                 <ng-container *ngFor="let data of order.foodList">
-                    <tr *ngIf="data.chef_id == '' || data.chef_id == null || data.chef_id == myId">
+                    <tr *ngIf="data.chef_id == '' || data.chef_id == null || data.chef_id == myId || data.serve_id == '' || data.serve_id == null || data.serve_id == myId">
                         <td>{{order.table_NO}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.type}}</td>

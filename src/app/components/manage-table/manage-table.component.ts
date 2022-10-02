@@ -234,6 +234,5 @@ export class ManageTableComponent implements OnInit {
       return false;
     }
     return true;
-
   }
 }

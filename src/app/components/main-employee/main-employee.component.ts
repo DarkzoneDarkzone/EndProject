@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { faCloudDownload } from '@fortawesome/free-solid-svg-icons';
+import { table } from 'src/app/models/table';
 
 @Component({
   selector: 'app-main-employee',
@@ -108,7 +109,6 @@ export class MainEmployeeComponent implements OnInit {
     this.callapiTable.getTable().subscribe(data => {
       this.tableAll = data
       this.tableShow = this.tableAll.filter((data: any) => data.status == "empty")
-      console.log(this.tableShow)
     })
   }
 
@@ -272,6 +272,7 @@ export class MainEmployeeComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000
         })
+        this.editTable(this.formCreateOrder.value.table_NO)
         this.formCreateOrder.reset()
         this.formPromotion = null
         this.totalPrice = 0
@@ -284,5 +285,12 @@ export class MainEmployeeComponent implements OnInit {
 
   get formValidCreateOrder() {
     return this.formCreateOrder.controls;
+  }
+
+  editTable(no: any){
+    let formEdit: table = this.tableAll.find((el: any) =>  el.table_NO == no)
+    formEdit.status = "befull"
+    formEdit.startTime = new Date()
+    this.callapiTable.editTable(formEdit.table_id, formEdit).toPromise().then(el => {})
   }
 }

@@ -85,3 +85,14 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+
+.amountFood button {
+    border-radius: 99rem; 
+    color: white; 
+    background-color: #ffc107;
+    color: black;
+    width: 2rem; 
+    height: 2rem;
+    padding: 0;
+}

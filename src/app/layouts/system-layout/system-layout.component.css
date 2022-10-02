@@ -28,11 +28,11 @@ body {
 #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
+    text-align: center;
 }
 
 .photo {
     height: 5rem;
-    margin-left: 30%;
 }
 
 #page-content-wrapper {
