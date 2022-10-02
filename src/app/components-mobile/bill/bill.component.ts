@@ -37,11 +37,6 @@ export class BillComponent implements OnInit {
     })
   }
   handlePayment(type: any){
-    this.tableOrder.status = type
-    if(this.promotion != null || this.promotion != undefined){
-      this.tableOrder.promotion = this.promotion.promotion_id
-      this.tableOrder.valuePromotion = Math.floor(this.valuePromotion)
-    }
     this.tableOrder.netPrice = Math.floor(this.totalPrice) - Math.floor(this.valuePromotion)
     let foodNotSuccess = 0
     this.tableOrder.foodList.forEach((element: any) => {
@@ -58,6 +53,11 @@ export class BillComponent implements OnInit {
         timer: 1500
       })
       return
+    }
+    this.tableOrder.status = type
+    if(this.promotion != null || this.promotion != undefined){
+      this.tableOrder.promotion = this.promotion.promotion_id
+      this.tableOrder.valuePromotion = Math.floor(this.valuePromotion)
     }
     this.callapiorder.EditOrder(this.tableOrder.order_id, this.tableOrder).subscribe(data => {
       Swal.fire({
