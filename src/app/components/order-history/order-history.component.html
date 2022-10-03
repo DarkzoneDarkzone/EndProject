@@ -136,7 +136,7 @@
                                 <button class="btn btn-danger material-icons" 
                                         type="button" 
                                         (click)="onDeleteFood(data.id)"
-                                        *ngIf="formOrderShowById.status != 'success' && data.status != 'success' && data.status != 'pending'">
+                                        *ngIf="formOrderShowById.status != 'success' && data.status != 'success' && data.status != 'pending' && data.status != 'sending'">
                                     delete
                                 </button>
                             </td>
