@@ -43,6 +43,7 @@ export class MainEmployeeComponent implements OnInit {
   tableShow: any;
   besttype: any
   foodFilter: any
+  arrFood: any[] = []
   constructor(
     public fb: UntypedFormBuilder, 
     public callapiFood: FoodService, 
@@ -260,8 +261,31 @@ export class MainEmployeeComponent implements OnInit {
       this.formCreateOrder.value.number = 0;
     }
     if (this.formCreateOrder.valid) {
+      let total: number = 0
+      for (let i = 0; i < this.arrayFood.length; i++) {
+        const num = this.arrayFood[i].amount
+        for (let j = 0; j < num; j++) {
+          let foods: any = {
+            id: new Date().getTime().toString() + i + j,
+            status: 'wait',
+            amount: 1,
+            chef_id: null,
+            display: this.arrayFood[i].display,
+            food_id: this.arrayFood[i].food_id,
+            imgPath: this.arrayFood[i].imgPath,
+            moreDetails: this.arrayFood[i].moreDetails,
+            name: this.arrayFood[i].name,
+            price: this.arrayFood[i].price,
+            recommend: this.arrayFood[i].recommend,
+            serve_id: null,
+            type: this.arrayFood[i].type,
+            typeid: this.arrayFood[i].typeid,
+          }
+          this.arrFood.push(foods)
+        }
+      }
+      this.formCreateOrder.value.foodList = this.arrFood
       this.formCreateOrder.value.creationDatetime = new Date();
-      this.formCreateOrder.value.foodList = this.arrayFood;
       this.formCreateOrder.value.netPrice = this.netPrice;
       this.formCreateOrder.value.valuePromotion = this.valuePromotion;
       this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
@@ -277,6 +301,7 @@ export class MainEmployeeComponent implements OnInit {
         this.formPromotion = null
         this.totalPrice = 0
         this.arrayFood = [];
+        this.arrFood = [];
         this.getOrderAll();
         this.submitCreate = false;
       });
