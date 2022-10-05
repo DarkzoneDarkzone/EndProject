@@ -52,7 +52,7 @@
                 <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
                 <td>{{data.paytime | date:'dd MMM HH:mm:ss'}}</td>
                 <td>{{data.promotion}}</td>
-                <td>
+                <td style="min-width: 150px;">
                     <span *ngIf="data.status == 'waitingFood'"
                         style="background-color: gold;border-radius: 5px;padding-inline: 7px;">
                         กำลังทำ
@@ -113,7 +113,7 @@
                             <td>{{arrEmp[data.chef_id]}}</td>
                             <td>{{arrEmp[data.serve_id]}}</td>
                             <td>{{data.amount}}</td>
-                            <td>
+                            <td style="min-width: 150px;">
                                 <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
                                     รอคิว
                                 </span>
