@@ -33,7 +33,7 @@
                     <td *ngIf="data.status != 'callservice' && data.status == 'empty'">โต๊ะว่าง</td>
                     <td *ngIf="data.status != 'callservice' && data.status == 'empty'"></td>
                     <td *ngIf="data.status == 'callservice' || data.status == 'befull'">ไม่ว่าง</td>
-                    <td *ngIf="data.status == 'callservice' || data.status == 'befull'">{{data.startTime | date:'dd MMM HH:mm:ss'}}</td>
+                    <td *ngIf="data.status == 'callservice' || data.status == 'befull'">{{data.startTime}}</td>
                     <td *ngIf="data.status != 'callservice' || data.status == 'empty'"></td>
                     <td *ngIf="data.status == 'callservice'">
                         <button type="button" class="btn btn-warning" (click)="handleServiceCustomer(data.table_id)">ให้บริการ</button>

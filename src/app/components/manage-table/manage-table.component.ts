@@ -34,7 +34,7 @@ export class ManageTableComponent implements OnInit {
     public callapiorder: OrderService,
     public callapicart: CartOrderService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
   ){
     this.formCreateOrder = this.fb.group({
       order_id: null,
@@ -74,6 +74,16 @@ export class ManageTableComponent implements OnInit {
   getAllTable(){
     this.callapi.getTable().subscribe(tb => {
       this.formShowTable = tb;
+      this.formShowTable = this.formShowTable.map((e: any) => {
+        e.startTime = new Date(e.startTime).toLocaleDateString('th-TH', {
+          hour: 'numeric', 
+          minute: 'numeric',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+        return e
+      })
     })
   }
 
