@@ -112,10 +112,9 @@ export class CartOrderComponent implements OnInit {
         confirmButtonText: 'ต้องการ',
         showCancelButton: true,
         cancelButtonText: 'ไม่ต้องการ',
-        reverseButtons: true
       }).then((e) => {
-        this.cartOrder.foodList = this.cartOrder.foodList.filter((el: any) => el.id != id)
         if(e.isConfirmed){
+          this.cartOrder.foodList = this.cartOrder.foodList.filter((el: any) => el.id != id)
           this.removeFoodFromArray()
         }
       })
@@ -124,7 +123,9 @@ export class CartOrderComponent implements OnInit {
 
   increaseAmount(id: any){
     let food = this.cartOrder.foodList.find((el: any) => el.id == id)
-    food.amount++
+    if(food.amount <= 20){
+      food.amount++
+    }
   }
 
   removeFoodFromArray(){

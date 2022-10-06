@@ -20,7 +20,7 @@
                             <tr *ngFor="let data of tableOrder?.foodList">
                                 <td class="text-left">{{data.name}}</td>
                                 <td class="text-center">{{data.amount}}</td>
-                                <td class="text-right">{{data.amount*data.price}}</td>
+                                <td class="text-right">{{data.amount*data.price | currency:'':''}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -32,11 +32,11 @@
                         </div>
                         <div class="detailsPrice">
                             <h3 class="">ส่วนลด :</h3>
-                            <h3 class="">-{{valuePromotion}} บาท</h3>
+                            <h3 class="">-{{valuePromotion | currency:'':''}} บาท</h3>
                         </div>
                         <div class="detailsPrice">
                             <h3 class="">ราคารวม :</h3>
-                            <h3 class="">{{totalPrice - valuePromotion}} บาท</h3>
+                            <h3 class="">{{totalPrice - valuePromotion | currency:'':''}} บาท</h3>
                         </div>
                         <hr *ngIf="tableOrder?.status == 'waitingFood'" style="border: 1px dashed black;" />
                         <div class="" >

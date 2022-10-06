@@ -72,7 +72,9 @@ export class FoodmenuComponent implements OnInit {
     }
   }
   increaseAmount(){
-    this.amount++
+    if(this.amount <= 20){
+      this.amount++
+    }
   }
   handleSelectFood(id: string){
     this.moreDetails = ""

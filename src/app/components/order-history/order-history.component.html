@@ -42,8 +42,8 @@
                 <td>{{i+1}}</td>
                 <td>{{data.table_NO}}</td>
                 <td>{{data.number}}</td>
-                <td *ngIf="data.status != 'success'">{{data.priceTotal}}</td>
-                <td *ngIf="data.status == 'success'">{{data.netPrice}}</td>
+                <td *ngIf="data.status != 'success'">{{data.priceTotal | currency:'':''}}</td>
+                <td *ngIf="data.status == 'success'">{{data.netPrice | currency:'':''}}</td>
                 <td>
                     <span *ngIf="data.typePayment=='payOnsite'">เงินสด</span>
                     <span *ngIf="data.typePayment=='payOnline'">เงินโอน</span><br>
@@ -85,7 +85,7 @@
     <div class="modal-dialog modal-xl" style="height: 100%;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title mt-2">รายการอาหารที่สั่ง</h2>
+                <h2 class="modal-title mt-2">รายการอาหารที่สั่ง {{formOrderShowById.table_NO}}</h2>
                 <button type="button" #closebuttonShowDetail3 class="close" hidden="true"
                     data-dismiss="modal">&times;</button>
             </div>
@@ -128,13 +128,13 @@
                                 </span>
                             </td>
                             <td>
-                                <!-- <button class="btn btn-warning material-icons mr-2" 
-                                        type="button" 
+                                <!-- <button class="btn btn-warning material-icons mr-2"
+                                        type="button"
                                         *ngIf="formOrderShowById.status != 'success' && data.status != 'success'">
                                     edit
                                 </button> -->
-                                <button class="btn btn-danger material-icons" 
-                                        type="button" 
+                                <button class="btn btn-danger material-icons"
+                                        type="button"
                                         (click)="onDeleteFood(data.id)"
                                         *ngIf="formOrderShowById.status != 'success' && data.status != 'success' && data.status != 'pending' && data.status != 'sending'">
                                     delete

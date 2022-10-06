@@ -9,7 +9,7 @@
             <div class="food-details pl-3"
                 style="width: 100%;display: flex;flex-direction: column;justify-content: space-around;">
                 <h3 class="mb-0">{{data.name}}</h3>
-                <p class="mb-0">ราคา: {{data.price}} บาท</p>
+                <p class="mb-0">ราคา: {{data.price | currency:'':''}} บาท</p>
             </div>
             <button type="text" class="button-more btn btn-secondary mr-2"
                 style="width: 10rem; height: 2rem; margin-top: auto; margin-bottom: auto;" data-toggle="modal"

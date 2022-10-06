@@ -35,7 +35,7 @@ export class MainEmployeeComponent implements OnInit {
   valuePromotion: any = 0;
   netPrice: any;
   formShowPromotion: any;
-  recommend:any 
+  recommend:any
 
   amountt: number = 0;
   formPromotion: any;
@@ -45,11 +45,11 @@ export class MainEmployeeComponent implements OnInit {
   foodFilter: any
   arrFood: any[] = []
   constructor(
-    public fb: UntypedFormBuilder, 
-    public callapiFood: FoodService, 
-    public callapiTable: TableService,  
-    public callapi: OrderService, 
-    public callapipro: PromotionService, 
+    public fb: UntypedFormBuilder,
+    public callapiFood: FoodService,
+    public callapiTable: TableService,
+    public callapi: OrderService,
+    public callapipro: PromotionService,
     private spinner: NgxSpinnerService
   ){
     this.formCreateOrder = this.fb.group({
@@ -167,9 +167,11 @@ export class MainEmployeeComponent implements OnInit {
     for(let i = 0; i < this.arrayFood.length; i++){
       if(this.arrayFood[i].food_id == id){
         this.callapiFood.GetFoodById(id).subscribe( food => {
-          this.arrayFood[i].amount += 1;
-          this.arrayFood[i].price += food.price;
-          this.calculatePrice();
+          if(this.arrayFood[i].amount <= 20){
+            this.arrayFood[i].amount += 1;
+            this.arrayFood[i].price += food.price;
+            this.calculatePrice();
+          }
         })
       }
     }
@@ -185,7 +187,6 @@ export class MainEmployeeComponent implements OnInit {
               confirmButtonText: 'ต้องการ',
               showCancelButton: true,
               cancelButtonText: 'ไม่ต้องการ',
-              reverseButtons: true
             }).then((e) => {
               if(e.isConfirmed){
                 this.removeFoodFromArray(this.arrayFood[i].food_id)

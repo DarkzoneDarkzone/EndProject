@@ -28,7 +28,7 @@
                         <td>{{order.table_NO}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.type}}</td>
-                        <td>{{data.price}}</td>
+                        <td>{{data.price | currency:'':''}}</td>
                         <td>1</td>
                         <td style="min-width: 150px;">
                             <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
@@ -81,7 +81,7 @@
                             <td>{{data.food_id}}</td>
                             <td>{{data.name}}</td>
                             <td>{{data.type}}</td>
-                            <td>{{data.price}}</td>
+                            <td>{{data.price | currency:'':''}}</td>
                             <td>{{data.amount}}</td>
                             <td *ngIf="data.status == 'pending'">กำลังทำอาหาร</td>
                             <td *ngIf="data.status == 'sending'">ทำอาหารเสร็จแล้ว</td>
