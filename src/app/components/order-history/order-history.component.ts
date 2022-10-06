@@ -35,6 +35,7 @@ export class OrderHistoryComponent implements OnInit {
   tableSelected: any = "";
   typePay: any = "";
   arrEmp: any[] = []
+  showBillFood: any[] = []
   constructor(
     public fb: UntypedFormBuilder,
     public callapi: OrderService,
@@ -110,7 +111,22 @@ export class OrderHistoryComponent implements OnInit {
   getOrderById(id:string){
     this.formOrderAll.find((e: any) => {
       if(e.order_id == id){
+        this.showBillFood = []
         this.formOrderShowById = e
+        this.formOrderShowById.foodList.forEach((element: any) => {
+          let searchArr = this.showBillFood.find((e) => e.food_id === element.food_id && e.status === element.status)
+          if(!searchArr){
+            this.showBillFood.push(element)
+          } else {
+            searchArr.amount += 1
+            if(searchArr.chef_id?.indexOf(element.chef_id) < 0){
+              searchArr.chef_id += ','+element.chef_id
+            }
+            if(searchArr.serve_id?.indexOf(element.serve_id) < 0){
+              searchArr.serve_id += ','+element.serve_id
+            }
+          }
+        });
       }
     })
   }
@@ -129,6 +145,55 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   confirmPayment(){
+    this.submitConfirmPayment = true
+    if(this.bankSelected == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุธนาคาร',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    let success_food = 0
+    for (let i = 0; i < this.current_order.foodList.length; i++) {
+      if(this.current_order.foodList[i].status != 'success'){
+        success_food++
+      }
+    }
+    if(success_food > 0){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'ยังได้รับอาหารไม่ครบ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.bankSelected == ""){
+      this.bankSelected = 'cash'
+    }
+    this.callapi.PaymentOrder(this.current_order.order_id, this.current_order.status, this.bankSelected, localStorage.getItem('emp_id')).subscribe(order => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.closebuttonModalPayment()
+      this.closebuttonModalPaymentAdmin()
+      this.getOrderAll()
+      this.submitConfirmPayment = false
+      this.tableSelected = ""
+      this.typePay = ""
+      this.bankSelected = ""
+    });
+  }
+
+  confirmPaymentAll(){
     this.submitConfirmPayment = true
     if(this.tableSelected == ""){
       Swal.fire({

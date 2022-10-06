@@ -14,6 +14,7 @@ export class OrderChefComponent implements OnInit {
   formOrderShowById: any;
   myId: any
   position: any
+  queue: number = 1
   constructor(public callapi: OrderService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -28,7 +29,17 @@ export class OrderChefComponent implements OnInit {
   getOrderAll() {
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
-      this.formOrderShow = this.formOrderShow.filter((data: any) => data.status == "waitingFood")
+      this.formOrderShow = this.formOrderShow.filter((data: any) => {
+        if(data.status == "waitingFood"){
+          const foodCurrent = data.foodList.filter((el: any) => {
+            if(el.chef_id == '' || el.chef_id == null || el.chef_id == this.myId || el.serve_id == '' || el.serve_id == null || el.serve_id == this.myId){
+              return el
+            }
+          })
+          data.foodList = foodCurrent
+          return data
+        }
+      })
     })
   }
 
@@ -97,5 +108,9 @@ export class OrderChefComponent implements OnInit {
 
   counter(i: number) {
     return new Array(i);
+  }
+
+  increaseCount(){
+    this.queue++
   }
 }

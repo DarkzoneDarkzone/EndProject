@@ -85,7 +85,7 @@
     <div class="modal-dialog modal-xl" style="height: 100%;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title mt-2">รายการอาหารที่สั่ง {{formOrderShowById.table_NO}}</h2>
+                <h2 class="modal-title mt-2">รายการอาหารที่สั่งโต๊ะ {{formOrderShowById.table_NO}}</h2>
                 <button type="button" #closebuttonShowDetail3 class="close" hidden="true"
                     data-dismiss="modal">&times;</button>
             </div>
@@ -96,7 +96,7 @@
                             <th scope="col">รหัสอาหาร</th>
                             <th scope="col">ชื่ออาหาร</th>
                             <th scope="col">ประเภทอาหาร</th>
-                            <th scope="col">ราคา</th>
+                            <!-- <th scope="col">ราคา</th> -->
                             <th scope="col">พ่อครัว</th>
                             <th scope="col">พนักงานเสิร์ฟ</th>
                             <th scope="col">จำนวน</th>
@@ -105,13 +105,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of formOrderShowById.foodList">
+                        <tr *ngFor="let data of showBillFood">
                             <td>{{data.food_id}}</td>
                             <td>{{data.name}}</td>
                             <td>{{data.type}}</td>
-                            <td>{{data.price}}</td>
-                            <td>{{arrEmp[data.chef_id]}}</td>
-                            <td>{{arrEmp[data.serve_id]}}</td>
+                            <!-- <td>{{data.price}}</td> -->
+                            <td>
+                                <span *ngFor="let chef of data.chef_id?.split(',') ; let i = index">{{arrEmp[chef]}} <span *ngIf="i >= 0 && i < data.chef_id?.split(',').length - 1">, </span></span>
+                            </td>
+                            <td>
+                                <span *ngFor="let serve of data.serve_id?.split(',') ; let i = index">{{arrEmp[serve]}} <span *ngIf="i >= 0 && i < data.serve_id?.split(',').length - 1">, </span></span>
+                            </td>
                             <td>{{data.amount}}</td>
                             <td style="min-width: 150px;">
                                 <span *ngIf="data.status == 'wait'" style="background-color: red;border-radius: 5px;padding-inline: 7px;">
@@ -292,7 +296,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="confirmPayment()">ยืนยัน</button>
+                <button type="button" class="btn btn-success" (click)="confirmPaymentAll()">ยืนยัน</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
             </div>
         </div>

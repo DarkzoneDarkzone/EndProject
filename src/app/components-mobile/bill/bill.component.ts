@@ -19,6 +19,7 @@ export class BillComponent implements OnInit {
   promotion: any
   valuePromotion: any = 0
   currentDate: any = new Date()
+  showBillFood: any[] = []
   table: any = localStorage.getItem('tableNo')
   ngOnInit(): void {
     this.getOrderTable()
@@ -29,6 +30,14 @@ export class BillComponent implements OnInit {
       this.tableOrder = data
       this.totalPrice = this.tableOrder?.priceTotal
       this.valuePromotion = data.valuePromotion
+      this.tableOrder.foodList.forEach((element: any) => {
+        let searchArr = this.showBillFood.find((e) => e.food_id === element.food_id)
+        if(!searchArr){
+          this.showBillFood.push(element)
+        } else {
+          searchArr.amount += 1
+        }
+      });
     })
   }
   getTableByNumber(){

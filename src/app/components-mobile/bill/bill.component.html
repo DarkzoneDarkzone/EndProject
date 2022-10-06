@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of tableOrder?.foodList">
+                            <tr *ngFor="let data of this.showBillFood">
                                 <td class="text-left">{{data.name}}</td>
                                 <td class="text-center">{{data.amount}}</td>
                                 <td class="text-right">{{data.amount*data.price | currency:'':''}}</td>

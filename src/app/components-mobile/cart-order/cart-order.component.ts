@@ -64,7 +64,7 @@ export class CartOrderComponent implements OnInit {
       const num = this.cartOrder.foodList[i].amount
       for (let j = 0; j < num; j++) {
         let foods = {
-          id: new Date().getTime().toString() + j,
+          id: new Date().getTime().toString() + i + j,
           status: 'wait',
           amount: 1,
           chef_id: null,
