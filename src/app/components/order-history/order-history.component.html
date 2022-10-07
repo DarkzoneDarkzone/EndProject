@@ -67,10 +67,14 @@
                     </span>
                 </td>
                 <td>
-                    <button class="btn btn-primary" type="button"
+                    <!-- <button class="btn btn-success mb-2 mr-2" type="button"
                         *ngIf="data.status == 'payOnline' || data.status == 'payOnsite'"
                         (click)="selectOrder(data.order_id)" data-toggle="modal"
-                        data-target="#modalPayment">ชำระเงิน</button>
+                        data-target="#modalPayment">ยืนยันชำระเงิน</button> -->
+                    <button class="btn btn-success" type="button"
+                        *ngIf="data.status == 'payOnline' || data.status == 'payOnsite'"
+                        (click)="selectOrder(data.order_id)" data-toggle="modal"
+                        data-target="#modalChangePayment">ยืนยันชำระเงิน</button>
                 </td>
                 <td>
                     <div class="material-icons cursor-pointer" (click)="getOrderById(data.order_id)" data-toggle="modal"
@@ -155,7 +159,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalPayment" aria-hidden="true">
+<!-- <div class="modal fade" id="modalPayment" aria-hidden="true">
     <div class="modal-dialog modal-sx" style="height: 100%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -179,10 +183,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let data of current_order?.foodList">
+                                        <tr *ngFor="let data of showBillFood">
                                             <td class="text-left">{{data.name}}</td>
                                             <td class="text-center">{{data.amount}}</td>
-                                            <td class="text-right">{{data.amount*data.price}}</td>
+                                            <td class="text-right">{{data.amount*data.price | currency:'':''}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -190,11 +194,11 @@
                                 <div class="container">
                                     <div class="detailsPrice">
                                         <h3 class="">ส่วนลด :</h3>
-                                        <h3 class="">-{{current_order?.valuePromotion}} บาท</h3>
+                                        <h3 class="">-{{current_order?.valuePromotion | currency:'':''}} บาท</h3>
                                     </div>
                                     <div class="detailsPrice">
                                         <h3 class="">ราคารวม :</h3>
-                                        <h3 class="">{{current_order?.netPrice}} บาท</h3>
+                                        <h3 class="">{{current_order?.netPrice | currency:'':''}} บาท</h3>
                                     </div>
                                     <div *ngIf="current_order?.promotion != null" class="promotion">
                                         <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
@@ -221,6 +225,76 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="modal fade" id="modalChangePayment" aria-hidden="true">
+    <div class="modal-dialog modal-sx" style="height: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mt-2">รายการชำระเงิน</h2>
+                <button type="button" #closebuttonShowModalPayment class="close" hidden="true"
+                    data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-center mt-4">โต๊ะ {{current_order?.table_NO}}</h2>
+                            <h4 class="text-center">{{current_order?.creationDatetime | date:'วันที่ dd MMM เวลา HH:mm:ss'}}</h4>
+                            <div class="text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left">รายการ</th>
+                                            <th scope="col" class="text-center">จำนวน</th>
+                                            <th scope="col" class="text-right">ราคา</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of showBillFood">
+                                            <td class="text-left">{{data.name}}</td>
+                                            <td class="text-center">{{data.amount}}</td>
+                                            <td class="text-right">{{data.amount*data.price | currency:'':''}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr style="border: 1px dashed black;" />
+                                <div class="container">
+                                    <div class="detailsPrice">
+                                        <h3 class="">ส่วนลด :</h3>
+                                        <h3 class="">-{{current_order?.valuePromotion | currency:'':''}} บาท</h3>
+                                    </div>
+                                    <div class="detailsPrice">
+                                        <h3 class="">ราคารวม :</h3>
+                                        <h3 class="">{{current_order?.netPrice | currency:'':''}} บาท</h3>
+                                    </div>
+                                    <div *ngIf="current_order?.promotion != null" class="promotion">
+                                        <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
+                                    </div>
+                                </div>
+                                <select class="form-control mb-3" [(ngModel)]="typePay" [ngClass]="{'is-invalid': typePay == '' && submitConfirmPayment}">
+                                    <option selected disabled value="">ประเภทการชำระ</option>
+                                    <option value="payOnline"><span>โอนจ่าย</span></option>
+                                    <option value="payOnsite"><span>เงินสด</span></option>
+                                </select>
+                                <select *ngIf="typePay == 'payOnline'" class="form-control" [(ngModel)]="bankSelected" [ngClass]="{'is-invalid': bankSelected == '' && submitConfirmPayment}">
+                                    <option selected disabled value="">เลือกธนาคาร</option>
+                                    <option *ngFor="let data of bank" value="{{data.bank_name}}">
+                                        <span>{{data.bank_name}} ({{data.short_name}})</span>
+                                    </option>
+                                </select>
+                                <hr style="border: 1px dashed black;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="confirmPaymentChange()">ยืนยัน</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="modalPaymentAdmin" aria-hidden="true">
@@ -242,7 +316,7 @@
                                     <span>{{data.table_NO}}</span>
                                 </option>
                             </select>
-                            <h4 class="text-center mt-3">{{current_order?.creationDatetime | date:'วันที่ dd MMM เวลา HH:mm:ss'}}</h4>
+                            <h4 class="text-center mt-3">{{current_order_allpay?.creationDatetime | date:'วันที่ dd MMM เวลา HH:mm:ss'}}</h4>
                             <div class="text-center">
                                 <table class="table">
                                     <thead>
@@ -253,10 +327,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let data of current_order?.foodList">
+                                        <tr *ngFor="let data of current_orderFood">
                                             <td class="text-left">{{data.name}}</td>
                                             <td class="text-center">{{data.amount}}</td>
-                                            <td class="text-right">{{data.amount*data.price}}</td>
+                                            <td class="text-right">{{data.amount*data.price | currency:'':''}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -264,17 +338,17 @@
                                 <div class="container">
                                     <div class="detailsPrice">
                                         <h3 class="">ราคารวม :</h3>
-                                        <h3 class="">{{current_order?.priceTotal}} บาท</h3>
+                                        <h3 class="">{{current_order_allpay?.priceTotal | currency:'':''}} บาท</h3>
                                     </div>
                                     <div class="detailsPrice">
                                         <h3 class="">ส่วนลด :</h3>
-                                        <h3 class="">-{{current_order?.valuePromotion}} บาท</h3>
+                                        <h3 class="">-{{current_order_allpay?.valuePromotion | currency:'':''}} บาท</h3>
                                     </div>
                                     <div class="detailsPrice">
                                         <h3 class="">ราคาสุทธิ :</h3>
-                                        <h3 class="">{{current_order?.netPrice}} บาท</h3>
+                                        <h3 class="">{{current_order_allpay?.netPrice | currency:'':''}} บาท</h3>
                                     </div>
-                                    <div *ngIf="current_order?.promotion != null" class="promotion">
+                                    <div *ngIf="current_order_allpay?.promotion != null" class="promotion">
                                         <span>{{promotion_current?.promotion_name}}</span><span class="cancel" (click)="romovePromotion()">&times;</span>
                                     </div>
                                 </div>

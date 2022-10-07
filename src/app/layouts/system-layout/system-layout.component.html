@@ -10,20 +10,19 @@
         <p *ngIf="position == 'manager'" class="text-center" style="color: white; font-size:large;">ตำแหน่ง: ผู้จัดการ</p>
       </div>
       <div class="list-group list-group-flush mb-3">
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
-        <!-- <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="order" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่ยังไม่สำเร็จ</a> -->
-        <a *ngIf="position == 'manager' || position == 'chef'|| position == 'serve'" routerLink="orderChef" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ</a>
-        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" class="list-group-item list-group-item-action bg-dark">ออเดอร์ภายในร้าน</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="mainEmployee" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">สั่งอาหาร</a>
+        <a *ngIf="position == 'manager' || position == 'chef'|| position == 'serve'" routerLink="orderChef" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">ออเดอร์ที่กำลังทำ</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'" routerLink="orderHistory" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">ออเดอร์ภายในร้าน</a>
       </div>
       <div class="list-group list-group-flush mb-3">
-        <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="manageTable" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
-        <a *ngIf="position == 'manager'" routerLink="manageFood" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
-        <a *ngIf="position == 'manager'" routerLink="manageTypefood" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
-        <a *ngIf="position == 'manager'" routerLink="manageEmployee" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
-        <a *ngIf="position == 'manager'" routerLink="promotion" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
+        <a *ngIf="position == 'manager' || position == 'cashier'|| position == 'serve'" routerLink="manageTable" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">จัดการโต๊ะ</a>
+        <a *ngIf="position == 'manager'" routerLink="manageFood" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">จัดการเมนูอาหาร</a>
+        <a *ngIf="position == 'manager'" routerLink="manageTypefood" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">จัดการประเภทอาหาร</a>
+        <a *ngIf="position == 'manager'" routerLink="manageEmployee" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">จัดการพนักงาน (for manager)</a>
+        <a *ngIf="position == 'manager'" routerLink="promotion" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">จัดการโปรโมชั่น (for manager)</a>
       </div>
       <div class="list-group list-group-flush mb-3">
-        <a *ngIf="position == 'manager'" routerLink="income" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
+        <a *ngIf="position == 'manager'" routerLink="income" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
       </div>
       <div class="list-group list-group-flush mb-3" style="position: absolute; bottom: 0">
         <button type="button" class="btn btn-outline-warning" style="margin-inline: 2rem;" (click)="onSignOut()">ออกจากระบบ</button>
@@ -98,7 +97,7 @@
                 <input type="password" formControlName="password" class="form-control" placeholder="password">
               </div>
               <div class="form-group">
-                <input type="button" (click)="onRegister()" value="ยืนยัน" class="btn float-right login_btn">
+                <input type="button" value="ยืนยัน" class="btn float-right login_btn">
               </div>
             </form>
           </div>

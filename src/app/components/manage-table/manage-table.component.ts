@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -26,6 +26,7 @@ export class ManageTableComponent implements OnInit {
   numberCustomer: any;
   currentTableId: any;
   position: any;
+  submitCreate: boolean = false;
   pathQRcode: any = window.location.origin + "/mobile?number="
 
   constructor(
@@ -51,13 +52,13 @@ export class ManageTableComponent implements OnInit {
     })
     this.formCreateTable = this.fb.group({
       table_id: null,
-      table_NO: null,
+      table_NO: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       status: null,
       qrcode: null
     })
     this.formEditTable = this.fb.group({
       table_id: null,
-      table_NO: null,
+      table_NO: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       status: null,
       qrcode: null
     })
@@ -87,33 +88,41 @@ export class ManageTableComponent implements OnInit {
     })
   }
 
+  get formValidCreateTable() {
+    return this.formCreateTable.controls;
+  }
+
   createTable(){
     this.formCreateTable.value.status = 'empty';
     this.formCreateTable.value.qrcode = null;
-    this.callapi.createTable(this.formCreateTable.value).toPromise().then(tb => {
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'เพิ่มโต๊ะสำเร็จ',
-        showConfirmButton: false,
-        timer: 1000
+    this.submitCreate = true
+    if (this.formCreateTable.valid) {
+      this.callapi.createTable(this.formCreateTable.value).toPromise().then(tb => {
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'เพิ่มโต๊ะสำเร็จ',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.formCreateTable.reset()
+        this.closeModalCreateTable();
+        this.getAllTable();
+        this.submitCreate = false
+      }).catch((error) => {
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'ไม่สำเร็จ! โปรดลองอีกครั้ง',
+          showConfirmButton: false,
+          timer: 1000
+        })
       })
-      this.formCreateTable.reset()
-      this.closeModalCreateTable();
-      this.getAllTable();
-    }).catch((error) => {
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'ไม่สำเร็จ! โปรดลองอีกครั้ง',
-        showConfirmButton: false,
-        timer: 1000
-      })
-    })
+    }
   }
 
   generateQrcode(){
-    if(this.numberCustomer == 0){
+    if(this.numberCustomer == 0 || this.numberCustomer == undefined || this.numberCustomer == null){
       Swal.fire({
         position: 'top',
         icon: 'info',
@@ -192,6 +201,7 @@ export class ManageTableComponent implements OnInit {
       if (result.isConfirmed) {
         this.currentTable = this.formShowTable.find((el: any) =>  el.table_id == id)
         this.currentTable.status = "empty"
+        this.currentTable.startTime = null
         this.callapi.editTable(this.currentTable.table_id, this.currentTable).subscribe(el => {
           Swal.fire({
             position: 'top',

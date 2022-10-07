@@ -97,9 +97,6 @@ export class SystemLayoutComponent implements OnInit {
       location.href = '/'
     })
   }
-  public onRegister(){
-    console.log(this.formRegister.value)
-  }
   public changeForm(){
     // this.formForLogin = !this.formForLogin
   }

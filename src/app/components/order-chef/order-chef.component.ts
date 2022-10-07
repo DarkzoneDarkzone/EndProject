@@ -29,10 +29,12 @@ export class OrderChefComponent implements OnInit {
   getOrderAll() {
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderShow = od
+      let countQueue: number = 1
       this.formOrderShow = this.formOrderShow.filter((data: any) => {
         if(data.status == "waitingFood"){
           const foodCurrent = data.foodList.filter((el: any) => {
-            if(el.chef_id == '' || el.chef_id == null || el.chef_id == this.myId || el.serve_id == '' || el.serve_id == null || el.serve_id == this.myId){
+            if((el.chef_id == '' || el.chef_id == null || el.chef_id == this.myId || el.serve_id == '' || el.serve_id == null || el.serve_id == this.myId) && el.status != "success"){
+              el.queue = countQueue++;
               return el
             }
           })

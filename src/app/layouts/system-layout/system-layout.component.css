@@ -51,6 +51,14 @@ body {
     color: white;
 }
 
+.list-group-item:hover {
+    background-color: #dc354554!important;
+}
+.list-group-item.active {
+    background-color: #dc354554!important;
+    border: none;
+}
+
 @media (min-width: 1000px) {
     #sidebar-wrapper {
         margin-left: 0;

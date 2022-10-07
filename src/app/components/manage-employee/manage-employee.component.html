@@ -149,6 +149,7 @@
                             <div *ngIf="formValidEdit.emp_Tel.errors.required">กรุณากรอกเบอร์โทร</div>
                             <div *ngIf="formValidEdit.emp_Tel.errors.pattern">กรอกเฉพาะตัวเลข</div>
                             <div *ngIf="formValidEdit.emp_Tel.errors.maxlength">ไม่เกิน 10 ตัว</div>
+                            <div *ngIf="formValidEdit.emp_Tel.errors.minlength">มากกว่า 8 ตัว</div>
                         </div>
                     </div>
                     <div class="form-group">

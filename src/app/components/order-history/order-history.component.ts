@@ -23,6 +23,7 @@ export class OrderHistoryComponent implements OnInit {
   formOrderAll: any;
   formOrderShowById: any;
   current_order: any;
+  current_order_allpay: any;
   promotionAll: any;
   promotion_current: any;
   bank: any;
@@ -36,6 +37,7 @@ export class OrderHistoryComponent implements OnInit {
   typePay: any = "";
   arrEmp: any[] = []
   showBillFood: any[] = []
+  current_orderFood: any[] = []
   constructor(
     public fb: UntypedFormBuilder,
     public callapi: OrderService,
@@ -193,18 +195,8 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
-  confirmPaymentAll(){
+  confirmPaymentChange(){
     this.submitConfirmPayment = true
-    if(this.tableSelected == ""){
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        title: 'กรุณาเลือกโต๊ะ',
-        showConfirmButton: false,
-        timer: 1000
-      })
-      return
-    }
     if(this.typePay == ""){
       Swal.fire({
         position: 'top',
@@ -262,6 +254,75 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
+  confirmPaymentAll(){
+    this.submitConfirmPayment = true
+    if(this.tableSelected == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาเลือกโต๊ะ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.typePay == ""){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุวิธีการชำระ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.bankSelected == "" && this.typePay == 'payOnline'){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'กรุณาระบุธนาคาร',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    let success_food = 0
+    for (let i = 0; i < this.current_order_allpay.foodList.length; i++) {
+      if(this.current_order_allpay.foodList[i].status != 'success'){
+        success_food++
+      }
+    }
+    if(success_food > 0){
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'ยังได้รับอาหารไม่ครบ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      return
+    }
+    if(this.bankSelected == ""){
+      this.bankSelected = 'cash'
+    }
+    this.callapi.PaymentOrder(this.current_order_allpay.order_id, this.typePay, this.bankSelected, localStorage.getItem('emp_id')).subscribe(order => {
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'สำเร็จ',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.closebuttonModalPayment()
+      this.closebuttonModalPaymentAdmin()
+      this.getOrderAll()
+      this.submitConfirmPayment = false
+      this.tableSelected = ""
+      this.typePay = ""
+      this.bankSelected = ""
+    });
+  }
+
   getPromotionManage(){
     this.callapiPro.GetPromotionManage().subscribe(pro => {
       this.promotionAll = pro;
@@ -270,11 +331,32 @@ export class OrderHistoryComponent implements OnInit {
 
   selectOrder(id: string){
     this.current_order = this.formOrderAll.find((el: any) => el.order_id == id)
+    this.getOrderById(this.current_order.order_id)
     this.promotion_current = this.promotionAll.find((el: any) => el.promotion_id == this.current_order.promotion)
   }
 
   selectOrderAdmin(){
-    this.current_order = this.formOrderAll.find((el: any) => el.order_id == this.tableSelected)
+    this.current_order_allpay = this.formOrderAll.find((el: any) => el.order_id == this.tableSelected)
+    this.formOrderAll.find((e: any) => {
+      if(e.order_id == this.current_order_allpay.order_id){
+        this.current_orderFood = []
+        this.formOrderShowById = e
+        this.formOrderShowById.foodList.forEach((element: any) => {
+          let searchArr = this.current_orderFood.find((e) => e.food_id === element.food_id && e.status === element.status)
+          if(!searchArr){
+            this.current_orderFood.push(element)
+          } else {
+            searchArr.amount += 1
+            if(searchArr.chef_id?.indexOf(element.chef_id) < 0){
+              searchArr.chef_id += ','+element.chef_id
+            }
+            if(searchArr.serve_id?.indexOf(element.serve_id) < 0){
+              searchArr.serve_id += ','+element.serve_id
+            }
+          }
+        });
+      }
+    })
     this.promotion_current = this.promotionAll.find((el: any) => el.promotion_id == this.current_order.promotion)
   }
 

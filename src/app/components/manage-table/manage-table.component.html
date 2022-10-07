@@ -64,7 +64,11 @@
                 <form [formGroup]="formCreateTable">
                     <div class="form-group">
                         <label>หมายเลขโต๊ะ</label>
-                        <input type="text" class="form-control" formControlName="table_NO">
+                        <input type="text" class="form-control" formControlName="table_NO" [ngClass]="{'is-invalid': submitCreate && formValidCreateTable.table_NO.errors}">
+                        <div class="invalid-feedback" *ngIf="submitCreate && formValidCreateTable.table_NO.errors">
+                            <div *ngIf="formValidCreateTable.table_NO.errors.required">กรุณากรอกหมายเลขโต๊ะ</div>
+                            <div *ngIf="formValidCreateTable.table_NO.errors.pattern">กรอกเฉพาะตัวเลข</div>
+                        </div>
                     </div>
                 </form>
             </div>

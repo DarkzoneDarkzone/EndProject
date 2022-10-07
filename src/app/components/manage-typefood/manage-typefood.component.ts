@@ -127,7 +127,7 @@ export class ManageTypefoodComponent implements OnInit {
       Swal.fire({
         position: 'top',
         icon: 'error',
-        title: 'กรุณากรอกประเภท',
+        title: 'กรุณากรอกชื่อประเภท',
         showConfirmButton: false,
         timer: 1000
       })

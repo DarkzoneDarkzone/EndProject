@@ -20,8 +20,10 @@ export class IncomeComponent implements OnInit {
   optionsdoughtnutFood: any;
   besttype: any
   besttypeArr: any[] = []
+  besttypeColorArr: any[] = []
   bestfood: any
   bestfoodArr: any[] = []
+  bestfoodColorArr: any[] = []
   income: any
   totalIncome: any = 0
   totalEmp: any
@@ -85,6 +87,7 @@ export class IncomeComponent implements OnInit {
       this.bestfood = data
       for (let i = 0; i < this.bestfood.length; i++) {
         this.bestfoodArr.push(this.bestfood[i].totalAmount)
+        this.bestfoodColorArr.push(this.bestfood[i].color)
       }
     })
     await this.callEmpApi.GetEmployee().toPromise().then((data: any) => {
@@ -97,6 +100,7 @@ export class IncomeComponent implements OnInit {
       this.besttype = data
       for (let i = 0; i < this.besttype.length; i++) {
         this.besttypeArr.push(this.besttype[i].totalAmount)
+        this.besttypeColorArr.push(this.besttype[i].color)
       }
     })
   }
@@ -123,41 +127,39 @@ export class IncomeComponent implements OnInit {
   }
   doughtnutChartType() {
     this.doughtnutType = {
+      labels: ['จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น'],
       datasets: [
         {
           data: this.besttypeArr,
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+          backgroundColor: this.besttypeColorArr,
+          hoverBackgroundColor: this.besttypeColorArr,
         },
       ],
     };
     this.optionsdoughtnutType = {
       plugins: {
         legend: {
-          labels: {
-            color: '#495057',
-          },
-        },
+          display: false
+        }
       },
     };
   }
   doughtnutChartFood() {
     this.doughtnutFood = {
+      labels: ['จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น','จำนวนชิ้น'],
       datasets: [
         {
           data: this.bestfoodArr,
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#AB47BC', '#66BB6A'],
+          backgroundColor: this.bestfoodColorArr,
+          hoverBackgroundColor: this.bestfoodColorArr,
         },
       ],
     };
     this.optionsdoughtnutFood = {
       plugins: {
         legend: {
-          labels: {
-            color: '#495057',
-          },
-        },
+          display: false
+        }
       },
     };
   }
