@@ -30,7 +30,7 @@ export class ManageEmployeeComponent implements OnInit {
   ){
     this.formCreateEmployee = this.fb.group({
       emp_Id: [null],
-      emp_Name: [null, [Validators.required]],
+      emp_Name: [null, [Validators.required, Validators.pattern('[^0-9]*')]],
       emp_Tel: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       position: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(8)]],
@@ -38,7 +38,7 @@ export class ManageEmployeeComponent implements OnInit {
     }),
       this.formEditEmployee = this.fb.group({
         emp_Id: null,
-        emp_Name: [null, [Validators.required]],
+        emp_Name: [null, [Validators.required, Validators.pattern('[^0-9]*')]],
         emp_Tel: [null, [Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]*')]],
         position: [null, [Validators.required]],
         password: [null, [Validators.required, Validators.minLength(8)]],

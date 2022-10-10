@@ -47,6 +47,7 @@
                         <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitCreate && formValidType.name.errors}">
                         <div class="invalid-feedback" *ngIf="submitCreate && formValidType.name.errors">
                             <div *ngIf="formValidType.name.errors.required">กรุณากรอกประเภทอาหาร</div>
+                            <div *ngIf="formValidType.name.errors.pattern">กรุณากรอกเฉพาะตัวอักษร</div>
                         </div>
                     </div>
                 </form>
@@ -90,6 +91,7 @@
                         <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitEdit && formValidTypeEdit.name.errors}">
                         <div class="invalid-feedback" *ngIf="submitEdit && formValidTypeEdit.name.errors">
                             <div *ngIf="formValidTypeEdit.name.errors.required">กรุณากรอกประเภทอาหาร</div>
+                            <div *ngIf="formValidTypeEdit.name.errors.pattern">กรุณากรอกเฉพาะตัวอักษร</div>
                         </div>
                     </div>
                 </form>

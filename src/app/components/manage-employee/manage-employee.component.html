@@ -75,6 +75,7 @@
                         <input type="text" class="form-control" formControlName="emp_Name" [ngClass]="{'is-invalid': submitCreate && formValidCreate.emp_Name.errors}">
                         <div class="invalid-feedback" *ngIf="submitCreate && formValidCreate.emp_Name.errors">
                             <div *ngIf="formValidCreate.emp_Name.errors.required">กรุณากรอกชื่อพนักงาน</div>
+                            <div *ngIf="formValidCreate.emp_Name.errors.pattern">กรอกเฉพาะตัวอักษร</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -132,6 +133,7 @@
                         <input type="text" class="form-control" formControlName="emp_Name" [ngClass]="{'is-invalid': submitEdit && formValidEdit.emp_Name.errors}">
                         <div class="invalid-feedback" *ngIf="submitEdit && formValidEdit.emp_Name.errors">
                             <div *ngIf="formValidEdit.emp_Name.errors.required">กรุณากรอกชื่อพนักงาน</div>
+                            <div *ngIf="formValidEdit.emp_Name.errors.pattern">กรอกเฉพาะตัวอักษร</div>
                         </div>
                     </div>
                     <div class="form-group">

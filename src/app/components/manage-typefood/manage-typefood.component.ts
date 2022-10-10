@@ -34,13 +34,13 @@ export class ManageTypefoodComponent implements OnInit {
   ) {
     this.formType = this.fb.group({
       id: null,
-      name: [null, Validators.required],
+      name: [null, [Validators.required, Validators.pattern('[^0-9]*')]],
       imgPath: null,
       status: null
     })
     this.formTypeEdit = this.fb.group({
       id: null,
-      name: [null, Validators.required],
+      name: [null, [Validators.required, Validators.pattern('[^0-9]*')]],
       imgPath: null,
       status: null
     })
@@ -106,6 +106,7 @@ export class ManageTypefoodComponent implements OnInit {
   createNewType() {
     this.formType.value.imgPath = this.img_add;
     this.submitCreate = true
+    return
     if (this.formType.value.name != null) {
       this.callapitype.CreateType(this.formType.value).subscribe(tf => {
         Swal.fire({
