@@ -109,7 +109,8 @@ export class MainEmployeeComponent implements OnInit {
   getTableAll(){
     this.callapiTable.getTable().subscribe(data => {
       this.tableAll = data
-      this.tableShow = this.tableAll.filter((data: any) => data.status == "empty")
+      this.tableShow = this.tableAll.filter((data: any) => true)
+      // this.tableShow = this.tableAll.filter((data: any) => data.status == "empty")
     })
   }
 
@@ -248,7 +249,7 @@ export class MainEmployeeComponent implements OnInit {
     return false;
   }
 
-  createOrder() {
+  async createOrder() {
     this.submitCreate = true;
     this.formCreateOrder.value.status = 'waitingFood';
     this.formCreateOrder.value.priceTotal = this.totalPrice;
@@ -285,19 +286,28 @@ export class MainEmployeeComponent implements OnInit {
           this.arrFood.push(foods)
         }
       }
-      this.formCreateOrder.value.foodList = this.arrFood
-      this.formCreateOrder.value.creationDatetime = new Date();
-      this.formCreateOrder.value.netPrice = this.netPrice;
-      this.formCreateOrder.value.valuePromotion = this.valuePromotion;
-      this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'สั่งอาหารสำเร็จ',
-          showConfirmButton: false,
-          timer: 1000
-        })
-        this.editTable(this.formCreateOrder.value.table_NO)
+      let orderEdit : any
+      await this.callapi.GetOrderByTableNumber(this.formCreateOrder.value.table_NO).toPromise().then(data => {
+        orderEdit = data
+      }).catch(() => {
+        orderEdit = null
+      })
+      if(orderEdit != null){
+        orderEdit.foodList.push(...this.arrFood)
+        this.arrayFood.forEach((el: any) => {
+          total += el.price * el.amount
+        });
+        orderEdit.priceTotal = total
+        orderEdit.netPrice = total
+        this.callapi.EditOrder(orderEdit.order_id, orderEdit).subscribe((data: any) => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สั่งอาหารสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          })
+         })
         this.formCreateOrder.reset()
         this.formPromotion = null
         this.totalPrice = 0
@@ -305,7 +315,29 @@ export class MainEmployeeComponent implements OnInit {
         this.arrFood = [];
         this.getOrderAll();
         this.submitCreate = false;
-      });
+      } else {
+        this.formCreateOrder.value.foodList = this.arrFood
+        this.formCreateOrder.value.creationDatetime = new Date();
+        this.formCreateOrder.value.netPrice = this.netPrice;
+        this.formCreateOrder.value.valuePromotion = this.valuePromotion;
+        this.callapi.CreateOrder(this.formCreateOrder.value).subscribe(order => {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'สั่งอาหารสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          this.editTable(this.formCreateOrder.value.table_NO)
+          this.formCreateOrder.reset()
+          this.formPromotion = null
+          this.totalPrice = 0
+          this.arrayFood = [];
+          this.arrFood = [];
+          this.getOrderAll();
+          this.submitCreate = false;
+        });
+      }
     }
   }
 
