@@ -49,8 +49,8 @@
                     <span *ngIf="data.typePayment=='payOnline'">เงินโอน</span><br>
                     <span *ngIf="data.typePayment=='payOnline'">บัญชี: {{data.bankProvider}}</span>
                 </td>
-                <td>{{data.creationDatetime | date:'dd MMM HH:mm:ss'}}</td>
-                <td>{{data.paytime | date:'dd MMM HH:mm:ss'}}</td>
+                <td>{{data.timeInShow}}</td>
+                <td>{{data.timePayShow}}</td>
                 <td>{{data.promotion}}</td>
                 <td style="min-width: 150px;">
                     <span *ngIf="data.status == 'waitingFood'"

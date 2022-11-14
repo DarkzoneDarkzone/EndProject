@@ -1,6 +1,6 @@
 <div *ngIf="status_login != null" class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    <div class="bg-dark border-dark" id="sidebar-wrapper">
+    <div class="bg-dark border-dark" id="sidebar-wrapper" style="overflow: scroll;padding-bottom: 0.5rem;">
       <div class="sidebar-heading">
         <img src="../assets/image/pngtree-coffee.jpg" class="photo" alt="">
         <p class="text-center mt-3" style="color: white; font-size:large;">{{name}}</p>
@@ -24,7 +24,7 @@
       <div class="list-group list-group-flush mb-3">
         <a *ngIf="position == 'manager'" routerLink="income" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark">รายงาน (for manager)</a>
       </div>
-      <div class="list-group list-group-flush mb-3" style="position: absolute; bottom: 0">
+      <div class="list-group list-group-flush mb-3">
         <button type="button" class="btn btn-outline-warning" style="margin-inline: 2rem;" (click)="onSignOut()">ออกจากระบบ</button>
       </div>
     </div>

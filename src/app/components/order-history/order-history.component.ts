@@ -96,10 +96,36 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   getOrderAll(){
+    const date = new Date(2020, 7, 1)
+    const result = date.toLocaleDateString('th-TH', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+    console.log(result)
+
     this.callapi.GetOrder().subscribe(od => {
       this.formOrderAll = od
       this.formOrderAll.reverse();
-      this.formOrderShow = this.formOrderAll
+      this.formOrderShow = this.formOrderAll.map((data: any) => {
+        data.timeInShow = new Date(data.creationDatetime).toLocaleDateString('th-TH', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+        data.timePayShow = data.paytime?new Date(data.paytime).toLocaleDateString('th-TH', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }):null
+        return data
+      })
       this.orderForPayment = this.formOrderAll.filter((data: any) => data.status == "waitingFood")
     })
   }
