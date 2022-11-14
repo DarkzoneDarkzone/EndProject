@@ -22,7 +22,7 @@ body {
     z-index: 1;
     width: 19%;
     top: 0;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -59,13 +59,28 @@ body {
     border: none;
 }
 
-@media (min-width: 1000px) {
+@media screen and (min-width: 1024px) {
     #sidebar-wrapper {
         margin-left: 0;
+        overflow: hidden;
+        padding-bottom: 0.5rem;
+    }
+
+    #sidebar-wrapper .btn-logout{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
     }
 
     #page-content-wrapper {
         min-width: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #sidebar-wrapper .btn-logout{
+        position: relative;
         width: 100%;
     }
 }

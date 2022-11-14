@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="col-side col">
+    <div class="col-side col" style="overflow: auto;">
         <div class="card card-food">
             <div class="row">
                 <div class="col text-center pr-0" id="idShow" *ngIf="idShow != null || idShow != undefined">
@@ -145,12 +145,12 @@
                     <div class="col pr-1">
                         <button type="button" class="btn btn-warning order" data-toggle="modal"
                             data-target="#promotionModal">
-                            <h2 class="my-auto">โปรโมชั่น</h2>
+                            <p class="my-auto">โปรโมชั่น</p>
                         </button>
                     </div>
                     <div class="col pl-1">
                         <button type="button" class="btn btn-success order" (click)="createOrder()">
-                            <h2 class="my-auto">สั่งอาหาร</h2>
+                            <p class="my-auto">สั่งอาหาร</p>
                         </button>
                     </div>
                 </div>
