@@ -6,6 +6,6 @@ export const environment = {
   production: false,
   // apiUrl : "https://localhost:5001/api/",
   // apiUrlForImg : "https://localhost:5001",
-   apiUrl : "https://testrestaurant.azurewebsites.net/api/",
-   apiUrlForImg : "https://testrestaurant.azurewebsites.net/"
+   apiUrl : "https://restaurant-project-api.azurewebsites.net/api/",
+   apiUrlForImg : "https://restaurant-project-api.azurewebsites.net/"
 };
