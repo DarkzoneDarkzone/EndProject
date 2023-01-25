@@ -79,7 +79,13 @@
 
 <div class="row row-bar-doughnut">
     <div class="col-6">
-        <div class="card card-bar">
+        <select [(ngModel)]="type_line_chart" (change)="refreshChart()" class="custom-select">
+            <option value="per_month" selected>ดูรายงานแบบรายเดือน</option>
+            <option value="per_date">ดูรายงานแบบตามวันที่</option>
+            <option value="per_day">ดูรายงานแบบตามวันของสัปดาห์</option>
+            <option value="per_time">ดูรายงานแบบตามช่วงเวลา</option>
+        </select>
+        <div class="card card-bar mt-2">
             <p-chart type="line" #chart [data]="lineData" [options]="lineOption"></p-chart>
         </div>
     </div>
